@@ -70,7 +70,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             }
             for (HospitalEnterprise enterprise : network.getEnterpriseDirectory().getHospitalnterpriseList()) {
                 for(HospitalOrganization hosOrg : enterprise.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
-                for (UserAccount userAccount : enterprise.getUserAccountDirectory().getUserAccountList()) {
+                for (UserAccount userAccount : hosOrg.getUserAccountDirectory().getUserAccountList()) {
                     Object[] row = new Object[3];
                     row[0] = enterprise.getName();
                     row[1] = network.getName();
