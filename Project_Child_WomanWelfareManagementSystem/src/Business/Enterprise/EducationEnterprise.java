@@ -22,7 +22,7 @@ public class EducationEnterprise extends EducationOrganization{
         return educationOrganizationDirectory;
     }
     public enum EnterpriseType{
-        Welfare("Welfare");
+        Education("Education");
         
         private String value;
         

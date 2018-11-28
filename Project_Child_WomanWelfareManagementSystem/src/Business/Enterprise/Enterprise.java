@@ -12,5 +12,7 @@ import Business.Organization.Organization;
  * @author user
  */
 public abstract class Enterprise extends Organization{
-    
+    public Enterprise(String name){
+        //organizationDirectory=new OrganizationDirectory();
+    }
 }

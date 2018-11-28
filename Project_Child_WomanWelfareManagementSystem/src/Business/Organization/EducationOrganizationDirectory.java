@@ -21,5 +21,24 @@ public class EducationOrganizationDirectory {
     public ArrayList<EducationOrganization> getEducationOrganizationList() {
         return educationOrganizationList;
     }
-    
+    public EducationOrganization createEducationOrganization(String type){
+        EducationOrganization organization = null;
+        if (type.equals(EducationOrganization.Type.Admin.getValue())){
+            organization = new EducationAdminOrganization();
+            educationOrganizationList.add(organization);
+        }
+        else if (type.equals(EducationOrganization.Type.Distributor.getValue())){
+//            organization = new EducationAdminOrganization();
+//            educationOrganizationList.add(organization);
+        }
+        else if (type.equals(EducationOrganization.Type.Teacher.getValue())){
+//            organization = new EducationAdminOrganization();
+//            educationOrganizationList.add(organization);
+        }
+        else if (type.equals(EducationOrganization.Type.Supervisor.getValue())){
+//            organization = new EducationAdminOrganization();
+//            educationOrganizationList.add(organization);
+        }
+        return organization;
+    }
 }

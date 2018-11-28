@@ -32,6 +32,7 @@ public class ConfigureASystem {
         network.setName("System Administrator");
         WelfareEnterprise ent = network.getEnterpriseDirectory().createAndAddWelfareEnterprise("Admin", "Welfare");
         WelfareOrganization welfare = ent.getWelfareOrganizationDirectory().createWelfareOrganization("Admin Organization");
+        
         Employee employee = welfare.getEmployeeDirectory().createEmployee("SystemAdmin");
         UserAccount ua= welfare.getUserAccountDirectory().createUserAccount("sysAdmin", "sysAdmin", employee, new SystemAdminRole());
             

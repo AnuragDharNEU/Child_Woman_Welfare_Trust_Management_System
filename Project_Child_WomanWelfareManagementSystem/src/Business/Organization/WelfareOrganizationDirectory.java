@@ -31,6 +31,18 @@ public class WelfareOrganizationDirectory {
             organization = new WelfareDLOOrganization();
             welfareOrganizationList.add(organization);
         }
+        else if (type.equals(WelfareOrganization.Type.BLO.getValue())){
+//            organization = new WelfareDLOOrganization();
+//            welfareOrganizationList.add(organization);
+        }
+        else if (type.equals(WelfareOrganization.Type.SLO.getValue())){
+//            organization = new WelfareDLOOrganization();
+//            welfareOrganizationList.add(organization);
+        }
+        else if (type.equals(WelfareOrganization.Type.FLO.getValue())){
+//            organization = new WelfareDLOOrganization();
+//            welfareOrganizationList.add(organization);
+        }
         return organization;
     }
 }

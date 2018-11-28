@@ -6,7 +6,6 @@
 package Business.Organization;
 
 import Business.Role.Role;
-import Business.Role.WelfareAdminRole;
 import Business.Role.WelfareDLORole;
 import java.util.ArrayList;
 

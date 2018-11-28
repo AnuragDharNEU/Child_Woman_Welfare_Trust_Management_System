@@ -24,7 +24,7 @@ public class HospitalEnterprise extends HospitalOrganization{
 
     
     public enum EnterpriseType{
-        Welfare("Welfare");
+        Hospital("Hospital");
         
         private String value;
         

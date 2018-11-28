@@ -141,6 +141,7 @@ public class MainJFrame extends javax.swing.JFrame {
         EducationEnterprise educationEnterprise=null;
         HospitalEnterprise hospitalEnterprise=null;
         Organization inOrganization=null;
+        boolean flag = false;
         if(userName.equals("sysAdmin") && password.equals("sysAdmin"))
         {
             for(Network net: system.getNetworkList())
@@ -148,66 +149,97 @@ public class MainJFrame extends javax.swing.JFrame {
                 for(WelfareEnterprise wel : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
                     for(WelfareOrganization org :wel.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
                         userAccount= org.getUserAccountDirectory().authenticateUser(userName, password);
-
+                        if(userAccount!= null)
+                            flag = true;
+                        if(flag)
+                            break;
                     }
+                    if(flag)
+                            break;
                 }
+                if(flag)
+                            break;
             }
         }
         if(userAccount != null){
-                CardLayout layout=(CardLayout)container.getLayout();
-                    container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, system));
-                    layout.next(container); 
+            CardLayout layout=(CardLayout)container.getLayout();
+            container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, system));
+            layout.next(container);
         }
-        else {
+        else if(userAccount == null){
             for(Network net : system.getNetworkList()){
-                
-                for(WelfareEnterprise wel : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
-                for(WelfareOrganization org :wel.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-                    userAccount= org.getUserAccountDirectory().authenticateUser(userName, password);
-                    welfareEnterprise = wel;
-                }
-                }
-                if(userAccount != null){
-                    CardLayout layout=(CardLayout)container.getLayout();
-                    container.add("workArea",userAccount.getRole().createWelfareWorkArea(container, userAccount, inOrganization, system));
-                    layout.next(container);
-                    break;
-                }
-                else if(userAccount == null){
-                    for(EducationEnterprise ed : net.getEnterpriseDirectory().getEducationnterpriseList()){
-                        for(EducationOrganization org :ed.getEducationOrganizationDirectory().getEducationOrganizationList()){
-                        userAccount= org.getUserAccountDirectory().authenticateUser(userName, password);
-                        educationEnterprise = ed;
+                if(!net.getName().equals("System Administrator")){
+                    if(!flag){
+                        for(WelfareEnterprise wel : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
+                            for(WelfareOrganization org :wel.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                                userAccount= org.getUserAccountDirectory().authenticateUser(userName, password);
+                                if(userAccount!= null){
+                                        flag = true;
+                                        welfareEnterprise = wel;
+                                }
+                                if(flag)
+                                    break;
+                            }
+                            if(flag)
+                                break;
                         }
-                    } 
+                        if(flag){
+                            CardLayout layout=(CardLayout)container.getLayout();
+                            container.add("workArea",userAccount.getRole().createWelfareWorkArea(container, userAccount, inOrganization, system));
+                            layout.next(container);
+                            break;
+                        }
+                    }
+                    if(!flag){
+                        for(EducationEnterprise ed : net.getEnterpriseDirectory().getEducationnterpriseList()){
+                            for(EducationOrganization org :ed.getEducationOrganizationDirectory().getEducationOrganizationList()){
+                            userAccount= org.getUserAccountDirectory().authenticateUser(userName, password);
+                            if(userAccount!= null){
+                                flag = true;
+                                educationEnterprise = ed;
+                            }
+                            if(flag)
+                                break;
+                            }
+                            if(flag)
+                                break;
+                        }
+                        if(flag){
+                            CardLayout layout=(CardLayout)container.getLayout();
+                            container.add("workArea",userAccount.getRole().createEducationWorkArea(container, userAccount, inOrganization, system));
+                            layout.next(container);
+                            break;
+                        }
                 }
-                if(userAccount !=null){
-                    CardLayout layout=(CardLayout)container.getLayout();
-                    container.add("workArea",userAccount.getRole().createWelfareWorkArea(container, userAccount, inOrganization, system));
-                    layout.next(container);
-                    break;
-                }
-                else  if(userAccount == null){
+                if(!flag){
                     for(HospitalEnterprise hos : net.getEnterpriseDirectory().getHospitalnterpriseList()){
                         for(HospitalOrganization org :hos.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
                         userAccount= org.getUserAccountDirectory().authenticateUser(userName, password);
-                        hospitalEnterprise = hos;
+                        if(userAccount!= null){
+                            flag = true;
+                            hospitalEnterprise = hos;
                         }
+                        if(flag)
+                            break;
+                        }
+                        if(flag)
+                                break;
+                    }
+                    if(flag){
+                        CardLayout layout=(CardLayout)container.getLayout();
+                        container.add("workArea",userAccount.getRole().createHospitalWorkArea(container, userAccount, inOrganization, system));
+                        layout.next(container);
+                        break;
                     }
                 }
-                if(userAccount != null){
-                    CardLayout layout=(CardLayout)container.getLayout();
-                    container.add("workArea",userAccount.getRole().createWelfareWorkArea(container, userAccount, inOrganization, system));
-                    layout.next(container);
-                    break;
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Invalid credentials");
-                    return;
-                }
+            }  
         }  
             
     }//GEN-LAST:event_btnLoginActionPerformed
+        else{
+            JOptionPane.showMessageDialog(null, "Invalid credentials");
+            return;
+        }
         btnLogin.setEnabled(false);
         btnLogout.setEnabled(true);
         txtUserName.setEnabled(false);

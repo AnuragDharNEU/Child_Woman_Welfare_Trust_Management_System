@@ -22,5 +22,20 @@ public class HospitalOrganizationDirectory {
     public ArrayList<HospitalOrganization> getHospitalOrganizationList() {
         return hospitalOrganizationList;
     }
-
+    public HospitalOrganization createHospitalOrganization(String type){
+        HospitalOrganization organization = null;
+        if (type.equals(HospitalOrganization.Type.Admin.getValue())){
+            organization = new HospitalAdminOrganization();
+            hospitalOrganizationList.add(organization);
+        }
+        else if (type.equals(HospitalOrganization.Type.Doctor.getValue())){
+//            organization = new EducationAdminOrganization();
+//            educationOrganizationList.add(organization);
+        }
+        else if (type.equals(HospitalOrganization.Type.Lab.getValue())){
+//            organization = new EducationAdminOrganization();
+//            educationOrganizationList.add(organization);
+        }
+        return organization;
+    }
 }

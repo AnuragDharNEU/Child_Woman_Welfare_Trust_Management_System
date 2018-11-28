@@ -57,7 +57,7 @@ public class EnterpriseDirectory {
     }
     public EducationEnterprise createAndAddEducationEnterprise(String name,String type){
         EducationEnterprise enterpriseE=null;
-        if(type==(WelfareEnterprise.EnterpriseType.Welfare).toString()){
+        if(type.equals(EducationEnterprise.EnterpriseType.Education.getValue())){
             enterpriseE = new EducationEnterprise(name, EducationEnterprise.EnterpriseType.valueOf(type));
             educationEnterpriseList.add(enterpriseE);
         }
@@ -65,7 +65,7 @@ public class EnterpriseDirectory {
     }
     public HospitalEnterprise createAndAddHospitalEnterprise(String name,String type){
         HospitalEnterprise enterpriseH=null;
-        if(type==(WelfareEnterprise.EnterpriseType.Welfare).toString()){
+        if(type.equals(HospitalEnterprise.EnterpriseType.Hospital.getValue())){
             enterpriseH = new HospitalEnterprise(name, HospitalEnterprise.EnterpriseType.valueOf(type));
             hospitalEnterpriseList.add(enterpriseH);
         }
