@@ -68,6 +68,11 @@ public class EducationAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnUser.setText("Manage User");
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -127,6 +132,13 @@ public class EducationAdminWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);    
         
     }//GEN-LAST:event_btnEmployeeActionPerformed
+
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+    
+        
+        
+        
+    }//GEN-LAST:event_btnUserActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
