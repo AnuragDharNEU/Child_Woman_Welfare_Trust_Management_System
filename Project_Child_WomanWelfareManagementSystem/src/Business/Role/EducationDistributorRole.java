@@ -9,16 +9,16 @@ import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import UserInterface.Education.Administrator.EducationAdminWorkAreaJPanel;
+import UserInterface.Education.Supervisor.EducationSupervisorWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
  *
- * @author user
+ * @author souma
  */
-public class EducationAdminRole extends EducationRole{
+public class EducationDistributorRole extends EducationRole{
     @Override
     public JPanel createEducationWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,EducationEnterprise enterprise, EcoSystem system) {
-        return new EducationAdminWorkAreaJPanel(userProcessContainer, system,enterprise);
+        return new EducationSupervisorWorkAreaJPanel(userProcessContainer, system,enterprise);
     }
 }

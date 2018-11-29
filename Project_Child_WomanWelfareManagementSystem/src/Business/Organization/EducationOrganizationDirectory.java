@@ -28,16 +28,16 @@ public class EducationOrganizationDirectory {
             educationOrganizationList.add(organization);
         }
         else if (type.equals(EducationOrganization.Type.Distributor.getValue())){
-//            organization = new EducationAdminOrganization();
-//            educationOrganizationList.add(organization);
+            organization = new EducationDistributorOrganization();
+            educationOrganizationList.add(organization);
         }
         else if (type.equals(EducationOrganization.Type.Teacher.getValue())){
-//            organization = new EducationAdminOrganization();
-//            educationOrganizationList.add(organization);
+            organization = new EducationTeacherOrganization();
+            educationOrganizationList.add(organization);
         }
         else if (type.equals(EducationOrganization.Type.Supervisor.getValue())){
-//            organization = new EducationAdminOrganization();
-//            educationOrganizationList.add(organization);
+            organization = new EducationSupervisorOrganization();
+            educationOrganizationList.add(organization);
         }
         return organization;
     }
