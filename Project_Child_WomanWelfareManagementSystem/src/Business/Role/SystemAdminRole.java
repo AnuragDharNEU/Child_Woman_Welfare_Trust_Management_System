@@ -6,6 +6,9 @@
 package Business.Role;
 
 import Business.EcoSystem;
+import Business.Enterprise.EducationEnterprise;
+import Business.Enterprise.HospitalEnterprise;
+import Business.Enterprise.WelfareEnterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import UserInterface.SystemAdmin.SystemAdminWorkAreaJPanel;
@@ -21,17 +24,17 @@ public class SystemAdminRole  extends Role{
         return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
     }
     @Override
-    public JPanel createWelfareWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, EcoSystem system) {
+    public JPanel createWelfareWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,WelfareEnterprise enterprise, EcoSystem system) {
         //return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
         return null;
     }
     @Override
-    public JPanel createEducationWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, EcoSystem system) {
+    public JPanel createEducationWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,EducationEnterprise enterprise, EcoSystem system) {
         //return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
         return null;
     }
     @Override
-    public JPanel createHospitalWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, EcoSystem system) {
+    public JPanel createHospitalWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,HospitalEnterprise enterprise, EcoSystem system) {
         //return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
         return null;
     }

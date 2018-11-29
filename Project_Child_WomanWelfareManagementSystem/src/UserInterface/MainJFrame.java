@@ -185,7 +185,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         }
                         if(flag){
                             CardLayout layout=(CardLayout)container.getLayout();
-                            container.add("workArea",userAccount.getRole().createWelfareWorkArea(container, userAccount, inOrganization, system));
+                            container.add("workArea",userAccount.getRole().createWelfareWorkArea(container, userAccount, inOrganization,welfareEnterprise, system));
                             layout.next(container);
                             break;
                         }
@@ -206,7 +206,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         }
                         if(flag){
                             CardLayout layout=(CardLayout)container.getLayout();
-                            container.add("workArea",userAccount.getRole().createEducationWorkArea(container, userAccount, inOrganization, system));
+                            container.add("workArea",userAccount.getRole().createEducationWorkArea(container, userAccount, inOrganization,educationEnterprise, system));
                             layout.next(container);
                             break;
                         }
@@ -227,7 +227,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     }
                     if(flag){
                         CardLayout layout=(CardLayout)container.getLayout();
-                        container.add("workArea",userAccount.getRole().createHospitalWorkArea(container, userAccount, inOrganization, system));
+                        container.add("workArea",userAccount.getRole().createHospitalWorkArea(container, userAccount, inOrganization,hospitalEnterprise, system));
                         layout.next(container);
                         break;
                     }
