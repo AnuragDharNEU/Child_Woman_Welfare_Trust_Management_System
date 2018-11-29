@@ -6,6 +6,8 @@
 package Business.Role;
 
 import Business.EcoSystem;
+import Business.Enterprise.HospitalEnterprise;
+import Business.Enterprise.WelfareEnterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
@@ -46,12 +48,12 @@ public abstract class EducationRole extends Role{
         return null;
     }
     @Override
-    public JPanel createWelfareWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, EcoSystem system) {
+    public JPanel createWelfareWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, WelfareEnterprise enterprise, EcoSystem system) {
         //return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
         return null;
     }
     @Override
-    public JPanel createHospitalWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, EcoSystem system) {
+    public JPanel createHospitalWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,HospitalEnterprise enterprise, EcoSystem system) {
         //return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
         return null;
     }

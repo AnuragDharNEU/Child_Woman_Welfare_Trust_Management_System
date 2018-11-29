@@ -6,7 +6,9 @@
 package Business.Role;
 
 import Business.EcoSystem;
-import Business.Enterprise.Enterprise;
+import Business.Enterprise.EducationEnterprise;
+import Business.Enterprise.HospitalEnterprise;
+import Business.Enterprise.WelfareEnterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
@@ -23,13 +25,16 @@ public abstract class Role {
     public abstract JPanel createWelfareWorkArea(JPanel userProcessContainer, 
             UserAccount account, 
             Organization organization,
+            WelfareEnterprise enterprise,
             EcoSystem business);
     public abstract JPanel createEducationWorkArea(JPanel userProcessContainer, 
             UserAccount account, 
             Organization organization,
+            EducationEnterprise ennterprise,
             EcoSystem business);
     public abstract JPanel createHospitalWorkArea(JPanel userProcessContainer, 
             UserAccount account, 
             Organization organization,
+            HospitalEnterprise enterprise,
             EcoSystem business);
 }

@@ -35,7 +35,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
-        //populateTree();
+        populateTree();
     }
     
     // Populate the Tree
@@ -83,7 +83,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 
                 welfareOrganizationList=welfareEnterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList();
                 for(int a=0;a<welfareOrganizationList.size();a++){
-                welfareOrganization=welfareOrganizationList.get(i);
+                welfareOrganization=welfareOrganizationList.get(a);
                 welfareOrganizationNode=new DefaultMutableTreeNode(welfareOrganization.getName());
                 welfareEnterpriseNode.insert(welfareOrganizationNode, a);
                 }
@@ -96,7 +96,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 
                 educationOrganizationList=educationEnterprise.getEducationOrganizationDirectory().getEducationOrganizationList();
                 for(int b=0;b<educationOrganizationList.size();b++){
-                educationOrganization=educationOrganizationList.get(i);
+                educationOrganization=educationOrganizationList.get(b);
                 educationOrganizationNode=new DefaultMutableTreeNode(educationOrganization.getName());
                 educationEnterpriseNode.insert(educationOrganizationNode,b);
                 }
@@ -109,7 +109,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 
                 hospitalOrganizationList=hospitalEnterprise.getHospitalOrganizationDirectory().getHospitalOrganizationList();
                 for(int b=0;b<hospitalOrganizationList.size();b++){
-                hospitalOrganization=hospitalOrganizationList.get(i);
+                hospitalOrganization=hospitalOrganizationList.get(b);
                 hospitalOrganizationNode=new DefaultMutableTreeNode(hospitalOrganization.getName());
                 hospitalEnterpriseNode.insert(hospitalOrganizationNode,b);
                 }

@@ -18,6 +18,8 @@ import Business.Role.EducationAdminRole;
 import Business.Role.HospitalAdminRole;
 import Business.Role.WelfareAdminRole;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -169,6 +171,11 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         });
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         txtOrgName.setText("Admin Organization");
 
@@ -274,6 +281,16 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        userProcessContainer.remove(this);
+         Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        SystemAdminWorkAreaJPanel sysAdminwjp = (SystemAdminWorkAreaJPanel) component;
+        sysAdminwjp.populateTree();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
     private void createUser(WelfareEnterprise enterprise){
         String username = txtUserName.getText();
         String password = String.valueOf(txtPassword.getPassword());

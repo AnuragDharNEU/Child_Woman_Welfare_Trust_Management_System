@@ -6,6 +6,7 @@
 package Business.Role;
 
 import Business.EcoSystem;
+import Business.Enterprise.WelfareEnterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import UserInterface.Welfare.Admininstrator.WelfareAdminWorkAreaJPanel;
@@ -18,7 +19,7 @@ import javax.swing.JPanel;
 public class WelfareAdminRole extends WelfareRole{
     
     @Override
-    public JPanel createWelfareWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, EcoSystem system) {
-        return new WelfareAdminWorkAreaJPanel(userProcessContainer, system);
+    public JPanel createWelfareWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,WelfareEnterprise enterprise, EcoSystem system) {
+        return new WelfareAdminWorkAreaJPanel(userProcessContainer, system,enterprise);
     }
 }
