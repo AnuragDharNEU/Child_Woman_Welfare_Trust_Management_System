@@ -44,10 +44,6 @@ public class EducationAdminManageOrganizationJPanel extends javax.swing.JPanel{
            if (!type.getValue().equals(EducationOrganization.Type.Admin.getValue()))
                dropdownEduAdminOrganization.addItem(type);
        }
-         
-//         for (EducationOrganization.Type type: EducationOrganization.Type.values()) {
-//         dropdownEduAdminOrganization.addItem(type);
-//        }
         
     }
 
