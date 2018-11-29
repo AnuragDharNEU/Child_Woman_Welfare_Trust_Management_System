@@ -6,6 +6,8 @@
 package UserInterface.Education.Administrator;
 
 import Business.EcoSystem;
+import Business.Enterprise.EducationEnterprise;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -17,12 +19,14 @@ public class EducationAdminWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form EducationAdminWorkAreaJPanel
      */
-    JPanel userProcessContainer;
-    EcoSystem ecosystem;
-    public EducationAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
+    private JPanel userProcessContainer;
+    private EcoSystem ecosystem;
+    private EducationEnterprise enterprise;
+    public EducationAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem, EducationEnterprise enterprise) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
+        this.enterprise=enterprise;
     }
 
     /**
@@ -35,29 +39,102 @@ public class EducationAdminWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        enterpriseLabel = new javax.swing.JLabel();
+        btnOrganization = new javax.swing.JButton();
+        btnEmployee = new javax.swing.JButton();
+        btnUser = new javax.swing.JButton();
 
-        jLabel1.setText("Edu");
+        jLabel1.setText("Education");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setText("My Work Area -Adminstrative Role");
+
+        enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        enterpriseLabel.setText("EnterPrise :");
+
+        btnOrganization.setText("Manage Organization");
+        btnOrganization.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrganizationActionPerformed(evt);
+            }
+        });
+
+        btnEmployee.setText("Manage Employee");
+        btnEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmployeeActionPerformed(evt);
+            }
+        });
+
+        btnUser.setText("Manage User");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(218, 218, 218))
             .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(jLabel1)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addGap(75, 75, 75)
+                .addComponent(jLabel2)
+                .addContainerGap(87, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOrganization))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jLabel1)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(jLabel2)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(btnOrganization)
+                .addGap(33, 33, 33)
+                .addComponent(btnEmployee)
+                .addGap(33, 33, 33)
+                .addComponent(btnUser)
+                .addContainerGap(162, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrganizationActionPerformed
+       
+        EducationAdminManageOrganizationJPanel manageOrganizationJPanel = new EducationAdminManageOrganizationJPanel(userProcessContainer, enterprise);
+        userProcessContainer.add("manageOrganizationJPanel", manageOrganizationJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);    
+        
+        
+    }//GEN-LAST:event_btnOrganizationActionPerformed
+
+    private void btnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeActionPerformed
+        EducationAdminManageEmployeeJPanel manageEmployeeJPanel = new EducationAdminManageEmployeeJPanel(userProcessContainer, enterprise);
+        userProcessContainer.add("manageEmployeeJPanel", manageEmployeeJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);    
+        
+    }//GEN-LAST:event_btnEmployeeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEmployee;
+    private javax.swing.JButton btnOrganization;
+    private javax.swing.JButton btnUser;
+    private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
