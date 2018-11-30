@@ -134,7 +134,10 @@ public class EducationAdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEmployeeActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-    
+      EducationAdminManageUserJPanel manageRoleJPanel = new EducationAdminManageUserJPanel(userProcessContainer, enterprise);
+      userProcessContainer.add("manageRoleJPanel", manageRoleJPanel);
+      CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+      layout.next(userProcessContainer);    
         
         
         

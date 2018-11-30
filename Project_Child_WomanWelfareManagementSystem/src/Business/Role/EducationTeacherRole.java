@@ -10,6 +10,7 @@ import Business.Enterprise.EducationEnterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import UserInterface.Education.Supervisor.EducationSupervisorWorkAreaJPanel;
+import UserInterface.Education.Teacher.EducationTeacherWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
@@ -19,6 +20,6 @@ import javax.swing.JPanel;
 public class EducationTeacherRole extends EducationRole{
     @Override
     public JPanel createEducationWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,EducationEnterprise enterprise, EcoSystem system) {
-        return new EducationSupervisorWorkAreaJPanel(userProcessContainer, system, enterprise);
+        return new EducationTeacherWorkAreaJPanel(userProcessContainer, system, enterprise);
     }
 }

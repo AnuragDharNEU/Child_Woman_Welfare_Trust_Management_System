@@ -3,23 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserInterface.Education.Supervisor;
+package UserInterface.Education.Distributor;
 
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
-import Business.Enterprise.Enterprise;
 import javax.swing.JPanel;
 
 /**
  *
  * @author souma
  */
-public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
+public class EducationDistributorWorkAreaJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form EducationTeacherWorkAreaJPanel
+     * Creates new form EducationDistributorWorkAreaJPanel
      */
-    public EducationTeacherWorkAreaJPanel(JPanel userProcessContainer, EcoSystem system, EducationEnterprise enterprise) {
+    public EducationDistributorWorkAreaJPanel(JPanel userProcessContainer, EcoSystem system, EducationEnterprise enterprise) {
         initComponents();
     }
 
@@ -31,19 +30,30 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+
+        jLabel1.setText("Dist");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(143, 143, 143)
+                .addComponent(jLabel1)
+                .addContainerGap(236, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(jLabel1)
+                .addContainerGap(187, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
