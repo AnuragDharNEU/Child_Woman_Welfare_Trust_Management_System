@@ -35,6 +35,7 @@ public class EducationAdminManageEmployeeJPanel extends javax.swing.JPanel {
         this.enterprise=enterprise;
         populateOrganizationComboBox();
         populateOrganizationEmpComboBox();
+                
     }
     
      public void populateOrganizationComboBox(){
