@@ -54,11 +54,9 @@ public class EcoSystem extends Organization{
     }
     public boolean checkIfUserIsUnique(String userName){
         boolean flag = true;
-//        if(!this.getUserAccountDirectory().checkIfUsernameIsUnique(userName)){
-//            return false;
-//        }
         for(Network network : networkList)
         {
+        if(flag){           
             for(EducationEnterprise ent : network.getEnterpriseDirectory().getEducationnterpriseList()){
               for(EducationOrganization edOrg : ent.getEducationOrganizationDirectory().getEducationOrganizationList()){
                  if(!edOrg.getUserAccountDirectory().checkIfUsernameIsUnique(userName))
@@ -67,6 +65,8 @@ public class EcoSystem extends Organization{
                  }
               }
             }
+        }
+        if(flag){
             for(HospitalEnterprise ent : network.getEnterpriseDirectory().getHospitalnterpriseList()){
                 for(HospitalOrganization hosOrg : ent.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
                     if(!hosOrg.getUserAccountDirectory().checkIfUsernameIsUnique(userName))
@@ -75,6 +75,9 @@ public class EcoSystem extends Organization{
                     }
                 }
             }
+        }
+        
+        if(flag){
             for(WelfareEnterprise ent : network.getEnterpriseDirectory().getWelfareEnterpriseList()){
                 for(WelfareOrganization welOrg : ent.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
                     if(!welOrg.getUserAccountDirectory().checkIfUsernameIsUnique(userName))
@@ -83,6 +86,7 @@ public class EcoSystem extends Organization{
                     }
                 }
             }
+        }
         }
         return flag;
     }

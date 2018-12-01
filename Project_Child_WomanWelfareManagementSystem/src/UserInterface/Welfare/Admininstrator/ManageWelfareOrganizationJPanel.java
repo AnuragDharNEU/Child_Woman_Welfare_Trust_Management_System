@@ -10,6 +10,7 @@ import Business.Enterprise.WelfareEnterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Organization.WelfareOrganization;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,15 +36,15 @@ public class ManageWelfareOrganizationJPanel extends javax.swing.JPanel {
     }
     public void populateTable(){
         DefaultTableModel model = (DefaultTableModel) tblOrganization.getModel();
-        
         model.setRowCount(0);
-                for(WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-                    Object[] row = new Object[2];
-                    row[0] = organization.getOrganizationID();
-                    row[1] = organization.getName();
-                    model.addRow(row);
-                }
-            }
+        for(WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+            Object[] row = new Object[2];
+            row[0] = organization.getOrganizationID();
+            row[1] = organization.getName();
+            if(!organization.getName().equals("Admin Organization"))
+            model.addRow(row);
+        }
+    }
     private void populateCombo(){
         ddlOrgType.removeAllItems();
         for (WelfareOrganization.Type type : WelfareOrganization.Type.values()){
@@ -85,6 +86,11 @@ public class ManageWelfareOrganizationJPanel extends javax.swing.JPanel {
         ddlOrgType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         bbtnAdd.setText("Add Organization");
         bbtnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -132,14 +138,24 @@ public class ManageWelfareOrganizationJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbtnAddActionPerformed
-        for(Network net : ecosystem.getNetworkList()){
+        String type = ddlOrgType.getSelectedItem().toString()== "DLO"? "District Level Organization":
+                      ddlOrgType.getSelectedItem().toString()== "BLO"? "Block Level Organization":
+                      ddlOrgType.getSelectedItem().toString()== "SLO"? "Sector Level Organization":
+                      ddlOrgType.getSelectedItem().toString()== "FLO"? "Field Level Organization": "Admin";
+         for(Network net : ecosystem.getNetworkList()){
             for(WelfareEnterprise ent : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
-                WelfareOrganization wel = ent.getWelfareOrganizationDirectory().createWelfareOrganization(ddlOrgType.getSelectedItem().toString()+" Level Organization");
-                wel.setName(ddlOrgType.getSelectedItem().toString()+" Level Organization");
+                WelfareOrganization wel = ent.getWelfareOrganizationDirectory().createWelfareOrganization(type);
+                wel.setName(type);
                 populateTable();
             }
         }
     }//GEN-LAST:event_bbtnAddActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        container.remove(this);
+        CardLayout layout=(CardLayout) container.getLayout();
+        layout.previous(container);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
