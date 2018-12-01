@@ -54,8 +54,18 @@ public class WelfareAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnEmpManage.setText("Manage Employee");
+        btnEmpManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpManageActionPerformed(evt);
+            }
+        });
 
         btnUserManage.setText("Manage User");
+        btnUserManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserManageActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -92,6 +102,20 @@ public class WelfareAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnOrgManageActionPerformed
+
+    private void btnEmpManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpManageActionPerformed
+        ManageWelfareEmployeeJPanel manageWelfareEmployeeJPanel=new ManageWelfareEmployeeJPanel(userProcessContainer, enterprise);
+        userProcessContainer.add("manageWelfareEmployeeJPanel",manageWelfareEmployeeJPanel);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnEmpManageActionPerformed
+
+    private void btnUserManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserManageActionPerformed
+        ManageWelfareUserJPanel manageWelfareUserJPanel=new ManageWelfareUserJPanel(userProcessContainer, enterprise,ecosystem);
+        userProcessContainer.add("manageWelfareUserJPanel",manageWelfareUserJPanel);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnUserManageActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

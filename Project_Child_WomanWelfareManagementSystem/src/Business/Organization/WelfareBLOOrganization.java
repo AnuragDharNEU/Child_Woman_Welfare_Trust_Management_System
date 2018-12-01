@@ -6,25 +6,22 @@
 package Business.Organization;
 
 import Business.Role.Role;
-import Business.Role.WelfareDLORole;
-import Business.WorkQueue.WorkQueue;
+import Business.Role.WelfareBLORole;
 import java.util.ArrayList;
 
 /**
  *
  * @author user
  */
-public class WelfareDLOOrganization extends WelfareOrganization{
-    
-    public WelfareDLOOrganization() {
-        super(WelfareOrganization.Type.DLO.getValue());
+public class WelfareBLOOrganization extends WelfareOrganization{
+    public WelfareBLOOrganization() {
+        super(WelfareOrganization.Type.BLO.getValue());
     }
     
     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roles = new ArrayList();
-        roles.add(new WelfareDLORole());
+        roles.add(new WelfareBLORole());
         return roles;
     }
-    
 }
