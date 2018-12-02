@@ -64,11 +64,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Manage Employee"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEmpManageActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnUserManage">
       <Properties>
         <Property name="text" type="java.lang.String" value="Manage User"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUserManageActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -8,6 +8,7 @@ package Business.Enterprise;
 import Business.Organization.WelfareOrganization;
 import Business.Organization.WelfareOrganizationDirectory;
 import Business.Role.Role;
+import Business.WelfareCentre.WelfareCentreDirectory;
 import java.util.ArrayList;
 
 /**
@@ -45,7 +46,6 @@ public class WelfareEnterprise extends WelfareOrganization{
     public void setEnterpriseType(EnterpriseType enterpriseType) {
         this.enterpriseType = enterpriseType;
     }
-    
     public WelfareEnterprise(String name,EnterpriseType type){
         super(name);
         this.enterpriseType=type;

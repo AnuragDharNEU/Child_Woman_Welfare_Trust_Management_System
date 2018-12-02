@@ -5,7 +5,15 @@
  */
 package Business.UserAccount;
 
+import Business.EcoSystem;
 import Business.Employee.Employee;
+import Business.Enterprise.EducationEnterprise;
+import Business.Enterprise.HospitalEnterprise;
+import Business.Enterprise.WelfareEnterprise;
+import Business.Network.Network;
+import Business.Organization.EducationOrganization;
+import Business.Organization.HospitalOrganization;
+import Business.Organization.WelfareOrganization;
 import Business.Role.Role;
 import java.util.ArrayList;
 
@@ -44,6 +52,44 @@ public class UserAccountDirectory {
     }
     
     public boolean checkIfUsernameIsUnique(String username){
+//        boolean flag = true;
+//        if(flag){
+//            for(Network net : EcoSystem.getInstance().getNetworkList()){
+//                for(WelfareEnterprise wel : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
+//                    for(WelfareOrganization org : wel.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+//                        for(UserAccount ua : org.getUserAccountDirectory().getUserAccountList()){
+//                            if (ua.getUsername().equals(username))
+//                            flag = false;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        if(flag){
+//            for(Network net : EcoSystem.getInstance().getNetworkList()){
+//                for(EducationEnterprise wel : net.getEnterpriseDirectory().getEducationnterpriseList()){
+//                    for(EducationOrganization org : wel.getEducationOrganizationDirectory().getEducationOrganizationList()){
+//                        for(UserAccount ua : org.getUserAccountDirectory().getUserAccountList()){
+//                            if (ua.getUsername().equals(username))
+//                            flag = false;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        if(flag){
+//            for(Network net : EcoSystem.getInstance().getNetworkList()){
+//                for(HospitalEnterprise wel : net.getEnterpriseDirectory().getHospitalnterpriseList()){
+//                    for(HospitalOrganization org : wel.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
+//                        for(UserAccount ua : org.getUserAccountDirectory().getUserAccountList()){
+//                            if (ua.getUsername().equals(username))
+//                            flag = false;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return flag;
         for (UserAccount ua : userAccountList){
             if (ua.getUsername().equals(username))
                 return false;

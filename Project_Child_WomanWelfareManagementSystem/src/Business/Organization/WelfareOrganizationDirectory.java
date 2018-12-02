@@ -5,6 +5,7 @@
  */
 package Business.Organization;
 
+import Business.Network.WelfareSLOOrganization;
 import java.util.ArrayList;
 
 /**
@@ -32,16 +33,16 @@ public class WelfareOrganizationDirectory {
             welfareOrganizationList.add(organization);
         }
         else if (type.equals(WelfareOrganization.Type.BLO.getValue())){
-//            organization = new WelfareDLOOrganization();
-//            welfareOrganizationList.add(organization);
+            organization = new WelfareBLOOrganization();
+            welfareOrganizationList.add(organization);
         }
         else if (type.equals(WelfareOrganization.Type.SLO.getValue())){
-//            organization = new WelfareDLOOrganization();
-//            welfareOrganizationList.add(organization);
+            organization = new WelfareSLOOrganization();
+            welfareOrganizationList.add(organization);
         }
         else if (type.equals(WelfareOrganization.Type.FLO.getValue())){
-//            organization = new WelfareDLOOrganization();
-//            welfareOrganizationList.add(organization);
+            organization = new WelfareFLOOrganization();
+            welfareOrganizationList.add(organization);
         }
         return organization;
     }

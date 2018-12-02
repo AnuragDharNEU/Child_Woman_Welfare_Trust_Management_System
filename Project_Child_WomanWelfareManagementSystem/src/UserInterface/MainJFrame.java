@@ -176,6 +176,7 @@ public class MainJFrame extends javax.swing.JFrame {
                                 if(userAccount!= null){
                                         flag = true;
                                         welfareEnterprise = wel;
+                                        inOrganization = org;
                                 }
                                 if(flag)
                                     break;
@@ -185,7 +186,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         }
                         if(flag){
                             CardLayout layout=(CardLayout)container.getLayout();
-                            container.add("workArea",userAccount.getRole().createWelfareWorkArea(container, userAccount, inOrganization,welfareEnterprise, system));
+                                container.add("workArea",userAccount.getRole().createWelfareWorkArea(container, userAccount, inOrganization,welfareEnterprise, system));
                             layout.next(container);
                             break;
                         }
@@ -197,6 +198,7 @@ public class MainJFrame extends javax.swing.JFrame {
                             if(userAccount!= null){
                                 flag = true;
                                 educationEnterprise = ed;
+                                inOrganization= org;
                             }
                             if(flag)
                                 break;
@@ -218,6 +220,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         if(userAccount!= null){
                             flag = true;
                             hospitalEnterprise = hos;
+                            inOrganization= org;
                         }
                         if(flag)
                             break;
