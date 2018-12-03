@@ -19,6 +19,6 @@ import javax.swing.JPanel;
 public class WelfareFLORole extends WelfareRole{
     @Override
     public JPanel createWelfareWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,WelfareEnterprise enterprise, EcoSystem system) {
-        return new WelfareFLOWorkAreaJPanel(userProcessContainer, system, enterprise, organization);
+        return new WelfareFLOWorkAreaJPanel(userProcessContainer, system, enterprise, organization,account);
     }
 }

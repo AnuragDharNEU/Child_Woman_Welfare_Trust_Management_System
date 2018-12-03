@@ -5,7 +5,7 @@
  */
 package Business.Organization;
 
-import Business.Network.WelfareSLOOrganization;
+import Business.Organization.WelfareSLOOrganization;
 import java.util.ArrayList;
 
 /**

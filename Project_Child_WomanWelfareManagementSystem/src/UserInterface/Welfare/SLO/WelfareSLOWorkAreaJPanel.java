@@ -67,8 +67,18 @@ public class WelfareSLOWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnAddPatient.setText("Add Patient");
+        btnAddPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPatientActionPerformed(evt);
+            }
+        });
 
         btnFLOPat.setText("Assign FLO to Patient");
+        btnFLOPat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFLOPatActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -112,6 +122,20 @@ public class WelfareSLOWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnRequestActionPerformed
+
+    private void btnFLOPatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFLOPatActionPerformed
+        WelfareSLOAssignWorkForFLOJPanel welfareSLOAssignWorkForFLOJPanel=new WelfareSLOAssignWorkForFLOJPanel(userProcessContainer, enterprise,organization, system, account);
+        userProcessContainer.add("welfareSLOAssignWorkForFLOJPanel",welfareSLOAssignWorkForFLOJPanel);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnFLOPatActionPerformed
+
+    private void btnAddPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPatientActionPerformed
+        WelfareSLOAssignPatientJPanel welfareSLOAssignPatientJPanel=new WelfareSLOAssignPatientJPanel(userProcessContainer, enterprise,organization, system, account);
+        userProcessContainer.add("welfareSLOAssignPatientJPanel",welfareSLOAssignPatientJPanel);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnAddPatientActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

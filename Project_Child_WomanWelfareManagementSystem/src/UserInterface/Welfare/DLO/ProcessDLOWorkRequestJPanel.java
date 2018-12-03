@@ -6,7 +6,7 @@
 package UserInterface.Welfare.DLO;
 
 import Business.Enterprise.WelfareEnterprise;
-import Business.Network.WelfareSLOOrganization;
+import Business.Organization.WelfareSLOOrganization;
 import Business.Organization.WelfareOrganization;
 import Business.Organization.WelfareOrganization.Type;
 import Business.UserAccount.UserAccount;

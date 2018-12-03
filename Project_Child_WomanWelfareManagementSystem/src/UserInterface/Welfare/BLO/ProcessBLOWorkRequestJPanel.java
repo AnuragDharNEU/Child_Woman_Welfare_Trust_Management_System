@@ -11,10 +11,13 @@ import Business.Enterprise.WelfareEnterprise;
 import Business.Network.Network;
 import Business.Organization.EducationOrganization;
 import Business.Organization.EducationSupervisorOrganization;
+import Business.Organization.HospitalDoctorOrganization;
+import Business.Organization.HospitalOrganization;
 import Business.Organization.WelfareOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.HospitalDoctorWorkRequest;
 import Business.WorkQueue.SupervisorWorkRequest;
-import Business.WorkQueue.WelfareSLOWorkRequest;
+import Business.WorkQueue.WelfareBLOWorkRequest;
 import javax.swing.JPanel;
 
 /**
@@ -27,12 +30,13 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
      * Creates new form ProcessBLOWorkRequestJPanel
      */
     JPanel userProcessContainer;
-    WelfareSLOWorkRequest request;
+    WelfareBLOWorkRequest request;
     WelfareOrganization organization;
     UserAccount userAccount;
     WelfareEnterprise enterprise;
     Network network;
-    public ProcessBLOWorkRequestJPanel(JPanel userProcessContainer, WelfareOrganization organization,UserAccount userAccount, WelfareEnterprise enterprise, Network network) {
+    WelfareBLOWorkRequest bloRequest;
+    public ProcessBLOWorkRequestJPanel(JPanel userProcessContainer, WelfareOrganization organization,UserAccount userAccount, WelfareEnterprise enterprise, Network network,WelfareBLOWorkRequest bloRequest) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.request = request;
@@ -40,15 +44,20 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
         this.userAccount = userAccount;
         this.enterprise=enterprise;
         this.network = network;
+        this.bloRequest=bloRequest;
         PopulateTypeCombo();
     }
     private void PopulateTypeCombo(){
         ddlAssign.removeAllItems();
-        for(EducationEnterprise ed : network.getEnterpriseDirectory().getEducationnterpriseList()){
-            ddlAssign.addItem(ed);
+        if(bloRequest.getReferTo().equals("Education")){
+            for(EducationEnterprise ed : network.getEnterpriseDirectory().getEducationnterpriseList()){
+                ddlAssign.addItem(ed);
+            }
         }
-        for(HospitalEnterprise ed : network.getEnterpriseDirectory().getHospitalnterpriseList()){
-            ddlAssign.addItem(ed);
+        else if(bloRequest.getReferTo().equals("Hospital")){
+            for(HospitalEnterprise ed : network.getEnterpriseDirectory().getHospitalnterpriseList()){
+                ddlAssign.addItem(ed);
+            }
         }
     }
     /**
@@ -122,34 +131,48 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
         boolean flag = true;
         SupervisorWorkRequest supRequest = new SupervisorWorkRequest();
+        HospitalDoctorWorkRequest hosRequest = new HospitalDoctorWorkRequest();
         String message = txtMessage.getText();
-        supRequest.setMessage(message);
-        supRequest.setSender(userAccount);
-        supRequest.setStatus("Sent");
         
+        
+        EducationEnterprise selectedEdOrg=null;
+        HospitalEnterprise selectedHosOrg=null;
+        if(ddlAssign.getSelectedItem() instanceof EducationEnterprise){
+            selectedEdOrg = (EducationEnterprise)ddlAssign.getSelectedItem();
+        }
+        if(ddlAssign.getSelectedItem() instanceof HospitalEnterprise){
+            selectedHosOrg = (HospitalEnterprise)ddlAssign.getSelectedItem();
+        }
         EducationOrganization org = null;
-        
-        
-        for(EducationEnterprise edent : network.getEnterpriseDirectory().getEducationnterpriseList()){
-            if(flag){
-                for (EducationOrganization organization : edent.getEducationOrganizationDirectory().getEducationOrganizationList()){
-                    if (organization instanceof EducationSupervisorOrganization){
-                        org = organization;
-                        break;
-                    }
-                    
-                }
-            }
-        
-            if (org!=null){
-                if(org.getWorkQueue().getWorkRequestList().size()<=5){
-                    org.getWorkQueue().getWorkRequestList().add(supRequest);
-                    userAccount.getWorkQueue().getWorkRequestList().add(supRequest);
+        if(selectedEdOrg!= null){
+            for (EducationOrganization organization : selectedEdOrg.getEducationOrganizationDirectory().getEducationOrganizationList()){
+                if (organization instanceof EducationSupervisorOrganization){
+                    org = organization;
                     break;
                 }
-                else{
-                    flag = false;
+            }
+            if (org!=null){
+                supRequest.setMessage(message);
+                supRequest.setSender(userAccount);
+                supRequest.setStatus("Sent");
+                org.getWorkQueue().getWorkRequestList().add(supRequest);
+                userAccount.getWorkQueue().getWorkRequestList().add(supRequest);
+            }
+        }
+        HospitalOrganization orgHos = null;
+        if(selectedHosOrg!= null){
+            for (HospitalOrganization organization : selectedHosOrg.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
+                if (organization instanceof HospitalDoctorOrganization){
+                    orgHos = organization;
+                    break;
                 }
+            }
+            if (orgHos!=null){
+                hosRequest.setMessage(message);
+                hosRequest.setSender(userAccount);
+                hosRequest.setStatus("Sent");
+                orgHos.getWorkQueue().getWorkRequestList().add(hosRequest);
+                userAccount.getWorkQueue().getWorkRequestList().add(hosRequest);
             }
         }
     }//GEN-LAST:event_btnAssignActionPerformed
