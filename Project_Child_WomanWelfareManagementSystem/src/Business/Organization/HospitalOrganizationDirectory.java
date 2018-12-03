@@ -29,12 +29,16 @@ public class HospitalOrganizationDirectory {
             hospitalOrganizationList.add(organization);
         }
         else if (type.equals(HospitalOrganization.Type.Doctor.getValue())){
-//            organization = new EducationAdminOrganization();
-//            educationOrganizationList.add(organization);
+           organization = new HospitalDoctorOrganization();
+            hospitalOrganizationList.add(organization);
         }
         else if (type.equals(HospitalOrganization.Type.Lab.getValue())){
-//            organization = new EducationAdminOrganization();
-//            educationOrganizationList.add(organization);
+            organization = new HospitalLabAssistantOrganization();
+           hospitalOrganizationList.add(organization);
+           
+        }else if(type.equals(HospitalOrganization.Type.Nurse.getValue())){
+            organization = new HospitaNurseOrganization();
+           hospitalOrganizationList.add(organization);
         }
         return organization;
     }

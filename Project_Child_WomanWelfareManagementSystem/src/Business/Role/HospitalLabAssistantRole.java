@@ -9,7 +9,7 @@ import Business.EcoSystem;
 import Business.Enterprise.HospitalEnterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import UserInterface.Hospital.Doctor.HospitalDoctorWorkAreaJPanel;
+import UserInterface.Hospital.LabAssistant.HospitalLabAssistantWorkAreaJPanel;
 import javax.swing.JPanel;
 
 
@@ -17,13 +17,13 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author user
+ * @author kavit
  */
-public class HospitalDoctorRole extends HospitalRole{
+public class HospitalLabAssistantRole extends HospitalRole{
   @Override
     public JPanel createHospitalWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,HospitalEnterprise enterprise, EcoSystem system) {
-        return new HospitalDoctorWorkAreaJPanel(userProcessContainer, system, enterprise, organization, account);
+        return new HospitalLabAssistantWorkAreaJPanel(userProcessContainer, system,enterprise,organization,account);
     }
-}
-     
+}  
+    
 
