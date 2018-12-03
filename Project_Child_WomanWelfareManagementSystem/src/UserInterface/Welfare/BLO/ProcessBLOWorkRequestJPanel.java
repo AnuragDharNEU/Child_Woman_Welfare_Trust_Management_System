@@ -18,6 +18,9 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.HospitalDoctorWorkRequest;
 import Business.WorkQueue.SupervisorWorkRequest;
 import Business.WorkQueue.WelfareBLOWorkRequest;
+import UserInterface.Education.Supervisor.ManageRequestSuvPanel;
+import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JPanel;
 
 /**
@@ -74,6 +77,7 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtMessage = new javax.swing.JTextField();
         btnAssign = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         jLabel1.setText("Assign To");
 
@@ -93,14 +97,24 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAssign)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(96, 96, 96)
+                        .addComponent(btnAssign))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -123,7 +137,9 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnAssign)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAssign)
+                    .addComponent(btnBack))
                 .addContainerGap(116, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -184,10 +200,22 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
     private void ddlAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlAssignActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ddlAssignActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        WelfareBLOWorkRequestJPanel manageReq = (WelfareBLOWorkRequestJPanel) component;
+        manageReq.PopulateTable();
+        manageReq.PopulateAssignTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssign;
+    private javax.swing.JButton btnBack;
     private javax.swing.JComboBox ddlAssign;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

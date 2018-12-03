@@ -12,9 +12,13 @@ import Business.Organization.Organization;
 import Business.Organization.WelfareBLOOrganization;
 import Business.Organization.WelfareOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.HospitalDoctorWorkRequest;
+import Business.WorkQueue.SupervisorWorkRequest;
 import Business.WorkQueue.WelfareBLOWorkRequest;
 import Business.WorkQueue.WorkRequest;
+import UserInterface.Education.Supervisor.ManageRequestSuvPanel;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,6 +48,7 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
         lblEntName.setText(enterprise.getName());
         network = GetNetwork();
         PopulateTable();
+        PopulateAssignTable();
     }
     private Network GetNetwork(){
         Network thisNetwork = null;
@@ -71,6 +76,36 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
             model.addRow(row);
         }
     }
+    public void PopulateAssignTable(){
+        DefaultTableModel model = (DefaultTableModel) tblAssign.getModel();
+        model.setRowCount(0);
+        SupervisorWorkRequest supRequest = null;
+        HospitalDoctorWorkRequest hosRequest = null;
+        //WelfareBLOOrganization org = (WelfareBLOOrganization) organization;
+        for(WorkRequest request : account.getWorkQueue().getWorkRequestList()){
+            if(request instanceof SupervisorWorkRequest){
+            supRequest = (SupervisorWorkRequest) request;
+            Object[] row = new Object[5];
+            row[0] = supRequest;
+            row[1] = supRequest.getSender();
+            row[2] = supRequest.getStatus();
+            row[3] = supRequest.getReceiver();
+            row[4] = supRequest.getResult()== null ? "waiting" : supRequest.getResult();
+            model.addRow(row);
+            }
+            if(request instanceof HospitalDoctorWorkRequest){
+            hosRequest = (HospitalDoctorWorkRequest) request;
+            Object[] row = new Object[5];
+            row[0] = hosRequest;
+            row[1] = hosRequest.getSender();
+            row[2] = hosRequest.getStatus();
+            row[3] = hosRequest.getReceiver();
+            row[4] = hosRequest.getResult()== null ? "waiting" : hosRequest.getResult();
+            model.addRow(row);
+            }
+            
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,9 +120,11 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
         tblwork = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnProceed = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAssign = new javax.swing.JTable();
 
         lblEntName.setText("Ent Name");
 
@@ -105,7 +142,12 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Block Level Officer Work Request");
 
-        jButton1.setText("<<Back");
+        btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Assign To Me");
 
@@ -115,6 +157,16 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
                 btnProceedActionPerformed(evt);
             }
         });
+
+        tblAssign.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Message", "Sender", "Status", "Reciever", "Result"
+            }
+        ));
+        jScrollPane2.setViewportView(tblAssign);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -129,14 +181,14 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel2)
                             .addGap(18, 18, 18)
                             .addComponent(lblEntName)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addGap(74, 74, 74)
-                            .addComponent(jButton2)
-                            .addGap(64, 64, 64)
-                            .addComponent(btnProceed))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(74, 74, 74)
+                        .addComponent(jButton2)
+                        .addGap(64, 64, 64)
+                        .addComponent(btnProceed))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -152,10 +204,12 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnBack)
                     .addComponent(jButton2)
                     .addComponent(btnProceed))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -166,15 +220,24 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnProceedActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnProceed;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblEntName;
+    private javax.swing.JTable tblAssign;
     private javax.swing.JTable tblwork;
     // End of variables declaration//GEN-END:variables
 }

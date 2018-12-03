@@ -157,6 +157,7 @@ public class SupervisorAssignmentJPanel extends javax.swing.JPanel {
         Component component = componentArray[componentArray.length - 1];
         ManageRequestSuvPanel manageReq = (ManageRequestSuvPanel) component;
         manageReq.populateTable();
+        manageReq.poupulateStatusTable();
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed

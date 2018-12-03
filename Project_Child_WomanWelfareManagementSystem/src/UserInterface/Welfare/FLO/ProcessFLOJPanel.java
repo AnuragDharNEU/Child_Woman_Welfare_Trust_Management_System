@@ -210,6 +210,8 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
         Component component = componentArray[componentArray.length - 1];
         WelfareFLOChildJPanel dwjp = (WelfareFLOChildJPanel) component;
         dwjp.PopulateTable();
+        WelfareFLOWomenJPanel xyz = (WelfareFLOWomenJPanel) component;
+        xyz.PopulateTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
