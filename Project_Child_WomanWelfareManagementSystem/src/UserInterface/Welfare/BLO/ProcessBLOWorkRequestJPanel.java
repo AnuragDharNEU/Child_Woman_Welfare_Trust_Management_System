@@ -133,15 +133,18 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
         SupervisorWorkRequest supRequest = new SupervisorWorkRequest();
         HospitalDoctorWorkRequest hosRequest = new HospitalDoctorWorkRequest();
         String message = txtMessage.getText();
+        bloRequest.setStatus("Completed");
         
         
         EducationEnterprise selectedEdOrg=null;
         HospitalEnterprise selectedHosOrg=null;
         if(ddlAssign.getSelectedItem() instanceof EducationEnterprise){
             selectedEdOrg = (EducationEnterprise)ddlAssign.getSelectedItem();
+            bloRequest.setTestResult("Sent to "+selectedEdOrg);
         }
         if(ddlAssign.getSelectedItem() instanceof HospitalEnterprise){
             selectedHosOrg = (HospitalEnterprise)ddlAssign.getSelectedItem();
+            bloRequest.setTestResult("Sent to "+selectedHosOrg);
         }
         EducationOrganization org = null;
         if(selectedEdOrg!= null){
@@ -175,6 +178,7 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
                 userAccount.getWorkQueue().getWorkRequestList().add(hosRequest);
             }
         }
+        
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void ddlAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlAssignActionPerformed

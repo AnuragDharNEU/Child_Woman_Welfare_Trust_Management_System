@@ -172,6 +172,7 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
         request.setReceiver(userAccount);
         request.setStatus("Pending");
         populateTable();
+        poupulateStatusTable();
         
         
     }//GEN-LAST:event_btnAssignToMeActionPerformed
@@ -196,10 +197,10 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
     }
     public void poupulateStatusTable()
     {
-        DefaultTableModel model = (DefaultTableModel)tblManageRequestSuv.getModel();
+        DefaultTableModel model = (DefaultTableModel)tblStatus.getModel();
         
         model.setRowCount(0);
-        EducationSupervisorOrganization eduSuvOrg=(EducationSupervisorOrganization) organization;
+        //EducationSupervisorOrganization eduSuvOrg=(EducationSupervisorOrganization) organization;
         for(WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
            
           Object[] row = new Object[5];
@@ -207,7 +208,7 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
             row[1] = request.getSender().getEmployee().getName();
             row[2] = request.getStatus();
             row[3] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
-            String result=((DistributorWorkRequest)request) !=null ?((DistributorWorkRequest)request).getResult():((TeacherWorkRequest)request).getResult();
+            String result=request instanceof DistributorWorkRequest?((DistributorWorkRequest)request).getResult():((TeacherWorkRequest)request).getResult();
             row[4]= result == null ? "Waiting" : result;
             model.addRow(row); 
         }
