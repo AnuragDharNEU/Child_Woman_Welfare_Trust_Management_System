@@ -6,6 +6,7 @@
 package Business.Network;
 
 import Business.Enterprise.EnterpriseDirectory;
+import Business.Patient.PatientDirectory;
 import Business.WelfareCentre.WelfareCentreDirectory;
 
 /**
@@ -16,10 +17,12 @@ public class Network {
     private String name;
     private EnterpriseDirectory enterpriseDirectory;
     private WelfareCentreDirectory centreDir;
+    private PatientDirectory patientDir;
     
     public Network(){
         enterpriseDirectory=new EnterpriseDirectory();
         centreDir = new WelfareCentreDirectory();
+        patientDir = new PatientDirectory();
     }
     public String getName() {
         return name;
@@ -35,6 +38,10 @@ public class Network {
 
     public WelfareCentreDirectory getCentreDir() {
         return centreDir;
+    }
+
+    public PatientDirectory getPatientDir() {
+        return patientDir;
     }
     
     @Override

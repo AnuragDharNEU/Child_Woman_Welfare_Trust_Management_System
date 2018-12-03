@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserInterface.Welfare.BLO;
+package UserInterface.Welfare.FLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
-import Business.Network.Network;
 import Business.Organization.Organization;
-import Business.Organization.WelfareBLOOrganization;
+import Business.Organization.WelfareFLOOrganization;
 import Business.Organization.WelfareOrganization;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.WelfareBLOWorkRequest;
+import Business.WorkQueue.WelfareFLOWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,19 +22,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author user
  */
-public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
+public class WelfareFLOChildJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form WelfareBLOWorkRequestJPanel
+     * Creates new form WelfareFLOChildJPanel
      */
     JPanel userProcessContainer;
     EcoSystem system; 
     WelfareEnterprise enterprise;
     Organization organization;
     UserAccount account;
-    Network network;
-    WelfareBLOWorkRequest bloRequest;
-    public WelfareBLOWorkRequestJPanel(JPanel userProcessContainer, WelfareEnterprise enterprise, Organization organization,EcoSystem system, UserAccount account) {
+    public WelfareFLOChildJPanel(JPanel userProcessContainer, WelfareEnterprise enterprise, Organization organization,EcoSystem system, UserAccount account) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
@@ -42,33 +40,23 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
         this.organization=organization;
         this.account= account;
         lblEntName.setText(enterprise.getName());
-        network = GetNetwork();
         PopulateTable();
-    }
-    private Network GetNetwork(){
-        Network thisNetwork = null;
-        for(Network net: system.getNetworkList()){
-            for(WelfareEnterprise wel : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
-                if(enterprise.equals(wel)){
-                    thisNetwork= net;
-                }
-            }
-        }
-        return thisNetwork;
     }
     public void PopulateTable(){
         DefaultTableModel model = (DefaultTableModel) tblwork.getModel();
         model.setRowCount(0);
-        WelfareBLOOrganization org = (WelfareBLOOrganization) organization;
+        WelfareFLOOrganization org = (WelfareFLOOrganization) organization;
         for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
-            bloRequest = (WelfareBLOWorkRequest) request;
-            Object[] row = new Object[5];
-            row[0] = request;
-            row[1] = request.getSender();
-            row[2] = request.getStatus();
-            row[3] = request.getReceiver();
-            row[4] = bloRequest.getTestResult()== null ? "waiting" : bloRequest.getTestResult();
-            model.addRow(row);
+            WelfareFLOWorkRequest floRequest = (WelfareFLOWorkRequest) request;
+            if(floRequest.getPatient().getAge()<=6){
+                Object[] row = new Object[5];
+                row[0] = floRequest;
+                row[1] = floRequest.getPatient().getAge();
+                row[2] = floRequest.getPatient().getDisease();
+                row[3] = request.getReceiver();
+                row[4] = floRequest.getTestResult()== null ? "waiting" : floRequest.getTestResult();
+                model.addRow(row);
+            }
         }
     }
     /**
@@ -80,14 +68,17 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         lblEntName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblwork = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         btnProceed = new javax.swing.JButton();
+
+        jLabel1.setText("Field Level Officer Child Care");
+
+        jLabel2.setText("Enterprise");
 
         lblEntName.setText("Ent Name");
 
@@ -96,18 +87,17 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Message", "Sender", "Status", "Reciever", "Result"
+                "Patient Name", "Patient Age", "Disease", "Reciever", "Result"
             }
         ));
         jScrollPane1.setViewportView(tblwork);
 
-        jLabel2.setText("Enterprise");
-
-        jLabel1.setText("Block Level Officer Work Request");
-
-        jButton1.setText("<<Back");
-
-        jButton2.setText("Assign To Me");
+        btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnProceed.setText("Proceed");
         btnProceed.addActionListener(new java.awt.event.ActionListener() {
@@ -123,21 +113,20 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(lblEntName)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addGap(74, 74, 74)
-                            .addComponent(jButton2)
-                            .addGap(64, 64, 64)
-                            .addComponent(btnProceed))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblEntName)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(238, 238, 238)
+                        .addComponent(btnProceed)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,25 +141,38 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(btnBack)
                     .addComponent(btnProceed))
                 .addContainerGap(144, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
-        ProcessBLOWorkRequestJPanel processBLOWorkRequestJPanel = new ProcessBLOWorkRequestJPanel(userProcessContainer, (WelfareOrganization)organization,account,enterprise,network,bloRequest);
-        userProcessContainer.add("processBLOWorkRequestJPanel", processBLOWorkRequestJPanel);
+        int selectedRow = tblwork.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WelfareFLOWorkRequest request = (WelfareFLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
+
+        ProcessFLOJPanel processFLOChildJPanel = new ProcessFLOJPanel(userProcessContainer, request,(WelfareOrganization)organization,account,enterprise);
+        userProcessContainer.add("processFLOChildJPanel", processFLOChildJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnProceedActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnProceed;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

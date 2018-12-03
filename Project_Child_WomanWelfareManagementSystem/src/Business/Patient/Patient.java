@@ -5,6 +5,8 @@
  */
 package Business.Patient;
 
+import Business.UserAccount.UserAccount;
+
 /**
  *
  * @author user
@@ -14,6 +16,7 @@ public class Patient {
     private int age;
     private String disease;
     private String consultantName;
+    private UserAccount FieldOfficer;
 
     public String getName() {
         return Name;
@@ -45,5 +48,17 @@ public class Patient {
 
     public void setConsultantName(String consultantName) {
         this.consultantName = consultantName;
+    }
+
+    public UserAccount getFieldOfficer() {
+        return FieldOfficer;
+    }
+
+    public void setFieldOfficer(UserAccount FieldOfficer) {
+        this.FieldOfficer = FieldOfficer;
+    }
+    @Override
+    public String toString(){
+        return Name;
     }
 }

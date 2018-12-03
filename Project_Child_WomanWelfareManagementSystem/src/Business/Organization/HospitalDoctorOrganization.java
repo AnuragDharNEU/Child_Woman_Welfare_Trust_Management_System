@@ -3,26 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business.Network;
+package Business.Organization;
 
-import Business.Organization.WelfareOrganization;
+import Business.Role.HospitalDoctorRole;
 import Business.Role.Role;
-import Business.Role.WelfareSLORole;
 import java.util.ArrayList;
 
 /**
  *
  * @author user
  */
-public class WelfareSLOOrganization extends WelfareOrganization{
-    public WelfareSLOOrganization() {
-        super(WelfareOrganization.Type.SLO.getValue());
+public class HospitalDoctorOrganization extends HospitalOrganization{
+    public HospitalDoctorOrganization() {
+        super(HospitalOrganization.Type.Doctor.getValue());
     }
     
     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roles = new ArrayList();
-        roles.add(new WelfareSLORole());
+        roles.add(new HospitalDoctorRole());
         return roles;
     }
 }

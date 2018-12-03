@@ -7,7 +7,7 @@ package UserInterface.Welfare.SLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
-import Business.Network.WelfareSLOOrganization;
+import Business.Organization.WelfareSLOOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WelfareSLOWorkRequest;
@@ -39,6 +39,9 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
         this.organization=organization;
         this.account= account;
         lblEntName.setText(enterprise.getName());
+        txtResult.setEnabled(true);
+        btnSubmit.setEnabled(true);
+        lblResult.setEnabled(true);
         PopulateTable();
     }
     public void PopulateTable(){

@@ -21,12 +21,10 @@ public class PatientDirectory {
     public ArrayList<Patient> getPatientList() {
         return patientList;
     }
-    public Patient AddPatient(String name, int age, String disease, String consultant){
+    public Patient AddPatient(String name, int age){
         Patient pat = new Patient();
         pat.setAge(age);
         pat.setName(name);
-        pat.setConsultantName(consultant);
-        pat.setDisease(disease);
         patientList.add(pat);
         return pat;
     }
