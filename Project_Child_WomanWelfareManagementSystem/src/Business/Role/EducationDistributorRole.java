@@ -20,6 +20,6 @@ import javax.swing.JPanel;
 public class EducationDistributorRole extends EducationRole{
     @Override
     public JPanel createEducationWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,EducationEnterprise enterprise, EcoSystem system) {
-        return new EducationDistributorWorkAreaJPanel(userProcessContainer,system,enterprise);
+        return new EducationDistributorWorkAreaJPanel(userProcessContainer, system,enterprise,account,organization);
     }
 }

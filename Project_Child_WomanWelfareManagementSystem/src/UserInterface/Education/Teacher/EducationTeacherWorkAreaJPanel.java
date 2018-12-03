@@ -8,6 +8,10 @@ package UserInterface.Education.Teacher;
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
 import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import UserInterface.Education.Distributor.ManageRequestDistJPanel;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -19,8 +23,18 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form EducationTeacherWorkAreaJPanel
      */
-    public EducationTeacherWorkAreaJPanel(JPanel userProcessContainer, EcoSystem system, EducationEnterprise enterprise) {
+    private JPanel userProcessContainer;
+    private UserAccount userAccount;
+    private EducationEnterprise enterprise;
+    private EcoSystem system;
+    private Organization organization;
+    public EducationTeacherWorkAreaJPanel(JPanel userProcessContainer, EcoSystem system, EducationEnterprise enterprise, UserAccount account,Organization organization) {
         initComponents();
+        this.userProcessContainer=userProcessContainer;
+        this.userAccount=account;
+        this.enterprise=enterprise;
+        this.system=system;
+        this.organization=organization;
     }
 
     /**
@@ -39,6 +53,11 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2.setText("Teacher Work Area");
 
         jButton1.setText("Manage Request");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,6 +93,13 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
             .addComponent(jScrollPane1)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ManageRequestTeacherJPanel manageReq = new ManageRequestTeacherJPanel(userProcessContainer, system, enterprise, userAccount,organization);
+        userProcessContainer.add("manageReq", manageReq);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

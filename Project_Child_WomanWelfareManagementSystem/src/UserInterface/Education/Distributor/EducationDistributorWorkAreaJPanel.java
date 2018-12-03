@@ -7,6 +7,9 @@ package UserInterface.Education.Distributor;
 
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -18,8 +21,18 @@ public class EducationDistributorWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form EducationDistributorWorkAreaJPanel
      */
-    public EducationDistributorWorkAreaJPanel(JPanel userProcessContainer, EcoSystem system, EducationEnterprise enterprise) {
+     private JPanel userProcessContainer;
+    private UserAccount userAccount;
+    private EducationEnterprise enterprise;
+    private EcoSystem system;
+    private Organization organization;
+    public EducationDistributorWorkAreaJPanel(JPanel userProcessContainer, EcoSystem system, EducationEnterprise enterprise, UserAccount account,Organization organization) {
         initComponents();
+        this.userProcessContainer=userProcessContainer;
+        this.userAccount=account;
+        this.enterprise=enterprise;
+        this.system=system;
+        this.organization=organization;
     }
 
     /**
@@ -30,51 +43,65 @@ public class EducationDistributorWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        btnManageReq = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
-        jLabel2.setText("Distributor Work Area");
+        jLabel1.setText("Distributor Work Area");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(194, 194, 194)
-                .addComponent(jLabel2)
-                .addContainerGap(271, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(414, Short.MAX_VALUE))
-        );
+        btnManageReq.setText("Manage Request");
+        btnManageReq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageReqActionPerformed(evt);
+            }
+        });
 
-        jScrollPane1.setViewportView(jPanel1);
+        jButton1.setText("<<Back");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(201, 201, 201)
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnManageReq)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton1)))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(jLabel1)
+                .addGap(66, 66, 66)
+                .addComponent(btnManageReq)
+                .addGap(98, 98, 98)
+                .addComponent(jButton1)
+                .addContainerGap(182, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnManageReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageReqActionPerformed
+
+        ManageRequestDistJPanel manageReq = new ManageRequestDistJPanel(userProcessContainer, system, enterprise, userAccount,organization);
+        userProcessContainer.add("manageReq", manageReq);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+
+    }//GEN-LAST:event_btnManageReqActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton btnManageReq;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

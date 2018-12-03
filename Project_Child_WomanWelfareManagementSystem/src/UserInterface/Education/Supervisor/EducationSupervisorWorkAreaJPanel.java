@@ -65,6 +65,11 @@ public class EducationSupervisorWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnManageFund.setText("Manage Fund");
+        btnManageFund.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageFundActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("<<Back");
 
@@ -126,6 +131,10 @@ public class EducationSupervisorWorkAreaJPanel extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_btnManageReqActionPerformed
+
+    private void btnManageFundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageFundActionPerformed
+        
+    }//GEN-LAST:event_btnManageFundActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
