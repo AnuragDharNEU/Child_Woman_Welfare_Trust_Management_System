@@ -21,7 +21,8 @@ public abstract class HospitalRole extends Role {
     public enum RoleType{
         Admin("Admin"),
         Doctor("Doctor"),
-        LabAssistant("Lab Assistant");
+        LabAssistant("Lab Assistant"),
+        Nurse("Nurse");
         
         private String value;
         private RoleType(String value){

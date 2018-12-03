@@ -6,6 +6,8 @@
 package UserInterface.Hospital.Administrator;
 
 import Business.EcoSystem;
+import Business.Enterprise.HospitalEnterprise;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -19,10 +21,12 @@ public class HospitalAdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     EcoSystem ecosystem;
-    public HospitalAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
+    HospitalEnterprise enterprise;
+    public HospitalAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem, HospitalEnterprise enterprise) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
+        this.enterprise = enterprise;
     }
 
     /**
@@ -34,30 +38,92 @@ public class HospitalAdminWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnEmpManage = new javax.swing.JButton();
+        btnOrgManage = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnUserManage = new javax.swing.JButton();
 
-        jLabel1.setText("Hospital");
+        btnEmpManage.setText("Manage Employee");
+        btnEmpManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpManageActionPerformed(evt);
+            }
+        });
+
+        btnOrgManage.setText("Manage Organization");
+        btnOrgManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrgManageActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Hospital Administrator Work Panel");
+
+        btnUserManage.setText("Manage User");
+        btnUserManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserManageActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addComponent(jLabel1)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnUserManage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEmpManage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnOrgManage, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel1)))
+                .addContainerGap(205, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(btnOrgManage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEmpManage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnUserManage)
+                .addGap(63, 63, 63))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEmpManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpManageActionPerformed
+        ManageHospitalEmployeeJPanel manageHospitalEmployeeJPanel=new ManageHospitalEmployeeJPanel(userProcessContainer, ecosystem, enterprise);
+        userProcessContainer.add("manageHospitalEmployeeJPanel",manageHospitalEmployeeJPanel);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnEmpManageActionPerformed
+
+    private void btnOrgManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrgManageActionPerformed
+        ManageHospitalOrganizationJPanel manageHospitalOrganizationJPanel=new ManageHospitalOrganizationJPanel(userProcessContainer, ecosystem,enterprise);
+        userProcessContainer.add("manageHospitalOrganizationJPanel",manageHospitalOrganizationJPanel);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnOrgManageActionPerformed
+
+    private void btnUserManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserManageActionPerformed
+        ManageHospitalUserJPanel manageHospitalUserJPanel=new ManageHospitalUserJPanel(userProcessContainer, enterprise,ecosystem);
+        userProcessContainer.add("manageHospitalUserJPanel",manageHospitalUserJPanel);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnUserManageActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEmpManage;
+    private javax.swing.JButton btnOrgManage;
+    private javax.swing.JButton btnUserManage;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
