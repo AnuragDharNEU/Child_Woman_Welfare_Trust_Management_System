@@ -22,4 +22,7 @@ public class WorkQueue {
     public ArrayList<WorkRequest> getWorkRequestList() {
         return workRequestList;
     }
+    public void remove(WorkRequest work){
+        workRequestList.remove(work);
+    }
 }

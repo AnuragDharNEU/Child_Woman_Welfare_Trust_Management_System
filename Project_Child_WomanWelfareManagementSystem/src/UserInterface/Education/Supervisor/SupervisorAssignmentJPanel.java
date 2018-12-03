@@ -7,9 +7,14 @@ package UserInterface.Education.Supervisor;
 
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
+import Business.Organization.EducationDistributorOrganization;
+import Business.Organization.EducationOrganization;
+import Business.Organization.EducationTeacherOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.DistributorWorkRequest;
 import Business.WorkQueue.SupervisorWorkRequest;
+import Business.WorkQueue.TeacherWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Date;
@@ -39,6 +44,7 @@ public class SupervisorAssignmentJPanel extends javax.swing.JPanel {
         this.system=system;
         this.organization=organization;
         this.request=request;
+        populateCombo();
     }
 
     /**
@@ -161,9 +167,55 @@ public class SupervisorAssignmentJPanel extends javax.swing.JPanel {
     request.setStatus("Completed");   
     request.setResolveDate(new Date());
     
+    String message = txtMessage.getText();
+        
+        DistributorWorkRequest requestDist = new DistributorWorkRequest();
+        TeacherWorkRequest requestTeach = new TeacherWorkRequest();
+        
+        String selectedOrg = drpdwnAssignTo.getSelectedItem()+" Organization";
+        EducationOrganization org = null;
+            for (EducationOrganization organization : enterprise.getEducationOrganizationDirectory().getEducationOrganizationList()){
+            if(selectedOrg.equals(EducationOrganization.Type.Distributor.getValue()))
+            {
+                if (organization instanceof EducationDistributorOrganization){
+                org = organization;
+                break;
+                }
+            }
+            if(selectedOrg.equals(EducationOrganization.Type.Teacher.getValue()))
+            {
+                if (organization instanceof EducationTeacherOrganization){
+                org = organization;
+                break;
+                }
+            }
+        }
+        if (org!=null && org instanceof EducationDistributorOrganization){
+            requestDist.setMessage(message);
+            requestDist.setSender(userAccount);
+            requestDist.setStatus("Sent");
+            org.getWorkQueue().getWorkRequestList().add(requestDist);
+            userAccount.getWorkQueue().getWorkRequestList().add(requestDist);
+        }
+        if (org!=null && org instanceof EducationTeacherOrganization){
+            requestTeach.setMessage(message);
+            requestTeach.setSender(userAccount);
+            requestTeach.setStatus("Sent");
+            org.getWorkQueue().getWorkRequestList().add(requestTeach);
+            userAccount.getWorkQueue().getWorkRequestList().add(requestTeach);
+        }
     
     }//GEN-LAST:event_btnSubmitActionPerformed
 
+    private void populateCombo(){
+        drpdwnAssignTo.removeAllItems();
+        
+        for (EducationOrganization.Type type : EducationOrganization.Type.values()){
+           if (!type.getValue().equals(EducationOrganization.Type.Admin.getValue())&& !type.getValue().equals(EducationOrganization.Type.Supervisor.getValue()) )
+               drpdwnAssignTo.addItem(type);
+       }
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
