@@ -28,13 +28,14 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBack" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                       <Component id="btnProceed" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" alignment="0" min="-2" pref="375" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" alignment="0" min="-2" pref="375" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
@@ -54,11 +55,13 @@
               <Component id="jScrollPane1" min="-2" pref="64" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnProceed" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="144" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="64" max="-2" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -104,10 +107,13 @@
         <Property name="text" type="java.lang.String" value="Block Level Officer Work Request"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnBack">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;&lt;Back"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
@@ -122,5 +128,30 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProceedActionPerformed"/>
       </Events>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="tblAssign">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="5" rowCount="0">
+                <Column editable="true" title="Message" type="java.lang.Object"/>
+                <Column editable="true" title="Sender" type="java.lang.Object"/>
+                <Column editable="true" title="Status" type="java.lang.Object"/>
+                <Column editable="true" title="Reciever" type="java.lang.Object"/>
+                <Column editable="true" title="Result" type="java.lang.Object"/>
+              </Table>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

@@ -13,6 +13,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WelfareSLOWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -97,6 +98,11 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblwork);
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnAssign.setText("Assign To Me");
         btnAssign.addActionListener(new java.awt.event.ActionListener() {
@@ -213,6 +219,13 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
         SLOrequest.setStatus("Completed");
         PopulateTable();
     }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

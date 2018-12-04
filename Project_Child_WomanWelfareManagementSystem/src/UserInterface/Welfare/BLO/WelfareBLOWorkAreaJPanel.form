@@ -26,6 +26,8 @@
                       <Component id="lblEntName" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="btnManageRequest" max="32767" attributes="0"/>
+                  <Component id="jButton1" max="32767" attributes="0"/>
+                  <Component id="jButton2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="248" max="32767" attributes="0"/>
           </Group>
@@ -43,7 +45,11 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnManageRequest" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="214" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="133" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -71,6 +77,16 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageRequestActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jButton1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jButton2"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

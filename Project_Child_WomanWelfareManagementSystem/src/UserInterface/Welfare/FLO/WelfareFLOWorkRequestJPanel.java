@@ -15,6 +15,7 @@ import Business.WorkQueue.WelfareBLOWorkRequest;
 import Business.WorkQueue.WelfareFLOWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -225,7 +226,10 @@ public class WelfareFLOWorkRequestJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
 

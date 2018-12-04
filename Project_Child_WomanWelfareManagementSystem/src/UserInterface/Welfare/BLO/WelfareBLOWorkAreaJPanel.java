@@ -50,6 +50,8 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btnManageRequest = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         lblEntName.setText("Ent Name");
 
@@ -64,6 +66,10 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,7 +82,9 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(lblEntName))
-                    .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(248, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -90,7 +98,11 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(lblEntName))
                 .addGap(18, 18, 18)
                 .addComponent(btnManageRequest)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(133, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -104,6 +116,8 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageRequest;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblEntName;
