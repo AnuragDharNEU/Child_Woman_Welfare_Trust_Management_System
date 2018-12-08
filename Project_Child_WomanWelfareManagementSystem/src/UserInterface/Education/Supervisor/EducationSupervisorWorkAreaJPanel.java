@@ -133,6 +133,11 @@ public class EducationSupervisorWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnManageReqActionPerformed
 
     private void btnManageFundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageFundActionPerformed
+        ManageFundSuvPanel manageFund = new ManageFundSuvPanel(userProcessContainer, system, enterprise, userAccount,organization);
+        userProcessContainer.add("manageReq", manageFund);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+         
         
     }//GEN-LAST:event_btnManageFundActionPerformed
 

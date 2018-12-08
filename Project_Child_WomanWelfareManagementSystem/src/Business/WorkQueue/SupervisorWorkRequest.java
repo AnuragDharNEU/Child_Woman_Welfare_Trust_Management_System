@@ -12,6 +12,7 @@ package Business.WorkQueue;
 public class SupervisorWorkRequest extends WorkRequest {
     
     private String result;
+    private double fund;
 
     public String getResult() {
         return result;
@@ -19,6 +20,14 @@ public class SupervisorWorkRequest extends WorkRequest {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    public double getFund() {
+        return fund;
+    }
+
+    public void setFund(double fund) {
+        this.fund = fund;
     }
 
           

@@ -174,7 +174,7 @@ public class SupervisorAssignmentJPanel extends javax.swing.JPanel {
         TeacherWorkRequest requestTeach = new TeacherWorkRequest();
         
         String selectedOrg = drpdwnAssignTo.getSelectedItem()+" Organization";
-        EducationOrganization org = null;
+            EducationOrganization org = null;
             for (EducationOrganization organization : enterprise.getEducationOrganizationDirectory().getEducationOrganizationList()){
             if(selectedOrg.equals(EducationOrganization.Type.Distributor.getValue()))
             {
