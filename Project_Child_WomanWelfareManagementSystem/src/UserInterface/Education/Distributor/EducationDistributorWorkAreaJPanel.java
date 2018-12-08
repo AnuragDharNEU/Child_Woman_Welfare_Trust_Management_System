@@ -26,6 +26,7 @@ public class EducationDistributorWorkAreaJPanel extends javax.swing.JPanel {
     private EducationEnterprise enterprise;
     private EcoSystem system;
     private Organization organization;
+    
     public EducationDistributorWorkAreaJPanel(JPanel userProcessContainer, EcoSystem system, EducationEnterprise enterprise, UserAccount account,Organization organization) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
@@ -46,6 +47,7 @@ public class EducationDistributorWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         btnManageReq = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btnRequestFunds = new javax.swing.JButton();
 
         jLabel1.setText("Distributor Work Area");
 
@@ -57,6 +59,13 @@ public class EducationDistributorWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         jButton1.setText("<<Back");
+
+        btnRequestFunds.setText("Request Funds");
+        btnRequestFunds.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestFundsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,9 +79,11 @@ public class EducationDistributorWorkAreaJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel1))
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(btnManageReq)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnManageReq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRequestFunds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(24, 24, 24)
                         .addComponent(jButton1)))
                 .addContainerGap(183, Short.MAX_VALUE))
         );
@@ -83,9 +94,11 @@ public class EducationDistributorWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(66, 66, 66)
                 .addComponent(btnManageReq)
-                .addGap(98, 98, 98)
+                .addGap(28, 28, 28)
+                .addComponent(btnRequestFunds)
+                .addGap(54, 54, 54)
                 .addComponent(jButton1)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -98,9 +111,17 @@ public class EducationDistributorWorkAreaJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnManageReqActionPerformed
 
+    private void btnRequestFundsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestFundsActionPerformed
+        DistFundRequestJPanel manageReq = new DistFundRequestJPanel(userProcessContainer, system, enterprise, userAccount,organization);
+        userProcessContainer.add("manageReq", manageReq);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnRequestFundsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageReq;
+    private javax.swing.JButton btnRequestFunds;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
