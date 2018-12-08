@@ -12,6 +12,9 @@ import Business.Organization.WelfareOrganization;
 import Business.Patient.Patient;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WelfareFLOWorkRequest;
+import UserInterface.Welfare.DLO.WelfareDLOWorkRequestJPanel;
+import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JPanel;
 
 /**
@@ -85,6 +88,11 @@ public class ProcessFLOWorkRequestJPanel extends javax.swing.JPanel {
         });
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -148,6 +156,16 @@ public class ProcessFLOWorkRequestJPanel extends javax.swing.JPanel {
         request.setPatient(p);
         
     }//GEN-LAST:event_btnProceedActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        WelfareFLOWorkRequestJPanel dwjp = (WelfareFLOWorkRequestJPanel) component;
+        dwjp.PopulateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

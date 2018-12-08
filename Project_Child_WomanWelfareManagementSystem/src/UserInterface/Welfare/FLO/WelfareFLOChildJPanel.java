@@ -52,7 +52,7 @@ public class WelfareFLOChildJPanel extends javax.swing.JPanel {
                 Object[] row = new Object[5];
                 row[0] = floRequest;
                 row[1] = floRequest.getPatient().getAge();
-                row[2] = floRequest.getPatient().getDisease();
+                row[2] = floRequest.getPatient().getProblem();
                 row[3] = request.getReceiver();
                 row[4] = floRequest.getTestResult()== null ? "waiting" : floRequest.getTestResult();
                 model.addRow(row);
@@ -87,7 +87,7 @@ public class WelfareFLOChildJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Patient Name", "Patient Age", "Disease", "Reciever", "Result"
+                "Patient Name", "Patient Age", "Problem", "Reciever", "Result"
             }
         ));
         jScrollPane1.setViewportView(tblwork);
@@ -115,17 +115,18 @@ public class WelfareFLOChildJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(lblEntName)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblEntName)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(238, 238, 238)
-                        .addComponent(btnProceed)))
+                                .addComponent(btnBack)
+                                .addGap(238, 238, 238)
+                                .addComponent(btnProceed)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

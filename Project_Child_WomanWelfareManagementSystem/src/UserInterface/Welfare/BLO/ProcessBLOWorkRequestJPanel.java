@@ -145,7 +145,6 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
-        boolean flag = true;
         SupervisorWorkRequest supRequest = new SupervisorWorkRequest();
         HospitalDoctorWorkRequest hosRequest = new HospitalDoctorWorkRequest();
         String message = txtMessage.getText();
