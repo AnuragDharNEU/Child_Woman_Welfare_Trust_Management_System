@@ -49,6 +49,7 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
         txtName.setText(request.getPatient().getName());
         txtName.setEnabled(false);
         ddlRefer.removeAllItems();
+        ddlRefer.addItem("None");
         ddlRefer.addItem("Hospital");
         if(request.getPatient().getAge()<=6)
             ddlRefer.addItem("Education");
@@ -224,10 +225,14 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
+        if(request.getPatient().getAge()<=6){
         WelfareFLOChildJPanel dwjp = (WelfareFLOChildJPanel) component;
         dwjp.PopulateTable();
+        }
+        else{
         WelfareFLOWomenJPanel xyz = (WelfareFLOWomenJPanel) component;
         xyz.PopulateTable();
+        }
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed

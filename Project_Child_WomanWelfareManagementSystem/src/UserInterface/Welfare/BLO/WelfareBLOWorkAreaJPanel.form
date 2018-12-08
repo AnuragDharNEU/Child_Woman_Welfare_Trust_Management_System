@@ -26,8 +26,8 @@
                       <Component id="lblEntName" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="btnManageRequest" max="32767" attributes="0"/>
-                  <Component id="jButton1" max="32767" attributes="0"/>
-                  <Component id="jButton2" max="32767" attributes="0"/>
+                  <Component id="btnFunds" max="32767" attributes="0"/>
+                  <Component id="btnSats" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="248" max="32767" attributes="0"/>
           </Group>
@@ -46,9 +46,9 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnManageRequest" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnFunds" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="btnSats" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="133" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -78,15 +78,18 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageRequestActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnFunds">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="text" type="java.lang.String" value="Manage Funds"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnSats">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton2"/>
+        <Property name="text" type="java.lang.String" value="Statistics"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSatsActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

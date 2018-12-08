@@ -37,7 +37,7 @@ public class ManageWelfareEmployeeJPanel extends javax.swing.JPanel {
      ddlOrgType.removeAllItems();
                
         for(WelfareOrganization organization: enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-        if(!organization.getName().equals("Admin Organization") || !organization.getName().equals("Field Level Organization"))
+        if(!organization.getName().equals("Admin Organization"))
         ddlOrgType.addItem(organization);
                     
            }

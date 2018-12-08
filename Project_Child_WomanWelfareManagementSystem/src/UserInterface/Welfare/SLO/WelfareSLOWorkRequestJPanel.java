@@ -40,9 +40,9 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
         this.organization=organization;
         this.account= account;
         lblEntName.setText(enterprise.getName());
-        txtResult.setEnabled(true);
-        btnSubmit.setEnabled(true);
-        lblResult.setEnabled(true);
+        txtResult.setEnabled(false);
+        btnSubmit.setEnabled(false);
+        lblResult.setEnabled(false);
         PopulateTable();
     }
     public void PopulateTable(){
@@ -169,8 +169,8 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(lblEntName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnAssign)
@@ -181,7 +181,7 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
                     .addComponent(lblResult))
                 .addGap(18, 18, 18)
                 .addComponent(btnSubmit)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -193,9 +193,11 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
         }
         
         WorkRequest request = (WorkRequest)tblwork.getValueAt(selectedRow, 0);
-        request.setReceiver(account);
-        request.setStatus("Pending");
-        PopulateTable();
+        if(!request.getStatus().equalsIgnoreCase("completed") && !request.getStatus().equalsIgnoreCase("pending")){
+            request.setReceiver(account);
+            request.setStatus("Pending");
+            PopulateTable();
+        }
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
@@ -205,13 +207,16 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
             return;
         }
         
-          SLOrequest = (WelfareSLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
-     
-        SLOrequest.setStatus("Processing");
-        
-        txtResult.setEnabled(true);
-        btnSubmit.setEnabled(true);
-        lblResult.setEnabled(true);
+        SLOrequest = (WelfareSLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
+        if(SLOrequest.getReceiver().equals(account)){
+           SLOrequest.setStatus("Processing");
+           txtResult.setEnabled(true);
+           btnSubmit.setEnabled(true);
+           lblResult.setEnabled(true);
+        }
+        else{
+            //Jpanel
+        }
     }//GEN-LAST:event_btnProceedActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
