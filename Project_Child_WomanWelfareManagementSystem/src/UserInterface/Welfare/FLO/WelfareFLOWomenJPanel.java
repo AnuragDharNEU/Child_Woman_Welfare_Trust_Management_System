@@ -52,7 +52,7 @@ public class WelfareFLOWomenJPanel extends javax.swing.JPanel {
                 Object[] row = new Object[5];
                 row[0] = floRequest;
                 row[1] = floRequest.getPatient().getAge();
-                row[2] = floRequest.getPatient().getDisease();
+                row[2] = floRequest.getPatient().getProblem();
                 row[3] = request.getReceiver();
                 row[4] = floRequest.getTestResult()== null ? "waiting" : floRequest.getTestResult();
                 model.addRow(row);
@@ -87,7 +87,7 @@ public class WelfareFLOWomenJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Patient Name", "Patient Age", "Disease", "Reciever", "Result"
+                "Patient Name", "Patient Age", "Problem", "Reciever", "Result"
             }
         ));
         jScrollPane1.setViewportView(tblwork);

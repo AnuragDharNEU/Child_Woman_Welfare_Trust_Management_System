@@ -50,8 +50,8 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btnManageRequest = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnFunds = new javax.swing.JButton();
+        btnSats = new javax.swing.JButton();
 
         lblEntName.setText("Ent Name");
 
@@ -66,9 +66,14 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("jButton1");
+        btnFunds.setText("Manage Funds");
 
-        jButton2.setText("jButton2");
+        btnSats.setText("Statistics");
+        btnSats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSatsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -83,8 +88,8 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(lblEntName))
                     .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnFunds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(248, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,9 +104,9 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(btnManageRequest)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnFunds)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnSats)
                 .addContainerGap(133, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -113,11 +118,18 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageRequestActionPerformed
 
+    private void btnSatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSatsActionPerformed
+        WelfareBLOManageStatsJPanel welfareBLOManageStatsJPanel=new WelfareBLOManageStatsJPanel(userProcessContainer, enterprise,organization, system, account);
+        userProcessContainer.add("welfareBLOManageStatsJPanel",welfareBLOManageStatsJPanel);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnSatsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFunds;
     private javax.swing.JButton btnManageRequest;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnSats;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblEntName;

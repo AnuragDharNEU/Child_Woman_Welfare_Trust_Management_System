@@ -183,17 +183,17 @@ public class WelfareFLOWorkRequestJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(lblEntName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnAssign)
                     .addComponent(btnProceed))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -205,11 +205,15 @@ public class WelfareFLOWorkRequestJPanel extends javax.swing.JPanel {
         }
         
         WelfareFLOWorkRequest request = (WelfareFLOWorkRequest)tblWork.getValueAt(selectedRow, 0);
-
+        if(request.getReceiver().equals(account)){
         ProcessFLOWorkRequestJPanel processFLOWorkRequestJPanel = new ProcessFLOWorkRequestJPanel(userProcessContainer, request,(WelfareOrganization)organization,account,enterprise);
         userProcessContainer.add("processFLOWorkRequestJPanel", processFLOWorkRequestJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
+        }
+        else{
+            //Show message
+        }
     }//GEN-LAST:event_btnProceedActionPerformed
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
