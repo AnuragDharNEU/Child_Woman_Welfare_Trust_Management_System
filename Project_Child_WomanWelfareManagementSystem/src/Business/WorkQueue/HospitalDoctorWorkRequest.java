@@ -5,6 +5,8 @@
  */
 package Business.WorkQueue;
 
+import Business.Patient.Patient;
+
 /**
  *
  * @author user
@@ -12,6 +14,7 @@ package Business.WorkQueue;
 public class HospitalDoctorWorkRequest extends WorkRequest {
     
     private String result;
+    private Patient patient;
 
     public String getResult() {
         return result;

@@ -48,8 +48,10 @@ public class WelfareSLOAssignWorkForFLOJPanel extends javax.swing.JPanel {
     private void populateCombo(){
         ddlPatient.removeAllItems();
         for(WelfareCentre centre :network.getCentreDir().getWelfareCentreList()){
-            for(Patient pat :centre.getPatientList()){
-                ddlPatient.addItem(pat);
+            if(centre.getSupervisor().equals(account.getEmployee())){
+                for(Patient pat :centre.getPatientList()){
+                    ddlPatient.addItem(pat);
+                }
             }
         }
     }

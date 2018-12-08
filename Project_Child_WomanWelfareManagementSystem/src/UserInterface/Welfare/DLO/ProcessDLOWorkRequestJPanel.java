@@ -43,7 +43,7 @@ public class ProcessDLOWorkRequestJPanel extends javax.swing.JPanel {
     private void populateOrgCombo(){
         ddlOrgType.removeAllItems();
         for(Type type : WelfareOrganization.Type.values()){
-            if(!type.equals(WelfareOrganization.Type.Admin))
+            if(type.equals(WelfareOrganization.Type.SLO))
             ddlOrgType.addItem(type);
         }
     }

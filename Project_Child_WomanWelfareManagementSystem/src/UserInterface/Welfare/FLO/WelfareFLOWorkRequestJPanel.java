@@ -6,16 +6,21 @@
 package UserInterface.Welfare.FLO;
 
 import Business.EcoSystem;
+import Business.Employee.Employee;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Organization.WelfareFLOOrganization;
 import Business.Organization.WelfareOrganization;
+import Business.Patient.Patient;
 import Business.UserAccount.UserAccount;
+import Business.WelfareCentre.WelfareCentre;
 import Business.WorkQueue.WelfareBLOWorkRequest;
 import Business.WorkQueue.WelfareFLOWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,6 +38,7 @@ public class WelfareFLOWorkRequestJPanel extends javax.swing.JPanel {
     WelfareEnterprise enterprise;
     Organization organization;
     UserAccount account;
+    Network network;
     public WelfareFLOWorkRequestJPanel(JPanel userProcessContainer, WelfareEnterprise enterprise, Organization organization,EcoSystem system, UserAccount account) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -41,21 +47,47 @@ public class WelfareFLOWorkRequestJPanel extends javax.swing.JPanel {
         this.organization=organization;
         this.account= account;
         lblEntName.setText(enterprise.getName());
+        network = GetNetwork();
         PopulateTable();
         PopulateAssignedTable();
+    }
+    private Network GetNetwork(){
+        Network thisNetwork = null;
+        for(Network net: system.getNetworkList()){
+            for(WelfareEnterprise wel : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
+                if(enterprise.equals(wel)){
+                    thisNetwork= net;
+                }
+            }
+        }
+        return thisNetwork;
     }
     public void PopulateTable(){
         DefaultTableModel model = (DefaultTableModel) tblWork.getModel();
         model.setRowCount(0);
+        WelfareCentre myCentre = null;
+        Employee sender= new Employee();
+            for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
+                for(Employee emp : centre.getEmployeeList()){
+                    if(emp.getId()==(account.getEmployee().getId())){
+                        sender = centre.getSupervisor();
+                        myCentre= centre;
+                    }
+                }
+            }
         WelfareFLOOrganization org = (WelfareFLOOrganization) organization;
-        for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[5];
-            row[0] = request;
-            row[1] = request.getSender();
-            row[2] = request.getStatus();
-            row[3] = request.getReceiver();
-            row[4] = ((WelfareFLOWorkRequest) request).getPatient();
-            model.addRow(row);
+            for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
+            for(Patient pat :myCentre.getPatientList()){
+                if(((WelfareFLOWorkRequest) request).getPatient() == pat){
+                    Object[] row = new Object[5];
+                    row[0] = request;
+                    row[1] = request.getSender();
+                    row[2] = request.getStatus();
+                    row[3] = request.getReceiver();
+                    row[4] = ((WelfareFLOWorkRequest) request).getPatient();
+                    model.addRow(row);
+                }
+            }
         }
     }
     public void PopulateAssignedTable(){
@@ -201,32 +233,56 @@ public class WelfareFLOWorkRequestJPanel extends javax.swing.JPanel {
         int selectedRow = tblWork.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select a row");
             return;
         }
         
         WelfareFLOWorkRequest request = (WelfareFLOWorkRequest)tblWork.getValueAt(selectedRow, 0);
-        if(request.getReceiver().equals(account)){
+        if(request.getReceiver()==(account)){
         ProcessFLOWorkRequestJPanel processFLOWorkRequestJPanel = new ProcessFLOWorkRequestJPanel(userProcessContainer, request,(WelfareOrganization)organization,account,enterprise);
         userProcessContainer.add("processFLOWorkRequestJPanel", processFLOWorkRequestJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
         }
         else{
-            //Show message
+            JOptionPane.showMessageDialog(null, "This request is not assigned to you. Assign it to you before proceeding");
         }
     }//GEN-LAST:event_btnProceedActionPerformed
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
         int selectedRow = tblWork.getSelectedRow();
-        
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select a row");
             return;
         }
-        
+        boolean flag = true;
+        WelfareFLOOrganization org = (WelfareFLOOrganization) organization;
+        for(WorkRequest workRequest : org.getWorkQueue().getWorkRequestList()){
+            if(workRequest.getReceiver()==account && !workRequest.getStatus().equalsIgnoreCase("completed")){
+                flag = false;
+                break;
+            }
+        }
         WorkRequest request = (WorkRequest)tblWork.getValueAt(selectedRow, 0);
-        request.setReceiver(account);
-        request.setStatus("Pending");
-        PopulateTable();
+        if(flag){
+            if(!request.getStatus().equalsIgnoreCase("completed")){
+                if(!request.getStatus().equalsIgnoreCase("Pending") && request.getReceiver()== null){
+                    request.setReceiver(account);
+                    request.setStatus("Pending");
+                    PopulateTable();
+                }
+                else{
+                JOptionPane.showMessageDialog(null, "Someone else is working on this request");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "This request is completed. Select some other request");
+            }
+                
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "You have assigned task. Please complete before taking another");
+        }
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
