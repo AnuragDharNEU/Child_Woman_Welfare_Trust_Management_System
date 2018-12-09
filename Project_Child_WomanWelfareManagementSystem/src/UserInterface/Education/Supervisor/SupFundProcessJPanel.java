@@ -199,6 +199,7 @@ import javax.swing.JPanel;
             reqBLO.setMessage(message);
             reqBLO.setSender(userAccount);
             reqBLO.setStatus("Sent");
+            reqBLO.setFund(request.getFund());
             org.getWorkQueue().getWorkRequestList().add(reqBLO);
             userAccount.getWorkQueue().getWorkRequestList().add(reqBLO);
         
