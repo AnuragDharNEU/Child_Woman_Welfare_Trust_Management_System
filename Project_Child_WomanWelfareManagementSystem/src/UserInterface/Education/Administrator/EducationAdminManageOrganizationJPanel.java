@@ -181,19 +181,27 @@ public class EducationAdminManageOrganizationJPanel extends javax.swing.JPanel{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrganizationActionPerformed
-        // TODO add your handling code here:
+        boolean flag = true;
         try
         {
         String type = dropdownEduAdminOrganization.getSelectedItem().toString();
         type = type.concat(" Organization");
        
-            
+            for(EducationOrganization edOrg :enterprise.getEducationOrganizationDirectory().getEducationOrganizationList()){
+                if(edOrg.getName().equals(type)){
+                    flag = false;
+                }
+            }
+            if(flag){
                 EducationOrganization ed= enterprise.getEducationOrganizationDirectory().createEducationOrganization(type);
                 ed.setName(type);
-                
-            
-        populateTable();
-        JOptionPane.showMessageDialog(null, "Organization Created Successfully");
+                Logger.getInstance().writeLogs(type + " Organization Created Successfully");
+                JOptionPane.showMessageDialog(null, "Organization Created Successfully");
+                populateTable();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Organization already created. Try adding some other organization.");
+            }
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);

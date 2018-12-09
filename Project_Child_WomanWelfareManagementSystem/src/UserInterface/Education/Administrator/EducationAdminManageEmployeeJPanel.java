@@ -12,6 +12,7 @@ import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.EducationOrganization;
 import Business.Organization.Organization;
+import Business.Organization.WelfareOrganization;
 import UserInterface.SystemAdmin.SystemAdminWorkAreaJPanel;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -116,6 +117,12 @@ public class EducationAdminManageEmployeeJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
 
         jLabel1.setText("Organization:-");
+
+        dropdownOrganization.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dropdownOrganizationActionPerformed(evt);
+            }
+        });
 
         tblOrganization.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -256,6 +263,18 @@ public class EducationAdminManageEmployeeJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void dropdownOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropdownOrganizationActionPerformed
+        try{
+            EducationOrganization organization = (EducationOrganization) dropdownOrganization.getSelectedItem();
+            if (organization != null){
+                populateTable(organization);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
+    }//GEN-LAST:event_dropdownOrganizationActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
