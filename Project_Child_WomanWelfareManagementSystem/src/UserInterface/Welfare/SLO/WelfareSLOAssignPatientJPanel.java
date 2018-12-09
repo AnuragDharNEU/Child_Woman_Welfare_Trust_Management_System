@@ -15,6 +15,7 @@ import Business.UserAccount.UserAccount;
 import Business.WelfareCentre.WelfareCentre;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -88,6 +89,8 @@ public class WelfareSLOAssignPatientJPanel extends javax.swing.JPanel {
         txtAge = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
         lblEntName.setText("Ent Name");
 
         jLabel2.setText("Enterprise");
@@ -143,7 +146,7 @@ public class WelfareSLOAssignPatientJPanel extends javax.swing.JPanel {
                             .addComponent(ddlCentres, 0, 100, Short.MAX_VALUE)
                             .addComponent(txtName)
                             .addComponent(txtAge))))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addGap(172, 172, 172))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,20 +173,31 @@ public class WelfareSLOAssignPatientJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnCreate))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGap(101, 101, 101))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         try{
             String patName = txtName.getText();
-            int patAge = Integer.valueOf(txtAge.getText());
+            String age = txtAge.getText();
+            if(!patName.trim().isEmpty() && !age.trim().isEmpty()){
+            int patAge = Integer.valueOf(age);
             Patient pat = network.getPatientDir().AddPatient(patName, patAge);
             WelfareCentre welfCentre = (WelfareCentre)ddlCentres.getSelectedItem();
             for(WelfareCentre centre :network.getCentreDir().getWelfareCentreList()){
                 if((welfCentre.equals(centre)))
                 centre.AddPatient(pat);
+                Logger.getInstance().writeLogs("Patient added.");
+                JOptionPane.showMessageDialog(null, "Patient added.");
             }
+            }
+            else{
+                 JOptionPane.showMessageDialog(null, "Please enter all the values","Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        catch(NumberFormatException ex){
+                 JOptionPane.showMessageDialog(null, "Please enter valid value for age","Error",JOptionPane.ERROR_MESSAGE);
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);

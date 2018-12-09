@@ -53,6 +53,8 @@ public class WelfareSLOWorkAreaJPanel extends javax.swing.JPanel {
         btnAddPatient = new javax.swing.JButton();
         btnFLOPat = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
         jLabel2.setText("Enterprise");
 
         lblEntName.setText("Ent Name");
@@ -95,7 +97,7 @@ public class WelfareSLOWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(btnFLOPat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAddPatient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addGap(241, 241, 241))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +114,7 @@ public class WelfareSLOWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(btnAddPatient)
                 .addGap(18, 18, 18)
                 .addComponent(btnFLOPat)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addGap(132, 132, 132))
         );
     }// </editor-fold>//GEN-END:initComponents
 

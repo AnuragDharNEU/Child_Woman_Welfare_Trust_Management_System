@@ -53,10 +53,15 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
         btnFunds = new javax.swing.JButton();
         btnSats = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
+        lblEntName.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblEntName.setText("Ent Name");
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Enterprise");
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Block Level Officer Work Area");
 
         btnManageRequest.setText("Manage Request");
@@ -67,6 +72,11 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnFunds.setText("Manage Funds");
+        btnFunds.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFundsActionPerformed(evt);
+            }
+        });
 
         btnSats.setText("Statistics");
         btnSats.addActionListener(new java.awt.event.ActionListener() {
@@ -80,34 +90,34 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(300, 300, 300)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(lblEntName))
-                    .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFunds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(248, Short.MAX_VALUE))
+                    .addComponent(btnSats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lblEntName))
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addComponent(btnManageRequest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnFunds)
                 .addGap(18, 18, 18)
                 .addComponent(btnSats)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addGap(87, 87, 87))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,6 +134,13 @@ public class WelfareBLOWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnSatsActionPerformed
+
+    private void btnFundsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFundsActionPerformed
+       WelfareBLOManageFundWorkRequest welfareBLOManageFundWorkRequest=new WelfareBLOManageFundWorkRequest(userProcessContainer, enterprise,organization, system, account);
+        userProcessContainer.add("welfareBLOManageFundWorkRequest",welfareBLOManageFundWorkRequest);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnFundsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

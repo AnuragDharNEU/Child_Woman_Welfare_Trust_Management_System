@@ -84,6 +84,8 @@ public class WelfareFLOChildJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         btnProceed = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
         jLabel1.setText("Field Level Officer Child Care");
 
         jLabel2.setText("Enterprise");
@@ -152,7 +154,7 @@ public class WelfareFLOChildJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnProceed))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addGap(144, 144, 144))
         );
     }// </editor-fold>//GEN-END:initComponents
 

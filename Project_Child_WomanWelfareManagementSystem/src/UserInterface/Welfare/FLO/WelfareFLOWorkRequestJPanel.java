@@ -137,6 +137,8 @@ public class WelfareFLOWorkRequestJPanel extends javax.swing.JPanel {
         tblAssigned = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
         jLabel1.setText("Field Level Officer Work Request");
 
         jLabel2.setText("Enterprise");
@@ -214,7 +216,7 @@ public class WelfareFLOWorkRequestJPanel extends javax.swing.JPanel {
                                         .addGap(72, 72, 72)
                                         .addComponent(btnProceed))
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +238,7 @@ public class WelfareFLOWorkRequestJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(56, 56, 56))
         );
     }// </editor-fold>//GEN-END:initComponents
 

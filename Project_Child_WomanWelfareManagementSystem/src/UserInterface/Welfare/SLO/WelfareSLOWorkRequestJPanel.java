@@ -15,6 +15,7 @@ import Business.WorkQueue.WelfareSLOWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -86,6 +87,8 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
         txtResult = new javax.swing.JTextField();
         lblResult = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 102, 102));
 
         jLabel2.setText("Enterprise");
 
@@ -187,7 +190,7 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
                     .addComponent(lblResult))
                 .addGap(18, 18, 18)
                 .addComponent(btnSubmit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -203,6 +206,7 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
             if(!request.getStatus().equalsIgnoreCase("completed") && !request.getStatus().equalsIgnoreCase("pending")){
                 request.setReceiver(account);
                 request.setStatus("Pending");
+                JOptionPane.showMessageDialog(null, "Request Assigned to you");
                 PopulateTable();
             }
         }
@@ -227,7 +231,7 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
                lblResult.setEnabled(true);
             }
             else{
-                //Jpanel
+                JOptionPane.showMessageDialog(null, "Not Assigned to you","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
         catch(Exception ex){
@@ -240,6 +244,7 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
             SLOrequest.setTestResult(txtResult.getText());
             SLOrequest.setStatus("Completed");
             PopulateTable();
+            JOptionPane.showMessageDialog(null, "Request completed successfully");
        }
        catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);

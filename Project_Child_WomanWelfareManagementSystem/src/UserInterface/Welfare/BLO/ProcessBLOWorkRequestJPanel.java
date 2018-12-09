@@ -22,6 +22,7 @@ import Business.WorkQueue.WelfareBLOWorkRequest;
 import UserInterface.Education.Supervisor.ManageRequestSuvPanel;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -85,6 +86,9 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
         btnAssign = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel1.setText("Assign To");
 
         ddlAssign.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -94,6 +98,7 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Message");
 
         btnAssign.setText("Assign");
@@ -115,21 +120,21 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(96, 96, 96)
-                        .addComponent(btnAssign))
+                .addGap(300, 300, 300)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtMessage)
-                            .addComponent(ddlAssign, 0, 120, Short.MAX_VALUE))))
-                .addContainerGap(160, Short.MAX_VALUE))
+                            .addComponent(ddlAssign, 0, 130, Short.MAX_VALUE)
+                            .addComponent(txtMessage)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(116, 116, 116)
+                        .addComponent(btnAssign)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +151,7 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAssign)
                     .addComponent(btnBack))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addGap(116, 116, 116))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -155,53 +160,57 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
                 SupervisorWorkRequest supRequest = new SupervisorWorkRequest();
                 HospitalDoctorWorkRequest hosRequest = new HospitalDoctorWorkRequest();
                 String message = txtMessage.getText();
-                bloRequest.setStatus("Completed");
-
-
-                EducationEnterprise selectedEdOrg=null;
-                HospitalEnterprise selectedHosOrg=null;
-                if(ddlAssign.getSelectedItem() instanceof EducationEnterprise){
-                    selectedEdOrg = (EducationEnterprise)ddlAssign.getSelectedItem();
-                    bloRequest.setTestResult("Sent to "+selectedEdOrg);
-                }
-                if(ddlAssign.getSelectedItem() instanceof HospitalEnterprise){
-                    selectedHosOrg = (HospitalEnterprise)ddlAssign.getSelectedItem();
-                    bloRequest.setTestResult("Sent to "+selectedHosOrg);
-                }
-                EducationOrganization org = null;
-                if(selectedEdOrg!= null){
-                    for (EducationOrganization organization : selectedEdOrg.getEducationOrganizationDirectory().getEducationOrganizationList()){
-                        if (organization instanceof EducationSupervisorOrganization){
-                            org = organization;
-                            break;
+                if(!message.trim().isEmpty()){
+                    bloRequest.setStatus("Completed");
+                    EducationEnterprise selectedEdOrg=null;
+                    HospitalEnterprise selectedHosOrg=null;
+                    if(ddlAssign.getSelectedItem() instanceof EducationEnterprise){
+                        selectedEdOrg = (EducationEnterprise)ddlAssign.getSelectedItem();
+                        bloRequest.setTestResult("Sent to "+selectedEdOrg);
+                    }
+                    if(ddlAssign.getSelectedItem() instanceof HospitalEnterprise){
+                        selectedHosOrg = (HospitalEnterprise)ddlAssign.getSelectedItem();
+                        bloRequest.setTestResult("Sent to "+selectedHosOrg);
+                    }
+                    EducationOrganization org = null;
+                    if(selectedEdOrg!= null){
+                        for (EducationOrganization organization : selectedEdOrg.getEducationOrganizationDirectory().getEducationOrganizationList()){
+                            if (organization instanceof EducationSupervisorOrganization){
+                                org = organization;
+                                break;
+                            }
+                        }
+                        if (org!=null){
+                            supRequest.setMessage(message);
+                            supRequest.setSender(userAccount);
+                            supRequest.setStatus("Sent");
+                            org.getWorkQueue().getWorkRequestList().add(supRequest);
+                            userAccount.getWorkQueue().getWorkRequestList().add(supRequest);
+                            Logger.getInstance().writeLogs("Supervisor Work request created");
+                            JOptionPane.showMessageDialog(null, "Supervisor Work request created");
                         }
                     }
-                    if (org!=null){
-                        supRequest.setMessage(message);
-                        supRequest.setSender(userAccount);
-                        supRequest.setStatus("Sent");
-                        org.getWorkQueue().getWorkRequestList().add(supRequest);
-                        userAccount.getWorkQueue().getWorkRequestList().add(supRequest);
-                        Logger.getInstance().writeLogs("Supervisor Work request created");
-                    }
-                }
-                HospitalOrganization orgHos = null;
-                if(selectedHosOrg!= null){
-                    for (HospitalOrganization organization : selectedHosOrg.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
-                        if (organization instanceof HospitalDoctorOrganization){
-                            orgHos = organization;
-                            break;
+                    HospitalOrganization orgHos = null;
+                    if(selectedHosOrg!= null){
+                        for (HospitalOrganization organization : selectedHosOrg.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
+                            if (organization instanceof HospitalDoctorOrganization){
+                                orgHos = organization;
+                                break;
+                            }
+                        }
+                        if (orgHos!=null){
+                            hosRequest.setMessage(message);
+                            hosRequest.setSender(userAccount);
+                            hosRequest.setStatus("Sent");
+                            hosRequest.setPatient(bloRequest.getPatient());
+                            orgHos.getWorkQueue().getWorkRequestList().add(hosRequest);
+                            userAccount.getWorkQueue().getWorkRequestList().add(hosRequest);
+                            Logger.getInstance().writeLogs("Doctor Work request created");
                         }
                     }
-                    if (orgHos!=null){
-                        hosRequest.setMessage(message);
-                        hosRequest.setSender(userAccount);
-                        hosRequest.setStatus("Sent");
-                        hosRequest.setPatient(bloRequest.getPatient());
-                        orgHos.getWorkQueue().getWorkRequestList().add(hosRequest);
-                        userAccount.getWorkQueue().getWorkRequestList().add(hosRequest);
-                        Logger.getInstance().writeLogs("Doctor Work request created");
-                    }
+                }
+                else{
+                     JOptionPane.showMessageDialog(null, "Please enter message","Error",JOptionPane.ERROR_MESSAGE);
                 }
             }
             catch(Exception ex){

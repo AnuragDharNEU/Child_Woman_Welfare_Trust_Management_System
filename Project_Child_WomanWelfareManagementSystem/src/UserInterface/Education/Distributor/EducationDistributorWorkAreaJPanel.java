@@ -111,8 +111,8 @@ public class EducationDistributorWorkAreaJPanel extends javax.swing.JPanel {
     private void btnRequestFundsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestFundsActionPerformed
         try
         {
-        DistFundRequestJPanel manageReq = new DistFundRequestJPanel(userProcessContainer, system, enterprise, userAccount,organization);
-        userProcessContainer.add("manageReq", manageReq);
+        DistFundRequestJPanel managReq = new DistFundRequestJPanel(userProcessContainer, system, enterprise, userAccount,organization);
+        userProcessContainer.add("managReq", managReq);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
         
