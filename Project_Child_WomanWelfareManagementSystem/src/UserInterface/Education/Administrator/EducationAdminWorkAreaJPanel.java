@@ -148,7 +148,7 @@ public class EducationAdminWorkAreaJPanel extends javax.swing.JPanel {
      try
      {
         
-      EducationAdminManageUserJPanel manageRoleJPanel = new EducationAdminManageUserJPanel(userProcessContainer, enterprise);
+      EducationAdminManageUserJPanel manageRoleJPanel = new EducationAdminManageUserJPanel(userProcessContainer, enterprise,ecosystem);
       userProcessContainer.add("manageRoleJPanel", manageRoleJPanel);
       CardLayout layout = (CardLayout) userProcessContainer.getLayout();
       layout.next(userProcessContainer);    

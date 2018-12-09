@@ -5,6 +5,7 @@
  */
 package UserInterface.Education.Administrator;
 
+import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.EducationEnterprise;
 import Business.Logger;
@@ -27,12 +28,13 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
      * Creates new form EducationAdminManageUserJPanel
      */
      private JPanel userProcessContainer;
-    
+    EcoSystem system;
     private EducationEnterprise enterprise;
-    public EducationAdminManageUserJPanel(JPanel userProcessContainer, EducationEnterprise enterprise) {
+    public EducationAdminManageUserJPanel(JPanel userProcessContainer, EducationEnterprise enterprise, EcoSystem system) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise=enterprise;
+        this.system = system;
         populateOrganizationComboBox();
         populateTable();
     }
@@ -201,7 +203,7 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGap(59, 59, 59)
                             .addComponent(btnBack)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(289, 289, 289)
                             .addComponent(btnCreate))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGap(44, 44, 44)
@@ -301,8 +303,7 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
 
                 String username=txtUsername.getText();
                 String Password=String.valueOf(txtPassword.getPassword());
-
-                if(organization.getUserAccountDirectory().checkIfUsernameIsUnique(username)){
+                if(system.checkIfUserIsUnique(username)){
                     organization.getUserAccountDirectory().createUserAccount(username, Password, emp, role);
                     Logger.getInstance().writeLogs("User Created");
                     JOptionPane.showMessageDialog(null, "User Created Successfully");
