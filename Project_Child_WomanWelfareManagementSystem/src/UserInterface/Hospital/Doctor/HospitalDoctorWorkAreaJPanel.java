@@ -44,19 +44,24 @@ public class HospitalDoctorWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnManageRequest = new javax.swing.JButton();
+        btnAssignedWork = new javax.swing.JButton();
 
         jLabel1.setText("Doctor's Work Area");
 
-        jButton1.setText("Manage Request");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnManageRequest.setText("Manage Request");
+        btnManageRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnManageRequestActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Assigned Work");
+        btnAssignedWork.setText("Assigned Work");
+        btnAssignedWork.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignedWorkActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -66,8 +71,8 @@ public class HospitalDoctorWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(125, 125, 125)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAssignedWork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(102, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -76,24 +81,31 @@ public class HospitalDoctorWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(54, 54, 54)
                 .addComponent(jLabel1)
                 .addGap(45, 45, 45)
-                .addComponent(jButton1)
+                .addComponent(btnManageRequest)
                 .addGap(31, 31, 31)
-                .addComponent(jButton2)
+                .addComponent(btnAssignedWork)
                 .addContainerGap(85, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnManageRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRequestActionPerformed
         DoctorManageRequestJPanel manageReq = new DoctorManageRequestJPanel(userProcessContainer, system, enterprise, userAccount,organization);
         userProcessContainer.add("manageReq", manageReq);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnManageRequestActionPerformed
+
+    private void btnAssignedWorkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignedWorkActionPerformed
+        DoctorAssignedWorkJPanel manageReq = new DoctorAssignedWorkJPanel(userProcessContainer, system, enterprise, userAccount,organization);
+        userProcessContainer.add("manageReq", manageReq);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnAssignedWorkActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAssignedWork;
+    private javax.swing.JButton btnManageRequest;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

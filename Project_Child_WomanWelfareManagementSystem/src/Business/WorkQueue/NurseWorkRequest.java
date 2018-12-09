@@ -5,10 +5,31 @@
  */
 package Business.WorkQueue;
 
+import Business.Patient.Patient;
+
 /**
  *
  * @author kavit
  */
-public class NurseWorkRequest {
+public class NurseWorkRequest extends WorkRequest {
+    private String result;
+    private Patient patient;
+    
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
     
 }

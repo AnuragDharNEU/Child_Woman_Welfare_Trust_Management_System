@@ -214,6 +214,7 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
                 bloReq.setReferTo(refer);
                 bloReq.setSender(account);
                 bloReq.setStatus("Sent");
+                bloReq.setPatient(p);
 
                 WelfareOrganization org = null;
                 for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){

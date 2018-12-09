@@ -5,6 +5,22 @@
  */
 package UserInterface.Hospital.Doctor;
 
+import Business.EcoSystem;
+import Business.Enterprise.HospitalEnterprise;
+import Business.Logger;
+import Business.Network.Network;
+import Business.Organization.HospitalDoctorOrganization;
+import Business.Organization.HospitalOrganization;
+import Business.Organization.Organization;
+import Business.Patient.Patient;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.HospitalDoctorWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author kavit
@@ -14,8 +30,72 @@ public class DoctorAssignedWorkJPanel extends javax.swing.JPanel {
     /**
      * Creates new form DoctoeAssignedWorkJPanel
      */
-    public DoctorAssignedWorkJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount userAccount;
+    private HospitalEnterprise enterprise;
+    private EcoSystem system;
+    private Organization organization;
+    Network network;
+    public DoctorAssignedWorkJPanel(JPanel userProcessContainer, EcoSystem system, HospitalEnterprise enterprise, UserAccount account,Organization organization) {
         initComponents();
+        this.userProcessContainer=userProcessContainer;
+        this.userAccount=account;
+        this.enterprise=enterprise;
+        this.system=system;
+        this.organization=organization;
+        network = GetNetwork();
+        populateTable();
+        
+    }
+    private Network GetNetwork(){
+        Network thisNetwork = null;
+        for(Network net: system.getNetworkList()){
+            for(HospitalEnterprise wel : net.getEnterpriseDirectory().getHospitalnterpriseList()){
+                if(enterprise.equals(wel)){
+                    thisNetwork= net;
+                }
+            }
+        }
+        return thisNetwork;
+    }
+    
+     public void populateTable(){
+         try{
+            DefaultTableModel model = (DefaultTableModel)workRequestJTable.getModel();
+
+            model.setRowCount(0);
+            HospitalDoctorOrganization hosDocOrg=new HospitalDoctorOrganization();
+            for(HospitalEnterprise hos : network.getEnterpriseDirectory().getHospitalnterpriseList()){
+                for(HospitalOrganization hosOrg : hos.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
+                    if(hosOrg instanceof HospitalDoctorOrganization)
+                    hosDocOrg=(HospitalDoctorOrganization) hosOrg;
+                }
+            }
+            for(WorkRequest request : hosDocOrg. getWorkQueue().getWorkRequestList()){
+
+              Object[] row = new Object[8];
+                row[0] = request;
+                row[1] = request.getReceiver();
+                row[2] = request.getStatus();
+
+                Patient patient = ((HospitalDoctorWorkRequest)request).getPatient();
+                //Remove this check during testing
+                if(patient!=null){
+                row[3] = patient.getName();
+                row[4] = patient.getAge();
+                row[5] = patient.getProblem();
+                row[6] = patient.getServiceProvided();
+                String result=((HospitalDoctorWorkRequest)request).getResult();
+                row[7]= result == null ? "Waiting" : result;
+                model.addRow(row);   
+                }
+
+            }
+         }
+         catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
+    
     }
 
     /**
@@ -30,32 +110,27 @@ public class DoctorAssignedWorkJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        ddlAssign = new javax.swing.JComboBox();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnRequestWork = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         jLabel1.setText("Assigned Work");
 
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Name of Patient", "Age", "Status", "Receiver", "Patient"
+                "Message", "Receiver", "Status", "Patient Name", "Age", "Disease", "Service Provided", "Result"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -68,17 +143,19 @@ public class DoctorAssignedWorkJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(workRequestJTable);
 
-        jLabel2.setText("Patient Details");
+        btnRequestWork.setText("Assign work");
+        btnRequestWork.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestWorkActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("Assign To");
-
-        ddlAssign.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel4.setText("Message");
-
-        jButton1.setText("Assign");
-
-        jButton2.setText("<<Back");
+        btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -90,65 +167,64 @@ public class DoctorAssignedWorkJPanel extends javax.swing.JPanel {
                         .addGap(247, 247, 247)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(63, 63, 63)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(78, 78, 78)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ddlAssign, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(48, 48, 48)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51)
-                                .addComponent(jButton2))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 781, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addGap(255, 255, 255)
+                        .addComponent(btnRequestWork, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 781, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
-                .addComponent(jLabel2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(ddlAssign, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addGap(7, 7, 7)))
+                .addGap(95, 95, 95)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(70, Short.MAX_VALUE))
+                    .addComponent(btnRequestWork)
+                    .addComponent(btnBack))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRequestWorkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestWorkActionPerformed
+        try{
+        int selectedRow = workRequestJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        HospitalDoctorWorkRequest request = (HospitalDoctorWorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
+     
+        request.setStatus("Processing");
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("RequestWorkJPanel", new RequestWorkJPanel(userProcessContainer, system, enterprise, userAccount,organization,request,network));
+        layout.next(userProcessContainer);
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
+        
+    }//GEN-LAST:event_btnRequestWorkActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox ddlAssign;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRequestWork;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
 }

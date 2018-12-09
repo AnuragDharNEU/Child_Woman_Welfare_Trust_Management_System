@@ -23,4 +23,12 @@ public class HospitalDoctorWorkRequest extends WorkRequest {
     public void setResult(String result) {
         this.result = result;
     }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
 }
