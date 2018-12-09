@@ -7,6 +7,7 @@ package UserInterface.Hospital.Doctor;
 
 import Business.EcoSystem;
 import Business.Enterprise.HospitalEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -47,8 +48,12 @@ public class HospitalDoctorWorkAreaJPanel extends javax.swing.JPanel {
         btnManageRequest = new javax.swing.JButton();
         btnAssignedWork = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Doctor's Work Area");
 
+        btnManageRequest.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnManageRequest.setText("Manage Request");
         btnManageRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,6 +61,7 @@ public class HospitalDoctorWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnAssignedWork.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnAssignedWork.setText("Assigned Work");
         btnAssignedWork.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,40 +74,48 @@ public class HospitalDoctorWorkAreaJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
+                .addGap(300, 300, 300)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
                     .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAssignedWork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
                 .addComponent(btnManageRequest)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(btnAssignedWork)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnManageRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRequestActionPerformed
+        try{
         DoctorManageRequestJPanel manageReq = new DoctorManageRequestJPanel(userProcessContainer, system, enterprise, userAccount,organization);
         userProcessContainer.add("manageReq", manageReq);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageRequestActionPerformed
-
+            catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
+    }
     private void btnAssignedWorkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignedWorkActionPerformed
+        try{
         DoctorAssignedWorkJPanel manageReq = new DoctorAssignedWorkJPanel(userProcessContainer, system, enterprise, userAccount,organization);
         userProcessContainer.add("manageReq", manageReq);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAssignedWorkActionPerformed
-
+            catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignedWork;

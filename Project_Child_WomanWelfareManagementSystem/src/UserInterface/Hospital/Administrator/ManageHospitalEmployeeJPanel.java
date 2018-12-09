@@ -8,6 +8,7 @@ package UserInterface.Hospital.Administrator;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.HospitalEnterprise;
+import Business.Logger;
 import Business.Organization.HospitalOrganization;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -34,6 +35,7 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
         populateOrganizationComboBox();
     }
      public void populateOrganizationComboBox(){
+         try{
        
      ddlOrgType.removeAllItems();
                
@@ -43,7 +45,13 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
                     
            }
          }
+         catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
+    }
+     
     public void populateTableOrganizationComboBox(){
+        try{
        
      ddlTableOrgType.removeAllItems();
                
@@ -54,7 +62,13 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
         populateTable(selectedOrganization);
            }
          }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
+    }
+    
     private void populateTable(HospitalOrganization organization){
+        try{
         DefaultTableModel model = (DefaultTableModel) tblOrganization.getModel();
         
         model.setRowCount(0);
@@ -66,6 +80,10 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
                 model.addRow(row);
             }
         }
+    }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
     }
 
     /**
@@ -89,14 +107,21 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         ddlTableOrgType = new javax.swing.JComboBox();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
+        ddlOrgType.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ddlOrgType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Organization Type");
 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setText("Name");
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Manage Hospital Employees");
 
+        tblOrganization.setFont(tblOrganization.getFont().deriveFont((float)11));
         tblOrganization.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -107,6 +132,7 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblOrganization);
 
+        btnSubmit.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +140,7 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,8 +148,10 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setText("Organization Type");
 
+        ddlTableOrgType.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ddlTableOrgType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ddlTableOrgType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,34 +164,38 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(300, 300, 300)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(83, 83, 83)
-                        .addComponent(btnSubmit))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ddlOrgType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(ddlTableOrgType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ddlTableOrgType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(btnBack)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSubmit))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtOrgName, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                .addComponent(ddlOrgType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(76, 76, 76))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(ddlTableOrgType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -173,38 +206,57 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(ddlOrgType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
-                    .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, 19, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnSubmit))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(54, 54, 54))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        HospitalOrganization organization = (HospitalOrganization) ddlOrgType.getSelectedItem();
+        
+        try{
+            {HospitalOrganization organization = (HospitalOrganization) ddlOrgType.getSelectedItem();
         String name = txtOrgName.getText();
 
         organization.getEmployeeDirectory().createEmployee(name);
         populateTable(organization);
     }//GEN-LAST:event_btnSubmitActionPerformed
-
+}
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
+    }
+    
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        userProcessContainer.remove(this);
+        
+        try{
+            userProcessContainer.remove(this);
         CardLayout layout=(CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
-
+            catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
+    }
+    
     private void ddlTableOrgTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlTableOrgTypeActionPerformed
+        try{
         HospitalOrganization organization = (HospitalOrganization) ddlTableOrgType.getSelectedItem();
         if (organization != null){
             populateTable(organization);
         }
     }//GEN-LAST:event_ddlTableOrgTypeActionPerformed
-
+            catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
