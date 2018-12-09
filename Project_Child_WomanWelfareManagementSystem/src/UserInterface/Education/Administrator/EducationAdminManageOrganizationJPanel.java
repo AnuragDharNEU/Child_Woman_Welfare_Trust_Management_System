@@ -7,6 +7,7 @@ package UserInterface.Education.Administrator;
 
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.EducationOrganization;
 import Business.Organization.EducationOrganization.Type;
@@ -14,6 +15,7 @@ import Business.Organization.EducationOrganizationDirectory;
 import UserInterface.SystemAdmin.SystemAdminWorkAreaJPanel;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,17 +40,25 @@ public class EducationAdminManageOrganizationJPanel extends javax.swing.JPanel{
     }
     
     private void populateCombo(){
+        try
+        {
         dropdownEduAdminOrganization.removeAllItems();
         
         for (EducationOrganization.Type type : EducationOrganization.Type.values()){
            if (!type.getValue().equals(EducationOrganization.Type.Admin.getValue()))
                dropdownEduAdminOrganization.addItem(type);
-       }
+          }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
         
     }
 
     
     private void populateTable(){
+        try
+        {
         DefaultTableModel model = (DefaultTableModel) tblEduOrganization.getModel();
         
         model.setRowCount(0);
@@ -62,7 +72,11 @@ public class EducationAdminManageOrganizationJPanel extends javax.swing.JPanel{
                     model.addRow(row);
                     }
                 }
-            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
+      }
     
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always
@@ -80,6 +94,7 @@ public class EducationAdminManageOrganizationJPanel extends javax.swing.JPanel{
         dropdownEduAdminOrganization = new javax.swing.JComboBox();
         btnBack = new javax.swing.JButton();
         btnAddOrganization = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         tblEduOrganization.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,6 +122,9 @@ public class EducationAdminManageOrganizationJPanel extends javax.swing.JPanel{
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setText("Admin Manage Organization Panel");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -114,30 +132,34 @@ public class EducationAdminManageOrganizationJPanel extends javax.swing.JPanel{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
+                        .addGap(154, 154, 154)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(dropdownEduAdminOrganization, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnBack)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAddOrganization))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(75, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnBack)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAddOrganization))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(37, 37, 37)
+                .addComponent(jLabel2)
+                .addGap(46, 46, 46)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(dropdownEduAdminOrganization, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(93, 93, 93)
+                .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnAddOrganization))
@@ -160,6 +182,8 @@ public class EducationAdminManageOrganizationJPanel extends javax.swing.JPanel{
 
     private void btnAddOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrganizationActionPerformed
         // TODO add your handling code here:
+        try
+        {
         String type = dropdownEduAdminOrganization.getSelectedItem().toString();
         type = type.concat(" Organization");
        
@@ -169,6 +193,11 @@ public class EducationAdminManageOrganizationJPanel extends javax.swing.JPanel{
                 
             
         populateTable();
+        JOptionPane.showMessageDialog(null, "Organization Created Successfully");
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnAddOrganizationActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -190,6 +219,7 @@ public class EducationAdminManageOrganizationJPanel extends javax.swing.JPanel{
     private javax.swing.JButton btnBack;
     private javax.swing.JComboBox dropdownEduAdminOrganization;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

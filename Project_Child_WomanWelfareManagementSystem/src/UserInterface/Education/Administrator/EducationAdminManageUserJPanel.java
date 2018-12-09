@@ -7,11 +7,13 @@ package UserInterface.Education.Administrator;
 
 import Business.Employee.Employee;
 import Business.Enterprise.EducationEnterprise;
+import Business.Logger;
 import Business.Organization.EducationOrganization;
 import Business.Organization.Organization;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -37,49 +39,71 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
     
     public void populateTable()
     {
+        try
+        {
         
-        DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
-        model.setRowCount(0);
-        
-        for(EducationOrganization organization:enterprise.getEducationOrganizationDirectory().getEducationOrganizationList()){
-            for(UserAccount account : organization.getUserAccountDirectory().getUserAccountList() ) {
-                Object row[] =new Object[2];
-                row[0]=account;
-                row[1]=account.getRole();
-                ((DefaultTableModel) tblUser.getModel()).addRow(row);
-                
+            DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
+            model.setRowCount(0);
+
+            for(EducationOrganization organization:enterprise.getEducationOrganizationDirectory().getEducationOrganizationList()){
+                for(UserAccount account : organization.getUserAccountDirectory().getUserAccountList() ) {
+                    Object row[] =new Object[2];
+                    row[0]=account;
+                    row[1]=account.getRole();
+                    ((DefaultTableModel) tblUser.getModel()).addRow(row);
+
+                }
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
         
     }
     
     
     public void populateOrganizationComboBox() {
-        drpdwnOrganization.removeAllItems();
+        try
+        {
+            drpdwnOrganization.removeAllItems();
 
-        for (EducationOrganization organization : enterprise.getEducationOrganizationDirectory().getEducationOrganizationList()) {
-            if(!organization.getName().equals("Admin Organization"))
-            drpdwnOrganization.addItem(organization);
+            for (EducationOrganization organization : enterprise.getEducationOrganizationDirectory().getEducationOrganizationList()) {
+                if(!organization.getName().equals("Admin Organization"))
+                drpdwnOrganization.addItem(organization);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     
     public void populateRoleComboBox(EducationOrganization organization)  {
-        
-        drpdwnRole.removeAllItems();
-        for(Role role : organization.getSupportedRole()){
-            
-            drpdwnRole.addItem(role);
+        try{
+            drpdwnRole.removeAllItems();
+            for(Role role : organization.getSupportedRole()){
+
+                drpdwnRole.addItem(role);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
        
     }
     
     public void populateEmployeeComboBox(EducationOrganization organization)
     {
+        try
+        {
         drpdwnEmp.removeAllItems();
         for(Employee employee: organization.getEmployeeDirectory().getEmployeeList()){
             
             drpdwnEmp.addItem(employee);
 
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
 
@@ -107,6 +131,7 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
         drpdwnOrganization = new javax.swing.JComboBox();
         drpdwnEmp = new javax.swing.JComboBox();
         drpdwnRole = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
 
         tblUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -148,6 +173,9 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel6.setText("Admin Manage User Panel");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -177,15 +205,20 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
                             .addComponent(btnCreate))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGap(44, 44, 44)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(66, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addComponent(jLabel6)))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(drpdwnOrganization, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -235,30 +268,50 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
 
     private void drpdwnOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpdwnOrganizationActionPerformed
         // TODO add your handling code here:
+        try
+        {
         EducationOrganization organization= (EducationOrganization) drpdwnOrganization.getSelectedItem();
         if(organization != null){
          
         populateEmployeeComboBox(organization);
         populateRoleComboBox(organization);
-            
+        }   
+       }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
         
     }//GEN-LAST:event_drpdwnOrganizationActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
      
-        EducationOrganization organization= (EducationOrganization) drpdwnOrganization.getSelectedItem();
-        Employee emp=(Employee) drpdwnEmp.getSelectedItem();
-        Role role=(Role) drpdwnRole.getSelectedItem();
-        
-        String username=txtUsername.getText();
-        String Password=String.valueOf(txtPassword.getText());
-        
-        if(organization.getUserAccountDirectory().checkIfUsernameIsUnique(username)){
-            organization.getUserAccountDirectory().createUserAccount(username, Password, emp, role);
-            
-        }
+        try
+        {
+            if(txtUsername.getText().trim().isEmpty() || txtPassword.getText().trim().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Please enter username/passsword","Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                EducationOrganization organization= (EducationOrganization) drpdwnOrganization.getSelectedItem();
+                Employee emp=(Employee) drpdwnEmp.getSelectedItem();
+                Role role=(Role) drpdwnRole.getSelectedItem();
+
+                String username=txtUsername.getText();
+                String Password=String.valueOf(txtPassword.getText());
+
+                if(organization.getUserAccountDirectory().checkIfUsernameIsUnique(username)){
+                    organization.getUserAccountDirectory().createUserAccount(username, Password, emp, role);
+                    Logger.getInstance().writeLogs("User Created");
+                    JOptionPane.showMessageDialog(null, "User Created Successfully");
+
+                }
         populateTable();
+        }
+       }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+      }
         
     }//GEN-LAST:event_btnCreateActionPerformed
 
@@ -274,6 +327,7 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

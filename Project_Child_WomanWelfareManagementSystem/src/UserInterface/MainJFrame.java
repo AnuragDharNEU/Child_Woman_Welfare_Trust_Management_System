@@ -68,6 +68,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel1.setText("UserName");
 
         txtUserName.setBackground(new java.awt.Color(0, 0, 0));
+        txtUserName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtUserName.setForeground(new java.awt.Color(255, 255, 255));
         txtUserName.setBorder(null);
 
@@ -90,6 +91,7 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         txtPassword.setBackground(new java.awt.Color(0, 0, 0));
+        txtPassword.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
         txtPassword.setBorder(null);
 
@@ -126,15 +128,15 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(119, 119, 119)
                 .addComponent(jLabel2)
-                .addGap(14, 14, 14)
+                .addGap(18, 18, 18)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(btnLogin)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);

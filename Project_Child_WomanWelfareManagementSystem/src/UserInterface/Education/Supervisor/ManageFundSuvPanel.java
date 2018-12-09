@@ -7,6 +7,7 @@ package UserInterface.Education.Supervisor;
 
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
+import Business.Logger;
 import Business.Organization.EducationDistributorOrganization;
 import Business.Organization.EducationSupervisorOrganization;
 import Business.Organization.Organization;
@@ -16,6 +17,7 @@ import Business.WorkQueue.SupervisorWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,7 +30,7 @@ public class ManageFundSuvPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageFundSuvPanel
      */
-     private JPanel userProcessContainer;
+    private JPanel userProcessContainer;
     private UserAccount userAccount;
     private EducationEnterprise enterprise;
     private EcoSystem system;
@@ -57,6 +59,7 @@ public class ManageFundSuvPanel extends javax.swing.JPanel {
         btnAssignToMe = new javax.swing.JButton();
         btnProceed = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         tblFundSuv.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,6 +92,8 @@ public class ManageFundSuvPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("Manage Fund Supervisor Panel");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,29 +102,34 @@ public class ManageFundSuvPanel extends javax.swing.JPanel {
                 .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(83, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAssignToMe)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBack)
+                            .addComponent(btnAssignToMe))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnProceed)
                         .addGap(70, 70, 70))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(191, 191, 191)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel1)
+                .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAssignToMe)
-                    .addComponent(btnProceed))
-                .addGap(63, 63, 63)
+                    .addComponent(btnProceed)
+                    .addComponent(btnAssignToMe))
+                .addGap(40, 40, 40)
                 .addComponent(btnBack)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -156,25 +166,62 @@ public class ManageFundSuvPanel extends javax.swing.JPanel {
     }
     private void btnAssignToMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignToMeActionPerformed
         // TODO add your handling code here:
+        try{
         int selectedRow = tblFundSuv.getSelectedRow();
 
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select a row");
             return;
         }
 
+        boolean flag = true;
+        EducationSupervisorOrganization org=(EducationSupervisorOrganization) organization;
+         for(WorkRequest workRequest : org.getWorkQueue().getWorkRequestList()){
+                if(workRequest.getReceiver()==userAccount && !workRequest.getStatus().equalsIgnoreCase("completed")){
+                    flag = false;
+                    break;
+                }
+            }
+         
         WorkRequest request = (WorkRequest)tblFundSuv.getValueAt(selectedRow, 0);
+        if(flag){
+                if(!request.getStatus().equalsIgnoreCase("completed")){
+                    if(!request.getStatus().equalsIgnoreCase("Pending") && request.getReceiver()== null){
         request.setReceiver(userAccount);
         request.setStatus("Pending");
         populateTable();
+        JOptionPane.showMessageDialog(null, "Request Assigned");
+        Logger.getInstance().writeLogs("RequestAssigned");
+        }
+                    else{
+                    JOptionPane.showMessageDialog(null, "Someone else is working on this request");
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "This request is completed. Select some other request");
+                }
+
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "You have assigned task. Please complete before taking another");
+            }       
+                    
+         }            
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
       
 
     }//GEN-LAST:event_btnAssignToMeActionPerformed
 
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
         // TODO add your handling code here:
+        try{
+        
         int selectedRow = tblFundSuv.getSelectedRow();
 
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select a row");
             return;
         }
         SupervisorWorkRequest request = (SupervisorWorkRequest)tblFundSuv.getValueAt(selectedRow, 0);
@@ -183,6 +230,11 @@ public class ManageFundSuvPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("SupFundProcessJPanel", new SupFundProcessJPanel(userProcessContainer, system, enterprise, userAccount,organization,request));
         layout.next(userProcessContainer);
+        }
+         catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
+                
     }//GEN-LAST:event_btnProceedActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -200,6 +252,7 @@ public class ManageFundSuvPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAssignToMe;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnProceed;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFundSuv;

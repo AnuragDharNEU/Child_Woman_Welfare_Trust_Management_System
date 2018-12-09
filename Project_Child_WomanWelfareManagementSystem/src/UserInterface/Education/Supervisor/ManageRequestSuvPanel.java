@@ -7,6 +7,8 @@ package UserInterface.Education.Supervisor;
 
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
+import Business.Logger;
+import Business.Organization.EducationDistributorOrganization;
 import Business.Organization.EducationSupervisorOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
@@ -16,6 +18,7 @@ import Business.WorkQueue.TeacherWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -62,6 +65,7 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblManageRequestSuv = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         tblStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,46 +108,48 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(tblManageRequestSuv);
 
+        jLabel1.setText("Manage Request Supervisor Panel");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(btnAssignToMe)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnProceed)
+                .addGap(74, 74, 74))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(btnAssignToMe)
-                        .addGap(268, 268, 268)
-                        .addComponent(btnProceed))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBack)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnBack)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(185, 185, 185)
+                        .addComponent(jLabel1)))
                 .addContainerGap(62, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(59, 59, 59)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(60, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(164, 164, 164)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAssignToMe)
-                    .addComponent(btnProceed))
-                .addGap(42, 42, 42)
+                    .addComponent(btnProceed)
+                    .addComponent(btnAssignToMe))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnBack)
                 .addContainerGap(115, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(38, 38, 38)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(351, Short.MAX_VALUE)))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -152,31 +158,73 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAssignToMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignToMeActionPerformed
         // TODO add your handling code here:
+        try
+        {
         int selectedRow = tblManageRequestSuv.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select a row");
             return;
         }
         
+        boolean flag = true;
+        EducationSupervisorOrganization org=(EducationSupervisorOrganization) organization;
+         for(WorkRequest workRequest : org.getWorkQueue().getWorkRequestList()){
+                if(workRequest!= null && workRequest.getReceiver()==userAccount && !workRequest.getStatus().equalsIgnoreCase("completed")){
+                    flag = false;
+                    break;
+                }
+            }
+        
         WorkRequest request = (WorkRequest)tblManageRequestSuv.getValueAt(selectedRow, 0);
+        if(flag){
+                if(!request.getStatus().equalsIgnoreCase("completed")){
+                    if(!request.getStatus().equalsIgnoreCase("Pending") && request.getReceiver()== null){
         request.setReceiver(userAccount);
         request.setStatus("Pending");
         populateTable();
         poupulateStatusTable();
+        JOptionPane.showMessageDialog(null, "Request Assigned");
+        Logger.getInstance().writeLogs("RequestAssigned");
         
+        }
+        else{
+                    JOptionPane.showMessageDialog(null, "Someone else is working on this request");
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "This request is completed. Select some other request");
+                }
+
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "You have assigned task. Please complete before taking another");
+            }       
+                    
+         }            
+                    
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
         
     }//GEN-LAST:event_btnAssignToMeActionPerformed
     public void populateTable(){
+        try
+        {
         DefaultTableModel model = (DefaultTableModel)tblManageRequestSuv.getModel();
         
         model.setRowCount(0);
@@ -192,11 +240,17 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
             row[4]= result == null ? "Waiting" : result;
             model.addRow(row);   
             
-           
+        }
+        
+        }
+         catch(Exception ex){
+         Logger.getInstance().exceptionLogs(ex);
         }
     }
     public void poupulateStatusTable()
     {
+        try
+        {
         DefaultTableModel model = (DefaultTableModel)tblStatus.getModel();
         
         model.setRowCount(0);
@@ -212,20 +266,37 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
             row[4]= result == null ? "Waiting" : result;
             model.addRow(row); 
         }
+        }
+         catch(Exception ex){
+         Logger.getInstance().exceptionLogs(ex);
+        }
     }
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
         // TODO add your handling code here:
+        try
+        {
         int selectedRow = tblManageRequestSuv.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select a row");
             return;
         }
         SupervisorWorkRequest request = (SupervisorWorkRequest)tblManageRequestSuv.getValueAt(selectedRow, 0);
-     
+        if(request.getReceiver()==(userAccount)){
         request.setStatus("Processing");
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("SupervisorAssignmentJPanel", new SupervisorAssignmentJPanel(userProcessContainer, system, enterprise, userAccount,organization,request));
         layout.next(userProcessContainer);
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(null, "This request is not assigned to you. Assign it to you before proceeding");
+        }
+        
+        }
+        catch(Exception ex){
+         Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnProceedActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -245,6 +316,7 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAssignToMe;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnProceed;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
