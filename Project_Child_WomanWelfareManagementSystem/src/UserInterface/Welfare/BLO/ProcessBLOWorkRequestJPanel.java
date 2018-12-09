@@ -197,6 +197,7 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
                         hosRequest.setMessage(message);
                         hosRequest.setSender(userAccount);
                         hosRequest.setStatus("Sent");
+                        hosRequest.setPatient(bloRequest.getPatient());
                         orgHos.getWorkQueue().getWorkRequestList().add(hosRequest);
                         userAccount.getWorkQueue().getWorkRequestList().add(hosRequest);
                         Logger.getInstance().writeLogs("Doctor Work request created");
@@ -205,7 +206,7 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
             }
             catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
-        }
+            }
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void ddlAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlAssignActionPerformed

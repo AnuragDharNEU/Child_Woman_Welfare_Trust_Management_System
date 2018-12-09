@@ -9,10 +9,9 @@ import Business.Patient.Patient;
 
 /**
  *
- * @author user
+ * @author kavit
  */
-public class HospitalDoctorWorkRequest extends WorkRequest {
-    
+public class LabAssistantWorkRequest extends WorkRequest {
     private String result;
     private Patient patient;
 
@@ -31,4 +30,5 @@ public class HospitalDoctorWorkRequest extends WorkRequest {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+    
 }
