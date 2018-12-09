@@ -7,6 +7,7 @@ package UserInterface.Welfare.FLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.Organization.WelfareOrganization;
 import Business.Patient.Patient;
@@ -43,10 +44,15 @@ public class ProcessFLOWorkRequestJPanel extends javax.swing.JPanel {
         PopulateFields();
     }
     private void PopulateFields(){
-        txtName.setText(request.getPatient().getName());
-        txtAge.setText(Integer.toString(request.getPatient().getAge()));
-        txtName.setEditable(false);
-        txtAge.setEditable(false);
+        try{
+            txtName.setText(request.getPatient().getName());
+            txtAge.setText(Integer.toString(request.getPatient().getAge()));
+            txtName.setEditable(false);
+            txtAge.setEditable(false);
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,10 +157,15 @@ public class ProcessFLOWorkRequestJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
-        Patient p = request.getPatient();
-        p.setFieldOfficer(account);
-        request.setPatient(p);
-        
+        try{
+            Patient p = request.getPatient();
+            p.setFieldOfficer(account);
+            request.setPatient(p);
+            Logger.getInstance().writeLogs("FLO assigns patient");
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnProceedActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

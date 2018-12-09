@@ -7,6 +7,7 @@ package UserInterface.Welfare.SLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Organization.WelfareFLOOrganization;
@@ -46,13 +47,18 @@ public class WelfareSLOAssignWorkForFLOJPanel extends javax.swing.JPanel {
         populateCombo();
     }
     private void populateCombo(){
-        ddlPatient.removeAllItems();
-        for(WelfareCentre centre :network.getCentreDir().getWelfareCentreList()){
-            if(centre.getSupervisor().equals(account.getEmployee())){
-                for(Patient pat :centre.getPatientList()){
-                    ddlPatient.addItem(pat);
+        try{    
+            ddlPatient.removeAllItems();
+            for(WelfareCentre centre :network.getCentreDir().getWelfareCentreList()){
+                if(centre.getSupervisor().equals(account.getEmployee())){
+                    for(Patient pat :centre.getPatientList()){
+                        ddlPatient.addItem(pat);
+                    }
                 }
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     private Network GetNetwork(){
@@ -174,23 +180,28 @@ public class WelfareSLOAssignWorkForFLOJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-        Patient patient = (Patient) ddlPatient.getSelectedItem();
-        String message = txtMessage.getText();
-        WelfareFLOWorkRequest request = new WelfareFLOWorkRequest();
-        request.setPatient(patient);
-        request.setSender(account);
-        request.setMessage(message);
-        request.setStatus("Sent");
-        WelfareOrganization org = null;
-        for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-            if (organization instanceof WelfareFLOOrganization){
-                org = organization;
-                break;
+        try{
+            Patient patient = (Patient) ddlPatient.getSelectedItem();
+            String message = txtMessage.getText();
+            WelfareFLOWorkRequest request = new WelfareFLOWorkRequest();
+            request.setPatient(patient);
+            request.setSender(account);
+            request.setMessage(message);
+            request.setStatus("Sent");
+            WelfareOrganization org = null;
+            for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                if (organization instanceof WelfareFLOOrganization){
+                    org = organization;
+                    break;
+                }
+            }
+            if (org!=null){
+                org.getWorkQueue().getWorkRequestList().add(request);
+                account.getWorkQueue().getWorkRequestList().add(request);
             }
         }
-        if (org!=null){
-            org.getWorkQueue().getWorkRequestList().add(request);
-            account.getWorkQueue().getWorkRequestList().add(request);
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_btnSendActionPerformed
 

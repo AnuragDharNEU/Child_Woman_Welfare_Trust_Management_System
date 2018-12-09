@@ -10,6 +10,7 @@ import Business.Enterprise.EducationEnterprise;
 import Business.Enterprise.Enterprise;
 import Business.Enterprise.HospitalEnterprise;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -37,54 +38,61 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
     }
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) enterpriseJTable.getModel();
-
-        model.setRowCount(0);
-        for (Network network : system.getNetworkList()) {
-            if(!network.getName().equals("System Administrator")){
-                for (WelfareEnterprise enterprise : network.getEnterpriseDirectory().getWelfareEnterpriseList()) {
-                    Object[] row = new Object[3];
-                    row[0] = enterprise.getName();
-                    row[1] = network.getName();
-                    row[2] = enterprise.getEnterpriseType().getValue();
-                    model.addRow(row);
-                }
-                for (EducationEnterprise enterprise : network.getEnterpriseDirectory().getEducationnterpriseList()) {
-                    Object[] row = new Object[3];
-                    row[0] = enterprise.getName();
-                    row[1] = network.getName();
-                    row[2] = enterprise.getEnterpriseType().getValue();
-                    model.addRow(row);
-                }
-                for (HospitalEnterprise enterprise : network.getEnterpriseDirectory().getHospitalnterpriseList()) {
-                    Object[] row = new Object[3];
-                    row[0] = enterprise.getName();
-                    row[1] = network.getName();
-                    row[2] = enterprise.getEnterpriseType().getValue();
-                    model.addRow(row);
+        try{
+            model.setRowCount(0);
+            for (Network network : system.getNetworkList()) {
+                if(!network.getName().equals("System Administrator")){
+                    for (WelfareEnterprise enterprise : network.getEnterpriseDirectory().getWelfareEnterpriseList()) {
+                        Object[] row = new Object[3];
+                        row[0] = enterprise.getName();
+                        row[1] = network.getName();
+                        row[2] = enterprise.getEnterpriseType().getValue();
+                        model.addRow(row);
+                    }
+                    for (EducationEnterprise enterprise : network.getEnterpriseDirectory().getEducationnterpriseList()) {
+                        Object[] row = new Object[3];
+                        row[0] = enterprise.getName();
+                        row[1] = network.getName();
+                        row[2] = enterprise.getEnterpriseType().getValue();
+                        model.addRow(row);
+                    }
+                    for (HospitalEnterprise enterprise : network.getEnterpriseDirectory().getHospitalnterpriseList()) {
+                        Object[] row = new Object[3];
+                        row[0] = enterprise.getName();
+                        row[1] = network.getName();
+                        row[2] = enterprise.getEnterpriseType().getValue();
+                        model.addRow(row);
+                    }
                 }
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     private void populateComboBox() {
         ddlNetwork.removeAllItems();
         ddlType.removeAllItems();
+        try{
+            for (Network network : system.getNetworkList()) {
+                if(!network.getName().equals("System Administrator")){
+                    ddlNetwork.addItem(network);
+                }
+            }
 
-        for (Network network : system.getNetworkList()) {
-            if(!network.getName().equals("System Administrator")){
-                ddlNetwork.addItem(network);
+            for (WelfareEnterprise.EnterpriseType type : WelfareEnterprise.EnterpriseType.values()) {
+                ddlType.addItem(type);
+            }
+            for (EducationEnterprise.EnterpriseType type : EducationEnterprise.EnterpriseType.values()) {
+                ddlType.addItem(type);
+            }
+            for (HospitalEnterprise.EnterpriseType type : HospitalEnterprise.EnterpriseType.values()) {
+                ddlType.addItem(type);
             }
         }
-
-        for (WelfareEnterprise.EnterpriseType type : WelfareEnterprise.EnterpriseType.values()) {
-            ddlType.addItem(type);
-        }
-        for (EducationEnterprise.EnterpriseType type : EducationEnterprise.EnterpriseType.values()) {
-            ddlType.addItem(type);
-        }
-        for (HospitalEnterprise.EnterpriseType type : HospitalEnterprise.EnterpriseType.values()) {
-            ddlType.addItem(type);
-        }
-
+        catch(Exception ex){
+                    Logger.getInstance().exceptionLogs(ex);
+                }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -199,26 +207,31 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        Network network = (Network) ddlNetwork.getSelectedItem();
-        String type = ddlType.getSelectedItem().toString();
+        try{
+            Network network = (Network) ddlNetwork.getSelectedItem();
+            String type = ddlType.getSelectedItem().toString();
 
-        if (network == null || type == null) {
-            JOptionPane.showMessageDialog(null, "Invalid Input!");
-            return;
-        }
+            if (network == null || type == null) {
+                JOptionPane.showMessageDialog(null, "Invalid Input!");
+                return;
+            }
 
-        String name = txtName.getText();
-        if(type.equals(WelfareEnterprise.EnterpriseType.Welfare.getValue())){
-        network.getEnterpriseDirectory().createAndAddWelfareEnterprise(name, type);
+            String name = txtName.getText();
+            if(type.equals(WelfareEnterprise.EnterpriseType.Welfare.getValue())){
+            network.getEnterpriseDirectory().createAndAddWelfareEnterprise(name, type);
+            }
+            if(type.equals(EducationEnterprise.EnterpriseType.Education.getValue())){
+            network.getEnterpriseDirectory().createAndAddEducationEnterprise(name, type);
+            }
+            if(type.equals(HospitalEnterprise.EnterpriseType.Hospital.getValue())){
+            network.getEnterpriseDirectory().createAndAddHospitalEnterprise(name, type);
+            }
+            Logger.getInstance().writeLogs("Enterprise created "+name + " Type "+type);
+            populateTable();
         }
-        if(type.equals(EducationEnterprise.EnterpriseType.Education.getValue())){
-        network.getEnterpriseDirectory().createAndAddEducationEnterprise(name, type);
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
-        if(type.equals(HospitalEnterprise.EnterpriseType.Hospital.getValue())){
-        network.getEnterpriseDirectory().createAndAddHospitalEnterprise(name, type);
-        }
-        populateTable();
-
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

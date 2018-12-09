@@ -8,6 +8,7 @@ package UserInterface.Welfare.DLO;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Organization.WelfareDLOOrganization;
@@ -44,25 +45,34 @@ public class WelfareDLOAddEmployeeJPanel extends javax.swing.JPanel {
         populateCentreCombo();
     }
     private void populateEmpCombo(){
-        ddlEmp.removeAllItems();
-        for(WelfareOrganization org :enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-          for(UserAccount user: org.getUserAccountDirectory().getUserAccountList()){
-              if(user.getRole() instanceof WelfareFLORole)
-                ddlEmp.addItem(user.getEmployee());
+        try{
+            ddlEmp.removeAllItems();
+            for(WelfareOrganization org :enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+              for(UserAccount user: org.getUserAccountDirectory().getUserAccountList()){
+                  if(user.getRole() instanceof WelfareFLORole)
+                    ddlEmp.addItem(user.getEmployee());
+                }
+            }
         }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     private void populateCentreCombo(){
-        ddlCentre.removeAllItems();
-        
-        for(Network net : ecosystem.getNetworkList()){
-            for(WelfareEnterprise ent : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
-                if(ent == enterprise){
-                    for(WelfareCentre centre :net.getCentreDir().getWelfareCentreList()){
-                        ddlCentre.addItem(centre);
+        try{
+            ddlCentre.removeAllItems();
+            for(Network net : ecosystem.getNetworkList()){
+                for(WelfareEnterprise ent : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
+                    if(ent == enterprise){
+                        for(WelfareCentre centre :net.getCentreDir().getWelfareCentreList()){
+                            ddlCentre.addItem(centre);
+                        }
                     }
                 }
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -151,29 +161,41 @@ public class WelfareDLOAddEmployeeJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        WelfareCentre centre = (WelfareCentre) ddlCentre.getSelectedItem();
-        Employee emp = (Employee) ddlEmp.getSelectedItem();
-        centre.AddEmployee(emp);
-        SetWorkToDLO();
+        try{
+            WelfareCentre centre = (WelfareCentre) ddlCentre.getSelectedItem();
+            Employee emp = (Employee) ddlEmp.getSelectedItem();
+            centre.AddEmployee(emp);
+            Logger.getInstance().writeLogs("Employee "+emp.getName()+" added to centre"+centre.getName());
+            SetWorkToDLO();
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnCreateActionPerformed
     private void SetWorkToDLO(){
-        String message = "Assign SLO for Training";
-        
-        WelfareDLOWorkRequest request = new WelfareDLOWorkRequest();
-        request.setMessage(message);
-        request.setSender(account);
-        request.setStatus("Sent");
-        
-        WelfareOrganization org = null;
-        for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-            if (organization instanceof WelfareDLOOrganization){
-                org = organization;
-                break;
+        try{
+            String message = "Assign SLO for Training";
+
+            WelfareDLOWorkRequest request = new WelfareDLOWorkRequest();
+            request.setMessage(message);
+            request.setSender(account);
+            request.setStatus("Sent");
+
+            WelfareOrganization org = null;
+            for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                if (organization instanceof WelfareDLOOrganization){
+                    org = organization;
+                    break;
+                }
+            }
+            if (org!=null){
+                org.getWorkQueue().getWorkRequestList().add(request);
+                account.getWorkQueue().getWorkRequestList().add(request);
+                Logger.getInstance().writeLogs("DLO work request created");
             }
         }
-        if (org!=null){
-            org.getWorkQueue().getWorkRequestList().add(request);
-            account.getWorkQueue().getWorkRequestList().add(request);
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
         
     }

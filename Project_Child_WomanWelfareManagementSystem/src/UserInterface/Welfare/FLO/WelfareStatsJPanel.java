@@ -8,6 +8,7 @@ package UserInterface.Welfare.FLO;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Patient.Patient;
@@ -68,32 +69,42 @@ public class WelfareStatsJPanel extends javax.swing.JPanel {
         return thisNetwork;
     }
     private ArrayList<Patient> GetPatients(){
-        ArrayList<Patient> pat = null;
-        for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
-            for (Employee emp : centre.getEmployeeList()){
-                if(account.getEmployee().getId()==(emp.getId())){
-                   pat = centre.getPatientList();
+            ArrayList<Patient> pat = null;
+        try{
+            for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
+                for (Employee emp : centre.getEmployeeList()){
+                    if(account.getEmployee().getId()==(emp.getId())){
+                       pat = centre.getPatientList();
+                    }
                 }
             }
         }
-        return pat;
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
+            return pat;
     }
     private ArrayList<Patient> GetPatientsUnderMe(){
         ArrayList<Patient> pat = null;
         ArrayList<Patient> patUnderMe = new ArrayList<Patient>();
-        for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
-            for (Employee emp : centre.getEmployeeList()){
-                if(account.getEmployee().getId()==(emp.getId())){
-                   pat = centre.getPatientList();
+        try{
+            for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
+                for (Employee emp : centre.getEmployeeList()){
+                    if(account.getEmployee().getId()==(emp.getId())){
+                       pat = centre.getPatientList();
+                    }
+                }
+            }
+            if(pat!= null){
+                for(Patient p : pat){
+                    if(p.getFieldOfficer() != null && p.getFieldOfficer().getEmployee().getId()==account.getEmployee().getId()){
+                        patUnderMe.add(p);
+                    }
                 }
             }
         }
-        if(pat!= null){
-            for(Patient p : pat){
-                if(p.getFieldOfficer() != null && p.getFieldOfficer().getEmployee().getId()==account.getEmployee().getId()){
-                    patUnderMe.add(p);
-                }
-            }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
         return patUnderMe;
     }
@@ -161,55 +172,65 @@ public class WelfareStatsJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatsActionPerformed
-        DefaultPieDataset pieDataSet = new DefaultKeyedValuesDataset();
-        int child=0, women=0;
-        for(Patient pat :patients){
-            if(pat.getAge()<=6)
-                child++; 
-            else
-                women++;
+        try{
+            DefaultPieDataset pieDataSet = new DefaultKeyedValuesDataset();
+            int child=0, women=0;
+            for(Patient pat :patients){
+                if(pat.getAge()<=6)
+                    child++; 
+                else
+                    women++;
+            }
+            pieDataSet.setValue("Child",child);
+            pieDataSet.setValue("Women",women);
+            JFreeChart chart  = ChartFactory.createPieChart("Pie Chart", pieDataSet,true, true, true);
+            PiePlot p = (PiePlot)chart.getPlot();
+            ChartFrame frame = new ChartFrame("Pie Chart", chart);
+            frame.setVisible(true);
+            frame.setSize(450,500);
         }
-        pieDataSet.setValue("Child",child);
-        pieDataSet.setValue("Women",women);
-        JFreeChart chart  = ChartFactory.createPieChart("Pie Chart", pieDataSet,true, true, true);
-        PiePlot p = (PiePlot)chart.getPlot();
-        ChartFrame frame = new ChartFrame("Pie Chart", chart);
-        frame.setVisible(true);
-        frame.setSize(450,500);
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnStatsActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DefaultPieDataset pieDataSet = new DefaultKeyedValuesDataset();
-        int child=0, women=0;
-        for(Patient pat :patientsUnderMe){
-            if(pat.getAge()<=6)
-                child++; 
-            else
-                women++;
+        try{
+            DefaultPieDataset pieDataSet = new DefaultKeyedValuesDataset();
+            int child=0, women=0;
+            for(Patient pat :patientsUnderMe){
+                if(pat.getAge()<=6)
+                    child++; 
+                else
+                    women++;
+            }
+            pieDataSet.setValue("Child",child);
+            pieDataSet.setValue("Women",women);
+            JFreeChart chart  = ChartFactory.createPieChart("Pie Chart", pieDataSet,true, true, true);
+            PiePlot p = (PiePlot)chart.getPlot();
+            ChartFrame frame = new ChartFrame("Pie Chart", chart);
+            frame.setVisible(true);
+            frame.setSize(450,500);
+            ChartPanel chartPanel = new ChartPanel(chart);
+            frame.add(chartPanel);
+            frame.validate();
+
+            chartPanel.addChartMouseListener(new ChartMouseListener() {
+
+            @Override
+            public void chartMouseClicked(ChartMouseEvent event) {
+                ChartEntity entity = event.getEntity();
+                System.out.println(entity);
+            }
+
+            @Override
+            public void chartMouseMoved(ChartMouseEvent event) {
+            }
+        });
         }
-        pieDataSet.setValue("Child",child);
-        pieDataSet.setValue("Women",women);
-        JFreeChart chart  = ChartFactory.createPieChart("Pie Chart", pieDataSet,true, true, true);
-        PiePlot p = (PiePlot)chart.getPlot();
-        ChartFrame frame = new ChartFrame("Pie Chart", chart);
-        frame.setVisible(true);
-        frame.setSize(450,500);
-        ChartPanel chartPanel = new ChartPanel(chart);
-        frame.add(chartPanel);
-        frame.validate();
-        
-        chartPanel.addChartMouseListener(new ChartMouseListener() {
-
-    @Override
-    public void chartMouseClicked(ChartMouseEvent event) {
-        ChartEntity entity = event.getEntity();
-        System.out.println(entity);
-    }
-
-    @Override
-    public void chartMouseMoved(ChartMouseEvent event) {
-    }
-});
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

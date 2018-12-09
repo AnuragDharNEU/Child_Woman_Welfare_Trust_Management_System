@@ -7,6 +7,7 @@ package UserInterface.Welfare.FLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.Organization.WelfareBLOOrganization;
 import Business.Organization.WelfareOrganization;
@@ -46,13 +47,18 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
         populateFields();
     }
     private void populateFields(){
-        txtName.setText(request.getPatient().getName());
-        txtName.setEnabled(false);
-        ddlRefer.removeAllItems();
-        ddlRefer.addItem("None");
-        ddlRefer.addItem("Hospital");
-        if(request.getPatient().getAge()<=6)
-            ddlRefer.addItem("Education");
+        try{
+            txtName.setText(request.getPatient().getName());
+            txtName.setEnabled(false);
+            ddlRefer.removeAllItems();
+            ddlRefer.addItem("None");
+            ddlRefer.addItem("Hospital");
+            if(request.getPatient().getAge()<=6)
+                ddlRefer.addItem("Education");
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -185,56 +191,68 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        String result = txtResult.getText();
-        String problem = txtProblem.getText();
-        String refer= (String) ddlRefer.getSelectedItem();
-        String service = (String)ddlService.getSelectedItem();
-        Patient p = request.getPatient();
-        p.setProblem(problem);
-        p.setService(service);
-        if(!refer.equals("None"))
-            p.setServiceProvided(refer);
-        else
-            p.setServiceProvided(account.getEmployee().getName());
-        request.setPatient(p);
-        request.setTestResult(result);
-        request.setResolveDate(new Date());
-        request.setStatus("Completed");
-        if(!refer.equals("None")){
-            WelfareBLOWorkRequest bloReq = new WelfareBLOWorkRequest();
-            bloReq.setMessage("Refer to "+ refer);
-            bloReq.setReferTo(refer);
-            bloReq.setSender(account);
-            bloReq.setStatus("Sent");
+        try{
+            String result = txtResult.getText();
+            String problem = txtProblem.getText();
+            String refer= (String) ddlRefer.getSelectedItem();
+            String service = (String)ddlService.getSelectedItem();
+            Patient p = request.getPatient();
+            p.setProblem(problem);
+            p.setService(service);
+            if(!refer.equals("None"))
+                p.setServiceProvided(refer);
+            else
+                p.setServiceProvided(account.getEmployee().getName());
+            request.setPatient(p);
+            request.setTestResult(result);
+            request.setResolveDate(new Date());
+            request.setStatus("Completed");
+            Logger.getInstance().writeLogs("FLO treated patient");
+            if(!refer.equals("None")){
+                WelfareBLOWorkRequest bloReq = new WelfareBLOWorkRequest();
+                bloReq.setMessage("Refer to "+ refer);
+                bloReq.setReferTo(refer);
+                bloReq.setSender(account);
+                bloReq.setStatus("Sent");
 
-            WelfareOrganization org = null;
-            for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-                if (organization instanceof WelfareBLOOrganization){
-                    org = organization;
-                    break;
+                WelfareOrganization org = null;
+                for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                    if (organization instanceof WelfareBLOOrganization){
+                        org = organization;
+                        break;
+                    }
+                }
+                if (org!=null){
+                    org.getWorkQueue().getWorkRequestList().add(bloReq);
+                    account.getWorkQueue().getWorkRequestList().add(bloReq);
+                    Logger.getInstance().writeLogs("BLO Work request created from FLO");
                 }
             }
-            if (org!=null){
-                org.getWorkQueue().getWorkRequestList().add(bloReq);
-                account.getWorkQueue().getWorkRequestList().add(bloReq);
-            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        if(request.getPatient().getAge()<=6){
-        WelfareFLOChildJPanel dwjp = (WelfareFLOChildJPanel) component;
-        dwjp.PopulateTable();
+        try{
+            userProcessContainer.remove(this);
+            Component[] componentArray = userProcessContainer.getComponents();
+            Component component = componentArray[componentArray.length - 1];
+            if(request.getPatient().getAge()<=6){
+            WelfareFLOChildJPanel dwjp = (WelfareFLOChildJPanel) component;
+            dwjp.PopulateTable();
+            }
+            else{
+            WelfareFLOWomenJPanel xyz = (WelfareFLOWomenJPanel) component;
+            xyz.PopulateTable();
+            }
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.previous(userProcessContainer);
         }
-        else{
-        WelfareFLOWomenJPanel xyz = (WelfareFLOWomenJPanel) component;
-        xyz.PopulateTable();
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
 

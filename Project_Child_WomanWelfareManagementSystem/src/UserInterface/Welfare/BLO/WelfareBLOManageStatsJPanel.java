@@ -7,6 +7,7 @@ package UserInterface.Welfare.BLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Patient.Patient;
@@ -50,12 +51,17 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
     }
     private Network GetNetwork(){
         Network thisNetwork = null;
-        for(Network net: system.getNetworkList()){
-            for(WelfareEnterprise wel : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
-                if(enterprise.equals(wel)){
-                    thisNetwork= net;
+        try{
+            for(Network net: system.getNetworkList()){
+                for(WelfareEnterprise wel : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
+                    if(enterprise.equals(wel)){
+                        thisNetwork= net;
+                    }
                 }
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
         return thisNetwork;
     }
@@ -108,33 +114,43 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPatientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientsActionPerformed
-        ArrayList<String> services = new ArrayList<>();
-        for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
-            for(Patient pat :centre.getPatientList()){
-                services.add(pat.getServiceProvided());
+        try{
+            ArrayList<String> services = new ArrayList<>();
+            for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
+                for(Patient pat :centre.getPatientList()){
+                    services.add(pat.getServiceProvided());
+                }
+            }
+            DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+            for(String ser : services){
+            dataSet.setValue(80, "Patients", ser);
             }
         }
-        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-        for(String ser : services){
-        dataSet.setValue(80, "Patients", ser);
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_btnPatientsActionPerformed
 
     private void btnWelfareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWelfareActionPerformed
-        Map<WelfareCentre, Integer> centrePat = new HashMap<WelfareCentre, Integer>();
-        for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
-            centrePat.put(centre, centre.getPatientList().size());
+        try{
+            Map<WelfareCentre, Integer> centrePat = new HashMap<WelfareCentre, Integer>();
+            for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
+                centrePat.put(centre, centre.getPatientList().size());
+            }
+            DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+            for(Map.Entry<WelfareCentre, Integer> entry : centrePat.entrySet()){
+                dataSet.addValue(entry.getValue(), entry.getKey().getName(), "Number of Patients");
+            }
+            JFreeChart chart = ChartFactory.createBarChart("Number Of Patients", "Welfare Centres", "Patients", dataSet, PlotOrientation.VERTICAL, false, true, false);
+            CategoryPlot p = chart.getCategoryPlot();
+            p.setRangeGridlinePaint(Color.black);
+            ChartFrame frame = new ChartFrame("Bar Chart for Welfare Centre", chart);
+            frame.setVisible(true);
+            frame.setSize(450,350);
         }
-        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-        for(Map.Entry<WelfareCentre, Integer> entry : centrePat.entrySet()){
-            dataSet.addValue(entry.getValue(), entry.getKey().getName(), "Number of Patients");
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
-        JFreeChart chart = ChartFactory.createBarChart("Number Of Patients", "Welfare Centres", "Patients", dataSet, PlotOrientation.VERTICAL, false, true, false);
-        CategoryPlot p = chart.getCategoryPlot();
-        p.setRangeGridlinePaint(Color.black);
-        ChartFrame frame = new ChartFrame("Bar Chart for Welfare Centre", chart);
-        frame.setVisible(true);
-        frame.setSize(450,350);
     }//GEN-LAST:event_btnWelfareActionPerformed
 
 

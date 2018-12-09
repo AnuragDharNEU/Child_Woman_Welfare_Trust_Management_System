@@ -10,6 +10,7 @@ import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
 import Business.Enterprise.HospitalEnterprise;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.EducationOrganization;
 import Business.Organization.HospitalOrganization;
@@ -161,6 +162,7 @@ public class MainJFrame extends javax.swing.JFrame {
         HospitalEnterprise hospitalEnterprise=null;
         Organization inOrganization=null;
         boolean flag = false;
+        try{
         if(userName.equals("sysAdmin") && password.equals("sysAdmin"))
         {
             for(Network net: system.getNetworkList())
@@ -266,6 +268,10 @@ public class MainJFrame extends javax.swing.JFrame {
         btnLogout.setEnabled(true);
         txtUserName.setEnabled(false);
         txtPassword.setEnabled(false);
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         btnLogout.setEnabled(false);

@@ -7,6 +7,7 @@ package Business.Role;
 
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import UserInterface.Education.Supervisor.EducationSupervisorWorkAreaJPanel;
@@ -19,6 +20,7 @@ import javax.swing.JPanel;
 public class EducationSupervisorRole extends EducationRole{
     @Override
     public JPanel createEducationWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,EducationEnterprise enterprise, EcoSystem system) {
+        Logger.getInstance().writeLogs(account.getEmployee().getName()+ " Logs in");
         return new EducationSupervisorWorkAreaJPanel(userProcessContainer, system,enterprise,account,organization);
     }
 }

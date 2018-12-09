@@ -9,6 +9,7 @@ import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
 import Business.Enterprise.HospitalEnterprise;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import UserInterface.SystemAdmin.SystemAdminWorkAreaJPanel;
@@ -21,7 +22,9 @@ import javax.swing.JPanel;
 public class SystemAdminRole  extends Role{
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, EcoSystem system) {
+        Logger.getInstance().writeLogs(account.getEmployee().getName()+ " Logs in");
         return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
+        
     }
     @Override
     public JPanel createWelfareWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,WelfareEnterprise enterprise, EcoSystem system) {

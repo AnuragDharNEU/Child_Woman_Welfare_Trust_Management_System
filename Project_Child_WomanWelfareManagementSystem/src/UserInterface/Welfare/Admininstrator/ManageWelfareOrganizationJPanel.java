@@ -7,6 +7,7 @@ package UserInterface.Welfare.Admininstrator;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Organization.WelfareOrganization;
@@ -35,21 +36,31 @@ public class ManageWelfareOrganizationJPanel extends javax.swing.JPanel {
         populateCombo();
     }
     public void populateTable(){
-        DefaultTableModel model = (DefaultTableModel) tblOrganization.getModel();
-        model.setRowCount(0);
-        for(WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-            Object[] row = new Object[2];
-            row[0] = organization.getOrganizationID();
-            row[1] = organization.getName();
-            if(!organization.getName().equals("Admin Organization"))
-            model.addRow(row);
+        try{
+            DefaultTableModel model = (DefaultTableModel) tblOrganization.getModel();
+            model.setRowCount(0);
+            for(WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                Object[] row = new Object[2];
+                row[0] = organization.getOrganizationID();
+                row[1] = organization.getName();
+                if(!organization.getName().equals("Admin Organization"))
+                model.addRow(row);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     private void populateCombo(){
-        ddlOrgType.removeAllItems();
-        for (WelfareOrganization.Type type : WelfareOrganization.Type.values()){
-            if (!type.getValue().equals(WelfareOrganization.Type.Admin.getValue()))
-                ddlOrgType.addItem(type);
+        try{
+            ddlOrgType.removeAllItems();
+            for (WelfareOrganization.Type type : WelfareOrganization.Type.values()){
+                if (!type.getValue().equals(WelfareOrganization.Type.Admin.getValue()))
+                    ddlOrgType.addItem(type);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -138,16 +149,22 @@ public class ManageWelfareOrganizationJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbtnAddActionPerformed
-        String type = ddlOrgType.getSelectedItem().toString()== "DLO"? "District Level Organization":
-                      ddlOrgType.getSelectedItem().toString()== "BLO"? "Block Level Organization":
-                      ddlOrgType.getSelectedItem().toString()== "SLO"? "Sector Level Organization":
-                      ddlOrgType.getSelectedItem().toString()== "FLO"? "Field Level Organization": "Admin";
-         for(Network net : ecosystem.getNetworkList()){
-            for(WelfareEnterprise ent : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
-                WelfareOrganization wel = ent.getWelfareOrganizationDirectory().createWelfareOrganization(type);
-                wel.setName(type);
-                populateTable();
+        try{
+            String type = ddlOrgType.getSelectedItem().toString()== "DLO"? "District Level Organization":
+                          ddlOrgType.getSelectedItem().toString()== "BLO"? "Block Level Organization":
+                          ddlOrgType.getSelectedItem().toString()== "SLO"? "Sector Level Organization":
+                          ddlOrgType.getSelectedItem().toString()== "FLO"? "Field Level Organization": "Admin";
+             for(Network net : ecosystem.getNetworkList()){
+                for(WelfareEnterprise ent : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
+                    WelfareOrganization wel = ent.getWelfareOrganizationDirectory().createWelfareOrganization(type);
+                    wel.setName(type);
+                    populateTable();
+                }
             }
+             Logger.getInstance().writeLogs(type+" created");
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_bbtnAddActionPerformed
 

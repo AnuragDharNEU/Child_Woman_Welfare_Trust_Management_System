@@ -7,6 +7,7 @@ package UserInterface.Welfare.BLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Organization.WelfareBLOOrganization;
@@ -62,48 +63,57 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
         return thisNetwork;
     }
     public void PopulateTable(){
-        DefaultTableModel model = (DefaultTableModel) tblwork.getModel();
-        model.setRowCount(0);
-        WelfareBLOOrganization org = (WelfareBLOOrganization) organization;
-        for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
-            bloRequest = (WelfareBLOWorkRequest) request;
-            Object[] row = new Object[5];
-            row[0] = request;
-            row[1] = request.getSender();
-            row[2] = request.getStatus();
-            row[3] = request.getReceiver();
-            row[4] = bloRequest.getTestResult()== null ? "waiting" : bloRequest.getTestResult();
-            model.addRow(row);
+        try{
+            DefaultTableModel model = (DefaultTableModel) tblwork.getModel();
+            model.setRowCount(0);
+            WelfareBLOOrganization org = (WelfareBLOOrganization) organization;
+            for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
+                bloRequest = (WelfareBLOWorkRequest) request;
+                Object[] row = new Object[5];
+                row[0] = request;
+                row[1] = request.getSender();
+                row[2] = request.getStatus();
+                row[3] = request.getReceiver();
+                row[4] = bloRequest.getTestResult()== null ? "waiting" : bloRequest.getTestResult();
+                model.addRow(row);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     public void PopulateAssignTable(){
-        DefaultTableModel model = (DefaultTableModel) tblAssign.getModel();
-        model.setRowCount(0);
-        SupervisorWorkRequest supRequest = null;
-        HospitalDoctorWorkRequest hosRequest = null;
-        //WelfareBLOOrganization org = (WelfareBLOOrganization) organization;
-        for(WorkRequest request : account.getWorkQueue().getWorkRequestList()){
-            if(request instanceof SupervisorWorkRequest){
-            supRequest = (SupervisorWorkRequest) request;
-            Object[] row = new Object[5];
-            row[0] = supRequest;
-            row[1] = supRequest.getSender();
-            row[2] = supRequest.getStatus();
-            row[3] = supRequest.getReceiver();
-            row[4] = supRequest.getResult()== null ? "waiting" : supRequest.getResult();
-            model.addRow(row);
+        try{
+            DefaultTableModel model = (DefaultTableModel) tblAssign.getModel();
+            model.setRowCount(0);
+            SupervisorWorkRequest supRequest = null;
+            HospitalDoctorWorkRequest hosRequest = null;
+            //WelfareBLOOrganization org = (WelfareBLOOrganization) organization;
+            for(WorkRequest request : account.getWorkQueue().getWorkRequestList()){
+                if(request instanceof SupervisorWorkRequest){
+                supRequest = (SupervisorWorkRequest) request;
+                Object[] row = new Object[5];
+                row[0] = supRequest;
+                row[1] = supRequest.getSender();
+                row[2] = supRequest.getStatus();
+                row[3] = supRequest.getReceiver();
+                row[4] = supRequest.getResult()== null ? "waiting" : supRequest.getResult();
+                model.addRow(row);
+                }
+                if(request instanceof HospitalDoctorWorkRequest){
+                hosRequest = (HospitalDoctorWorkRequest) request;
+                Object[] row = new Object[5];
+                row[0] = hosRequest;
+                row[1] = hosRequest.getSender();
+                row[2] = hosRequest.getStatus();
+                row[3] = hosRequest.getReceiver();
+                row[4] = hosRequest.getResult()== null ? "waiting" : hosRequest.getResult();
+                model.addRow(row);
+                }
             }
-            if(request instanceof HospitalDoctorWorkRequest){
-            hosRequest = (HospitalDoctorWorkRequest) request;
-            Object[] row = new Object[5];
-            row[0] = hosRequest;
-            row[1] = hosRequest.getSender();
-            row[2] = hosRequest.getStatus();
-            row[3] = hosRequest.getReceiver();
-            row[4] = hosRequest.getResult()== null ? "waiting" : hosRequest.getResult();
-            model.addRow(row);
-            }
-            
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -219,14 +229,19 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
-        if(bloRequest.getReceiver().equals(account)){
-            ProcessBLOWorkRequestJPanel processBLOWorkRequestJPanel = new ProcessBLOWorkRequestJPanel(userProcessContainer, (WelfareOrganization)organization,account,enterprise,network,bloRequest);
-            userProcessContainer.add("processBLOWorkRequestJPanel", processBLOWorkRequestJPanel);
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            layout.next(userProcessContainer);
+        try{
+            if(bloRequest.getReceiver().equals(account)){
+                ProcessBLOWorkRequestJPanel processBLOWorkRequestJPanel = new ProcessBLOWorkRequestJPanel(userProcessContainer, (WelfareOrganization)organization,account,enterprise,network,bloRequest);
+                userProcessContainer.add("processBLOWorkRequestJPanel", processBLOWorkRequestJPanel);
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                layout.next(userProcessContainer);
+            }
+            else{
+                //Jpanel
+            }
         }
-        else{
-            //Jpanel
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_btnProceedActionPerformed
 
@@ -238,16 +253,19 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAssignActionPerformed
-       int selectedRow = tblwork.getSelectedRow();
-        
-        if (selectedRow < 0){
-            return;
+       try{
+            int selectedRow = tblwork.getSelectedRow();
+            if (selectedRow < 0){
+                return;
+            }
+            WorkRequest request = (WorkRequest)tblwork.getValueAt(selectedRow, 0);
+            request.setReceiver(account);
+            request.setStatus("Pending");
+            PopulateTable();
+       }
+       catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
-        
-        WorkRequest request = (WorkRequest)tblwork.getValueAt(selectedRow, 0);
-        request.setReceiver(account);
-        request.setStatus("Pending");
-        PopulateTable();
     }//GEN-LAST:event_txtAssignActionPerformed
 
 

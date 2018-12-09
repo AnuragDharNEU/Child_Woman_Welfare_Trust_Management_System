@@ -8,6 +8,7 @@ package UserInterface.Welfare.Admininstrator;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.Organization.WelfareOrganization;
 import Business.Role.Role;
@@ -37,26 +38,34 @@ public class ManageWelfareUserJPanel extends javax.swing.JPanel {
         popData();
     }
     public void popData() {
+        try{
+            DefaultTableModel model = (DefaultTableModel) tblUserAccount.getModel();
 
-        DefaultTableModel model = (DefaultTableModel) tblUserAccount.getModel();
+            model.setRowCount(0);
 
-        model.setRowCount(0);
-
-        for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()) {
-            for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
-                Object row[] = new Object[2];
-                row[0] = ua;
-                row[1] = ua.getRole();
-                ((DefaultTableModel) tblUserAccount.getModel()).addRow(row);
+            for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()) {
+                for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
+                    Object row[] = new Object[2];
+                    row[0] = ua;
+                    row[1] = ua.getRole();
+                    ((DefaultTableModel) tblUserAccount.getModel()).addRow(row);
+                }
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     public void popOrganizationComboBox() {
-        ddlOrg.removeAllItems();
-
-        for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()) {
-            if(!organization.getName().equals("Admin Organization"))
-            ddlOrg.addItem(organization);
+        try{
+            ddlOrg.removeAllItems();
+            for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()) {
+                if(!organization.getName().equals("Admin Organization"))
+                ddlOrg.addItem(organization);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -234,36 +243,56 @@ public class ManageWelfareUserJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void ddlOrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlOrgActionPerformed
-        WelfareOrganization organization = (WelfareOrganization) ddlOrg.getSelectedItem();
-        if (organization != null){
-            populateEmployeeComboBox(organization);
-            populateRoleComboBox(organization);
+        try{
+            WelfareOrganization organization = (WelfareOrganization) ddlOrg.getSelectedItem();
+            if (organization != null){
+                populateEmployeeComboBox(organization);
+                populateRoleComboBox(organization);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_ddlOrgActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        WelfareOrganization org =(WelfareOrganization) ddlOrg.getSelectedItem();
-        Employee emp = (Employee) ddlEmp.getSelectedItem();
-        Role role = (Role) ddlRole.getSelectedItem();
-        String name = txtName.getText();
-        String password = String.valueOf(txtPassword.getPassword());
-        
-        if(ecosystem.checkIfUserIsUnique(name)){
-            org.getUserAccountDirectory().createUserAccount(name, password, emp, role);
+        try{
+            WelfareOrganization org =(WelfareOrganization) ddlOrg.getSelectedItem();
+            Employee emp = (Employee) ddlEmp.getSelectedItem();
+            Role role = (Role) ddlRole.getSelectedItem();
+            String name = txtName.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+
+            if(ecosystem.checkIfUserIsUnique(name)){
+                org.getUserAccountDirectory().createUserAccount(name, password, emp, role);
+                Logger.getInstance().writeLogs("Welfare User created- UserName- "+name);
+            }
+            popData();
         }
-        popData();
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnCreateActionPerformed
     public void populateEmployeeComboBox(WelfareOrganization organization){
-        ddlEmp.removeAllItems();
-        
-        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()){
-            ddlEmp.addItem(employee);
+        try{
+            ddlEmp.removeAllItems();
+            for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()){
+                ddlEmp.addItem(employee);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     private void populateRoleComboBox(WelfareOrganization organization){
-        ddlRole.removeAllItems();
-        for (Role role : organization.getSupportedRole()){
-            ddlRole.addItem(role);
+        try{
+            ddlRole.removeAllItems();
+            for (Role role : organization.getSupportedRole()){
+                ddlRole.addItem(role);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
 
