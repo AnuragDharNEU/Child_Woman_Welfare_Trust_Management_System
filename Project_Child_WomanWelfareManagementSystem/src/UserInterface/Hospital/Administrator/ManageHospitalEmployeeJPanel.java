@@ -11,6 +11,7 @@ import Business.Enterprise.HospitalEnterprise;
 import Business.Logger;
 import Business.Organization.HospitalOrganization;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -99,10 +100,10 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txtOrgName = new javax.swing.JTextField();
+        txtEmployeeName = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrganization = new javax.swing.JTable();
-        btnSubmit = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         ddlTableOrgType = new javax.swing.JComboBox();
@@ -132,11 +133,11 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblOrganization);
 
-        btnSubmit.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        btnSubmit.setText("Submit");
-        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmitActionPerformed(evt);
+                btnCreateActionPerformed(evt);
             }
         });
 
@@ -175,14 +176,14 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(btnBack)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSubmit))
+                            .addComponent(btnCreate))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtOrgName, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                .addComponent(txtEmployeeName, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                                 .addComponent(ddlOrgType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -210,24 +211,33 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(txtOrgName, javax.swing.GroupLayout.PREFERRED_SIZE, 19, Short.MAX_VALUE)))
+                        .addComponent(txtEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 19, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
-                    .addComponent(btnSubmit))
+                    .addComponent(btnCreate))
                 .addGap(54, 54, 54))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         
         try{
+            if(txtEmployeeName.getText().trim().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Please enter an employee name","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
             {HospitalOrganization organization = (HospitalOrganization) ddlOrgType.getSelectedItem();
-        String name = txtOrgName.getText();
+        String name = txtEmployeeName.getText();
 
         organization.getEmployeeDirectory().createEmployee(name);
         populateTable(organization);
-    }//GEN-LAST:event_btnSubmitActionPerformed
+        Logger.getInstance().writeLogs("Employee Created");
+        JOptionPane.showMessageDialog(null, "Employee Created Successfully");
+        }
+    }//GEN-LAST:event_btnCreateActionPerformed
 }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
@@ -260,7 +270,7 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton btnCreate;
     private javax.swing.JComboBox ddlOrgType;
     private javax.swing.JComboBox ddlTableOrgType;
     private javax.swing.JLabel jLabel1;
@@ -269,6 +279,6 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblOrganization;
-    private javax.swing.JTextField txtOrgName;
+    private javax.swing.JTextField txtEmployeeName;
     // End of variables declaration//GEN-END:variables
 }

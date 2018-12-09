@@ -11,6 +11,7 @@ import Business.Logger;
 import Business.Organization.EducationOrganization;
 import Business.Organization.HospitalOrganization;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -175,17 +176,28 @@ public class ManageHospitalOrganizationJPanel extends javax.swing.JPanel {
     }
     
     private void bbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbtnAddActionPerformed
+        boolean flag=true;
         try{
+          
         String type = ddlOrgType.getSelectedItem().toString();
         type = type.concat(" Organization");
-       
-            
-                HospitalOrganization ed= enterprise.getHospitalOrganizationDirectory().createHospitalOrganization(type);
-                ed.setName(type);
-                
-            
+        for(HospitalOrganization hosOrg : enterprise.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
+            if(hosOrg.getName().equals(type)){
+                flag= false;
+            }
+        }
+        if(flag)
+        {
+        HospitalOrganization ed= enterprise.getHospitalOrganizationDirectory().createHospitalOrganization(type);
+        ed.setName(type);
+        Logger.getInstance().writeLogs((type + " Organization created successfully"));
+        JOptionPane.showMessageDialog(null, "Organization Created Successfully");
         populateTable();
-                       
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Organization Already Created. Try adding other");
+        }                
     }//GEN-LAST:event_bbtnAddActionPerformed
            catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);

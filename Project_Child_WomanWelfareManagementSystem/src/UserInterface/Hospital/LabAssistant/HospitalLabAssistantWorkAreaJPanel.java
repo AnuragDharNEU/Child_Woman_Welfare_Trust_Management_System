@@ -20,6 +20,7 @@ import Business.WorkQueue.LabAssistantWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -150,6 +151,7 @@ public class HospitalLabAssistantWorkAreaJPanel extends javax.swing.JPanel {
 
     private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
         try{
+            
             int selectedRow = workRequestJTable.getSelectedRow();
 
             if (selectedRow < 0){
@@ -208,18 +210,23 @@ public class HospitalLabAssistantWorkAreaJPanel extends javax.swing.JPanel {
             int selectedRow = workRequestJTable.getSelectedRow();
 
             if (selectedRow < 0){
+                JOptionPane.showMessageDialog(null, "Please select a row!");
                 return;
             }
 
             LabAssistantWorkRequest request = (LabAssistantWorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
-
+            if(request.getReceiver()==(userAccount)){
             request.setStatus("Processing");
 
             ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, request);
             userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
+              }
+        else{
+                 JOptionPane.showMessageDialog(null, "Please assign a request to you before proceeding!");
         }
+                }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
         }

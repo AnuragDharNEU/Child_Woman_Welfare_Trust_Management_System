@@ -13,6 +13,7 @@ import Business.Organization.HospitalOrganization;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -104,6 +105,7 @@ public class ManageHospitalUserJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -121,6 +123,17 @@ public class ManageHospitalUserJPanel extends javax.swing.JPanel {
         txtName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         lblEnterpriseName = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setBackground(new java.awt.Color(255, 102, 102));
 
@@ -213,7 +226,7 @@ public class ManageHospitalUserJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnBack)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(236, 236, 236)
                                 .addComponent(btnCreate))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,6 +287,11 @@ public class ManageHospitalUserJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         try{
+             if(txtName.getText().trim().isEmpty() || txtPassword.getText().trim().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Please enter username/passsword","Error",JOptionPane.ERROR_MESSAGE);
+            }
+             else{
         HospitalOrganization org =(HospitalOrganization) ddlOrg.getSelectedItem();
         Employee emp = (Employee) ddlEmp.getSelectedItem();
         Role role = (Role) ddlRole.getSelectedItem();
@@ -282,6 +300,10 @@ public class ManageHospitalUserJPanel extends javax.swing.JPanel {
 
         if(ecosystem.checkIfUserIsUnique(name)){
             org.getUserAccountDirectory().createUserAccount(name, password, emp, role);
+             Logger.getInstance().writeLogs("User Created");
+                    JOptionPane.showMessageDialog(null, "User Created Successfully");
+
+                }
         }
         popData();
     }//GEN-LAST:event_btnCreateActionPerformed
@@ -325,6 +347,7 @@ public class ManageHospitalUserJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox ddlEmp;
     private javax.swing.JComboBox ddlOrg;
     private javax.swing.JComboBox ddlRole;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

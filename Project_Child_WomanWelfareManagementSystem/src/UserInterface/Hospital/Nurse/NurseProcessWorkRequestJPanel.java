@@ -10,6 +10,7 @@ import Business.WorkQueue.NurseWorkRequest;
 import UserInterface.Education.Teacher.ManageRequestTeacherJPanel;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -107,10 +108,17 @@ public class NurseProcessWorkRequestJPanel extends javax.swing.JPanel {
 
     private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed
         try{
+             if(serviceProvidedTextField.getText().trim().isEmpty()) 
+         {
+           JOptionPane.showMessageDialog(null, "Please enter the service you provided!","Error",JOptionPane.ERROR_MESSAGE);  
+         }
+       else
+         {
             request.setResult(serviceProvidedTextField.getText());
             request.setStatus("Completed");
             Logger.getInstance().writeLogs("Nurse Request Completed");
         }
+             }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
         }

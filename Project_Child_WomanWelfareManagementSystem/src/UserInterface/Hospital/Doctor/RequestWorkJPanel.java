@@ -22,6 +22,7 @@ import static com.db4o.qlin.QLinSupport.p;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -222,6 +223,12 @@ public class RequestWorkJPanel extends javax.swing.JPanel {
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
         try{
+            if(txtPatient.getText().trim().isEmpty() || txtAge.getText().trim().isEmpty()||txtProblem.getText().trim().isEmpty()|| messageJTextField.getText().trim().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Field can not be empty!","Error",JOptionPane.ERROR_MESSAGE); 
+            }
+            else
+            {
             String message = messageJTextField.getText();
             String assignee = (String) assignToDropDown.getSelectedItem();
             NurseWorkRequest nurseWorkRequest = new NurseWorkRequest() ;
@@ -266,6 +273,7 @@ public class RequestWorkJPanel extends javax.swing.JPanel {
                 request.setStatus("Completed");
                 request.setResult("Assigned to "+assignee);
             }
+        }
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
