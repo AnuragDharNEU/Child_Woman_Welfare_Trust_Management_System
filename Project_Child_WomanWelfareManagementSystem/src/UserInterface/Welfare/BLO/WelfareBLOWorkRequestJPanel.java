@@ -17,9 +17,9 @@ import Business.WorkQueue.HospitalDoctorWorkRequest;
 import Business.WorkQueue.SupervisorWorkRequest;
 import Business.WorkQueue.WelfareBLOWorkRequest;
 import Business.WorkQueue.WorkRequest;
-import UserInterface.Education.Supervisor.ManageRequestSuvPanel;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -237,14 +237,20 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
 
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
         try{
-            if(bloRequest.getReceiver().equals(account)){
-                ProcessBLOWorkRequestJPanel processBLOWorkRequestJPanel = new ProcessBLOWorkRequestJPanel(userProcessContainer, (WelfareOrganization)organization,account,enterprise,network,bloRequest);
+            int selectedRow = tblwork.getSelectedRow();
+            if (selectedRow < 0){
+                JOptionPane.showMessageDialog(null, "Please select a row to proceed","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            WelfareBLOWorkRequest request = (WelfareBLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
+            if(request.getReceiver() != null && request.getReceiver().equals(account)){
+                ProcessBLOWorkRequestJPanel processBLOWorkRequestJPanel = new ProcessBLOWorkRequestJPanel(userProcessContainer, (WelfareOrganization)organization,account,enterprise,network,request);
                 userProcessContainer.add("processBLOWorkRequestJPanel", processBLOWorkRequestJPanel);
                 CardLayout layout = (CardLayout) userProcessContainer.getLayout();
                 layout.next(userProcessContainer);
             }
             else{
-                //Jpanel
+                JOptionPane.showMessageDialog(null, "Please select a request assigned to you.","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
         catch(Exception ex){
@@ -265,10 +271,34 @@ public class WelfareBLOWorkRequestJPanel extends javax.swing.JPanel {
             if (selectedRow < 0){
                 return;
             }
+            boolean flag = true;
+            WelfareBLOOrganization org = (WelfareBLOOrganization) organization;
+            for(WorkRequest workRequest : org.getWorkQueue().getWorkRequestList()){
+                if(workRequest.getReceiver()==account && !workRequest.getStatus().equalsIgnoreCase("completed")){
+                    flag = false;
+                    break;
+                }
+            }
             WorkRequest request = (WorkRequest)tblwork.getValueAt(selectedRow, 0);
-            request.setReceiver(account);
-            request.setStatus("Pending");
-            PopulateTable();
+            if(flag){
+                if(!request.getStatus().equalsIgnoreCase("completed")){
+                    if(!request.getStatus().equalsIgnoreCase("Pending") && request.getReceiver()== null){
+                        request.setReceiver(account);
+                        request.setStatus("Pending");
+                        PopulateTable();
+                    }
+                    else{
+                    JOptionPane.showMessageDialog(null, "Someone else is working on this request");
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "This request is completed. Select some other request");
+                }
+
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "You have assigned task. Please complete before taking another");
+            }
        }
        catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);

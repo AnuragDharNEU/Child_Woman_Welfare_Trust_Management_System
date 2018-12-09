@@ -156,17 +156,17 @@ public class DistFundRequestJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        // TODO add your handling code here:
+        String fundValue = txtFund.getText();
         try
         {
-            if(txtMsgRequest.getText().trim().isEmpty() || txtFund.getText().trim().isEmpty())
+            if(txtMsgRequest.getText().trim().isEmpty() || fundValue.trim().isEmpty())
             {
                 JOptionPane.showMessageDialog(null, "Please enter Meesage/Value","Error",JOptionPane.ERROR_MESSAGE); 
             }
             else
             {
         String message= txtMsgRequest.getText();
-        double fund=Double.parseDouble(txtFund.getText());
+        double fund=Double.parseDouble(fundValue);
                
         SupervisorWorkRequest supWorkReq= new SupervisorWorkRequest();
         supWorkReq.setMessage(message);
@@ -187,6 +187,9 @@ public class DistFundRequestJPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Fund Request Submitted");
         Logger.getInstance().writeLogs("Fund Request Submitted");
             }
+        }
+        catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Give valid value for Fund","Error",JOptionPane.ERROR_MESSAGE);
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);

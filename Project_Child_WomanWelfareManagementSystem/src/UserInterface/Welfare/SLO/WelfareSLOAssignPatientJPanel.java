@@ -186,10 +186,11 @@ public class WelfareSLOAssignPatientJPanel extends javax.swing.JPanel {
             Patient pat = network.getPatientDir().AddPatient(patName, patAge);
             WelfareCentre welfCentre = (WelfareCentre)ddlCentres.getSelectedItem();
             for(WelfareCentre centre :network.getCentreDir().getWelfareCentreList()){
-                if((welfCentre.equals(centre)))
+                if((welfCentre.equals(centre))){
                 centre.AddPatient(pat);
                 Logger.getInstance().writeLogs("Patient added.");
                 JOptionPane.showMessageDialog(null, "Patient added.");
+                }
             }
             }
             else{

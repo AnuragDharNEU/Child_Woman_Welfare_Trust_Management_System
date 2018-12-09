@@ -313,8 +313,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             if(ddlEnterprise.getSelectedItem() instanceof HospitalEnterprise){
                 createUser((HospitalEnterprise) ddlEnterprise.getSelectedItem());
             }
-            Logger.getInstance().writeLogs("User Created "+ddlEnterprise.getSelectedItem().toString());
-            JOptionPane.showMessageDialog(null, "User Created "+ddlEnterprise.getSelectedItem().toString());
+            
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
@@ -340,11 +339,17 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             String password = String.valueOf(txtPassword.getPassword());
             String name = txtName.getText();
             if(!username.trim().isEmpty() && !password.trim().isEmpty() && !name.trim().isEmpty()){
+                if(system.checkIfUserIsUnique(username)){
                 WelfareOrganization wel = enterprise.getWelfareOrganizationDirectory().createWelfareOrganization(txtOrgName.getText());
                 Employee employee = wel.getEmployeeDirectory().createEmployee(name);
-
                 UserAccount account = wel.getUserAccountDirectory().createUserAccount(username, password, employee, new WelfareAdminRole());
+                Logger.getInstance().writeLogs("User Created "+ddlEnterprise.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(null, "User Created "+ddlEnterprise.getSelectedItem().toString());
                 populateTable();
+                }
+                else{
+                 JOptionPane.showMessageDialog(null, "userName already taken. Please change.","Error",JOptionPane.ERROR_MESSAGE);
+            }
             }
             else{
                  JOptionPane.showMessageDialog(null, "Please enter all the values","Error",JOptionPane.ERROR_MESSAGE);
@@ -360,11 +365,18 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             String password = String.valueOf(txtPassword.getPassword());
             String name = txtName.getText();
             if(!username.trim().isEmpty() && !password.trim().isEmpty() && !name.trim().isEmpty()){
+                if(system.checkIfUserIsUnique(username)){
                 EducationOrganization ed = enterprise.getEducationOrganizationDirectory().createEducationOrganization(txtOrgName.getText());
                 Employee employee = ed.getEmployeeDirectory().createEmployee(name);
 
                 UserAccount account = ed.getUserAccountDirectory().createUserAccount(username, password, employee, new EducationAdminRole());
+                Logger.getInstance().writeLogs("User Created "+ddlEnterprise.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(null, "User Created "+ddlEnterprise.getSelectedItem().toString());
                 populateTable();
+                }
+                else{
+                 JOptionPane.showMessageDialog(null, "userName already taken. Please change.","Error",JOptionPane.ERROR_MESSAGE);
+            }
             }
             else{
                  JOptionPane.showMessageDialog(null, "Please enter all the values","Error",JOptionPane.ERROR_MESSAGE);
@@ -380,12 +392,19 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             String password = String.valueOf(txtPassword.getPassword());
             String name = txtName.getText();
             if(!username.trim().isEmpty() && !password.trim().isEmpty() && !name.trim().isEmpty()){
+                if(system.checkIfUserIsUnique(username)){
                 HospitalOrganization hos = enterprise.getHospitalOrganizationDirectory().createHospitalOrganization(txtOrgName.getText());
                 Employee employee = hos.getEmployeeDirectory().createEmployee(name);
 
                 UserAccount account = hos.getUserAccountDirectory().createUserAccount(username, password, employee, new HospitalAdminRole());
+                Logger.getInstance().writeLogs("User Created "+ddlEnterprise.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(null, "User Created "+ddlEnterprise.getSelectedItem().toString());
                 populateTable();
                 }
+                else{
+                 JOptionPane.showMessageDialog(null, "userName already taken. Please change.","Error",JOptionPane.ERROR_MESSAGE);
+            }
+            }
             else{
                  JOptionPane.showMessageDialog(null, "Please enter all the values","Error",JOptionPane.ERROR_MESSAGE);
             }

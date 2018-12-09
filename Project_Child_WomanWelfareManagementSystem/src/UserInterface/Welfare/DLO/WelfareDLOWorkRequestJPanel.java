@@ -16,6 +16,7 @@ import Business.WorkQueue.WelfareDLOWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -175,11 +176,15 @@ public class WelfareDLOWorkRequestJPanel extends javax.swing.JPanel {
             }
 
             WelfareDLOWorkRequest request = (WelfareDLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
-
+            if(request.getReceiver().getEmployee().getId() == account.getEmployee().getId()){
             ProcessDLOWorkRequestJPanel processWorkRequestJPanel = new ProcessDLOWorkRequestJPanel(userProcessContainer, request,(WelfareOrganization)organization,account,enterprise);
             userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Please select request which is assigned to you","Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);

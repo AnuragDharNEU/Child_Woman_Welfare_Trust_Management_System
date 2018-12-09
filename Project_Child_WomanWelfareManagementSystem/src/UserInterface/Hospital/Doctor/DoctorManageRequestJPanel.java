@@ -136,7 +136,6 @@ public class DoctorManageRequestJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Manage Request");
 
-        btnAssignToMe.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnAssignToMe.setText("Assign to me");
         btnAssignToMe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,7 +143,6 @@ public class DoctorManageRequestJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnBack.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +186,7 @@ public class DoctorManageRequestJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Message", "Sender", "Status", "Receiver", "Patient"
+                "Message", "Sender", "Status", "Receiver", "Result"
             }
         ) {
             Class[] types = new Class [] {
@@ -208,7 +206,6 @@ public class DoctorManageRequestJPanel extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(requestRespondJPanel);
 
-        btnProceed.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnProceed.setText("Proceed");
         btnProceed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,7 +230,7 @@ public class DoctorManageRequestJPanel extends javax.swing.JPanel {
                         .addComponent(btnProceed)))
                 .addContainerGap(81, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(400, 400, 400)
                 .addComponent(jLabel1)
                 .addGap(346, 346, 346))
         );
@@ -322,11 +319,11 @@ public class DoctorManageRequestJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a row!!");
                 return;
             }
-            WorkRequest request = (WorkRequest)workRequestJTable1.getValueAt(selectedRow, 0);
+            HospitalDoctorWorkRequest request = (HospitalDoctorWorkRequest)workRequestJTable1.getValueAt(selectedRow, 0);
             if(request.getReceiver().getEmployee().getId() == userAccount.getEmployee().getId()){
             request.setStatus("Processing");
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("RequestWorkJPanel", new RequestWorkJPanel(userProcessContainer, system, enterprise, userAccount,organization,(HospitalDoctorWorkRequest)request,network));
+            userProcessContainer.add("RequestWorkJPanel", new RequestWorkJPanel(userProcessContainer, system, enterprise, userAccount,organization,request,network));
             layout.next(userProcessContainer);
             }
             else{

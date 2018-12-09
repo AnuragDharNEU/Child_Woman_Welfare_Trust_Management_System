@@ -128,6 +128,11 @@ public class ManageWelfareUserJPanel extends javax.swing.JPanel {
         });
 
         ddlEmp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ddlEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ddlEmpActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setText("Employee");
@@ -259,6 +264,8 @@ public class ManageWelfareUserJPanel extends javax.swing.JPanel {
                 populateEmployeeComboBox(organization);
                 populateRoleComboBox(organization);
             }
+            txtName.setText("");
+            txtPassword.setText("");
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
@@ -277,8 +284,11 @@ public class ManageWelfareUserJPanel extends javax.swing.JPanel {
                 org.getUserAccountDirectory().createUserAccount(name, password, emp, role);
                 Logger.getInstance().writeLogs("Welfare User created- UserName- "+name);
                 JOptionPane.showMessageDialog(null, "Welfare User created- UserName- "+name);
-            }
             popData();
+            }
+            else{
+                 JOptionPane.showMessageDialog(null, "userName already taken. Please change.","Error",JOptionPane.ERROR_MESSAGE);
+            }
             }
             else{
                  JOptionPane.showMessageDialog(null, "Please enter all the values","Error",JOptionPane.ERROR_MESSAGE);
@@ -288,6 +298,11 @@ public class ManageWelfareUserJPanel extends javax.swing.JPanel {
             Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void ddlEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlEmpActionPerformed
+        txtName.setText("");
+        txtPassword.setText("");
+    }//GEN-LAST:event_ddlEmpActionPerformed
     public void populateEmployeeComboBox(WelfareOrganization organization){
         try{
             ddlEmp.removeAllItems();

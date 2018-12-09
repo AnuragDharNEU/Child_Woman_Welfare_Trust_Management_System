@@ -16,6 +16,7 @@ import Business.WorkQueue.WelfareFLOWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -163,6 +164,7 @@ public class WelfareFLOChildJPanel extends javax.swing.JPanel {
             int selectedRow = tblwork.getSelectedRow();
 
             if (selectedRow < 0){
+                JOptionPane.showMessageDialog(null, "Please select a row to Proceed.","Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

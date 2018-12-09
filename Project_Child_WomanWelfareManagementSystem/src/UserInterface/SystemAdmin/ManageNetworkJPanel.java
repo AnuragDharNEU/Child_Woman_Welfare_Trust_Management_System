@@ -72,7 +72,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Network Name"
             }
         ));
         jScrollPane1.setViewportView(networkJTable);

@@ -199,6 +199,7 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
             int selectedRow = tblwork.getSelectedRow();
 
             if (selectedRow < 0){
+                JOptionPane.showMessageDialog(null, "Please select a row to proceed.","Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -220,10 +221,12 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
             int selectedRow = tblwork.getSelectedRow();
 
             if (selectedRow < 0){
+                JOptionPane.showMessageDialog(null, "Please select a row to proceed.","Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             SLOrequest = (WelfareSLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
+            
             if(SLOrequest.getReceiver().equals(account)){
                SLOrequest.setStatus("Processing");
                txtResult.setEnabled(true);

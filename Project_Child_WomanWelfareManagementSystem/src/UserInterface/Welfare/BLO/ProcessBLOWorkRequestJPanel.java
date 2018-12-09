@@ -55,7 +55,7 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
     private void PopulateTypeCombo(){
         try{
             ddlAssign.removeAllItems();
-            if(bloRequest.getReferTo().equals("Education")){
+            if(bloRequest.getReferTo()!= null && bloRequest.getReferTo().equals("Education")){
                 for(EducationEnterprise ed : network.getEnterpriseDirectory().getEducationnterpriseList()){
                     ddlAssign.addItem(ed);
                 }

@@ -183,6 +183,7 @@ public class WelfareSLOAssignWorkForFLOJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+
         try{
             Patient patient = (Patient) ddlPatient.getSelectedItem();
             String message = txtMessage.getText();

@@ -13,7 +13,9 @@ import Business.Organization.Organization;
 import Business.Patient.Patient;
 import Business.UserAccount.UserAccount;
 import Business.WelfareCentre.WelfareCentre;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -76,6 +78,7 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
 
         btnWelfare = new javax.swing.JButton();
         btnPatients = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 102, 102));
 
@@ -93,6 +96,13 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,6 +113,10 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
                     .addComponent(btnWelfare, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                     .addComponent(btnPatients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(70, 70, 70))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBack)
+                .addGap(113, 113, 113))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +125,9 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
                 .addComponent(btnWelfare)
                 .addGap(18, 18, 18)
                 .addComponent(btnPatients)
-                .addGap(159, 159, 159))
+                .addGap(49, 49, 49)
+                .addComponent(btnBack)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -155,8 +171,16 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnWelfareActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnPatients;
     private javax.swing.JButton btnWelfare;
     // End of variables declaration//GEN-END:variables
