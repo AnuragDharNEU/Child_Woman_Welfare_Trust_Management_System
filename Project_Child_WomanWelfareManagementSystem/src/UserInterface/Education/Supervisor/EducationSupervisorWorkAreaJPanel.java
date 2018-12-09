@@ -8,6 +8,7 @@ package UserInterface.Education.Supervisor;
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
 import Business.Enterprise.Enterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import com.db4o.User;
@@ -123,21 +124,30 @@ public class EducationSupervisorWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnManageReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageReqActionPerformed
-       
+       try
+       {
         ManageRequestSuvPanel manageReq = new ManageRequestSuvPanel(userProcessContainer, system, enterprise, userAccount,organization);
         userProcessContainer.add("manageReq", manageReq);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
+       }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
         
     }//GEN-LAST:event_btnManageReqActionPerformed
 
     private void btnManageFundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageFundActionPerformed
+        try
+        {
         ManageFundSuvPanel manageFund = new ManageFundSuvPanel(userProcessContainer, system, enterprise, userAccount,organization);
         userProcessContainer.add("manageReq", manageFund);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-         
+        }
+       catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        } 
         
     }//GEN-LAST:event_btnManageFundActionPerformed
 

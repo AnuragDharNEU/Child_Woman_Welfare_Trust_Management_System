@@ -7,6 +7,7 @@ package UserInterface.Education.Supervisor;
 
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
+import Business.Logger;
 import Business.Organization.EducationDistributorOrganization;
 import Business.Organization.EducationOrganization;
 import Business.Organization.EducationTeacherOrganization;
@@ -18,6 +19,7 @@ import Business.WorkQueue.TeacherWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -65,6 +67,7 @@ public class SupervisorAssignmentJPanel extends javax.swing.JPanel {
         drpdwnAssignTo = new javax.swing.JComboBox();
         btnSubmit = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel1.setText("Result:");
 
@@ -86,38 +89,44 @@ public class SupervisorAssignmentJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setText("Supervisor Assignment Panel");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtResult)
-                            .addComponent(txtMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(btnBack))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(drpdwnAssignTo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                                .addComponent(btnSubmit)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(115, 115, 115)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtResult)
+                                .addComponent(txtMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(97, 97, 97)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel3)
+                                .addComponent(btnBack))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(drpdwnAssignTo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                                    .addComponent(btnSubmit))))))
                 .addContainerGap(297, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(77, 77, 77)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel4)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -164,6 +173,15 @@ public class SupervisorAssignmentJPanel extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        try
+        
+    {
+        if(txtResult.getText().trim().isEmpty() || txtMessage.getText().trim().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Please enter Meesage/Value","Error",JOptionPane.ERROR_MESSAGE); 
+            }
+            else
+            {
     request.setResult(txtResult.getText());
     request.setStatus("Completed");   
     request.setResolveDate(new Date());
@@ -205,16 +223,32 @@ public class SupervisorAssignmentJPanel extends javax.swing.JPanel {
             org.getWorkQueue().getWorkRequestList().add(requestTeach);
             userAccount.getWorkQueue().getWorkRequestList().add(requestTeach);
         }
+        
+        JOptionPane.showMessageDialog(null, "Task Assigned");
+        Logger.getInstance().writeLogs("Task Assigned");
+            }
+    }
+        
+        catch(Exception ex){
+         Logger.getInstance().exceptionLogs(ex);
+        }
+        
     
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void populateCombo(){
+        try
+        {
         drpdwnAssignTo.removeAllItems();
         
         for (EducationOrganization.Type type : EducationOrganization.Type.values()){
            if (!type.getValue().equals(EducationOrganization.Type.Admin.getValue())&& !type.getValue().equals(EducationOrganization.Type.Supervisor.getValue()) )
                drpdwnAssignTo.addItem(type);
        }
+        }
+      catch(Exception ex){
+         Logger.getInstance().exceptionLogs(ex);
+        }  
         
     }
 
@@ -225,6 +259,7 @@ public class SupervisorAssignmentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtMessage;

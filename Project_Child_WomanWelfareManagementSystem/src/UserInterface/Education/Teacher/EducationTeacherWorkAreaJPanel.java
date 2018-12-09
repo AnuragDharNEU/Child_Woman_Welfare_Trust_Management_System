@@ -8,6 +8,7 @@ package UserInterface.Education.Teacher;
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
 import Business.Enterprise.Enterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import UserInterface.Education.Distributor.ManageRequestDistJPanel;
@@ -49,7 +50,6 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        btnRequestFunds = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jLabel2.setText("Teacher Work Area");
@@ -58,13 +58,6 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        btnRequestFunds.setText("Request Funds");
-        btnRequestFunds.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRequestFundsActionPerformed(evt);
             }
         });
 
@@ -84,12 +77,7 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addComponent(jButton2)))
-                .addContainerGap(272, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(190, 190, 190)
-                    .addComponent(btnRequestFunds, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(274, Short.MAX_VALUE)))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,12 +88,7 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jButton1)
                 .addGap(116, 116, 116)
                 .addComponent(jButton2)
-                .addContainerGap(169, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(168, 168, 168)
-                    .addComponent(btnRequestFunds)
-                    .addContainerGap(248, Short.MAX_VALUE)))
+                .addContainerGap(350, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -114,7 +97,7 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,22 +106,20 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try
+        {
         ManageRequestTeacherJPanel manageReq = new ManageRequestTeacherJPanel(userProcessContainer, system, enterprise, userAccount,organization);
         userProcessContainer.add("manageReq", manageReq);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
+        }
+        catch(Exception ex){
+         Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnRequestFundsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestFundsActionPerformed
-        TeacherFundRequestPanel manageReq = new TeacherFundRequestPanel(userProcessContainer, system, enterprise, userAccount,organization);
-        userProcessContainer.add("manageReq", manageReq);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
-    }//GEN-LAST:event_btnRequestFundsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRequestFunds;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
