@@ -114,6 +114,11 @@ public class ManageWelfareEmployeeJPanel extends javax.swing.JPanel {
         jLabel2.setText("Organization Type");
 
         ddlOrgType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ddlOrgType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ddlOrgTypeActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Name");
 
@@ -165,7 +170,7 @@ public class ManageWelfareEmployeeJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(ddlTableOrgType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,6 +230,10 @@ public class ManageWelfareEmployeeJPanel extends javax.swing.JPanel {
         CardLayout layout=(CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void ddlOrgTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlOrgTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ddlOrgTypeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
