@@ -28,31 +28,30 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel3" min="-2" pref="101" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtName" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Component id="txtName" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="jLabel4" min="-2" pref="101" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtDisease" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Component id="btnBack" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnSubmit" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel5" min="-2" pref="101" max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" pref="101" max="-2" attributes="0"/>
+                          <Component id="jLabel7" max="32767" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
                           <Component id="jLabel6" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtResult" pref="120" max="32767" attributes="0"/>
                           <Component id="ddlRefer" max="32767" attributes="0"/>
+                          <Component id="txtResult" max="32767" attributes="0"/>
+                          <Component id="txtProblem" max="32767" attributes="0"/>
+                          <Component id="ddlService" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="btnBack" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
-                      <Component id="btnSubmit" min="-2" max="-2" attributes="0"/>
-                  </Group>
               </Group>
-              <EmptySpace pref="165" max="32767" attributes="0"/>
+              <EmptySpace pref="125" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,9 +73,14 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtDisease" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtProblem" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ddlService" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtResult" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -91,7 +95,7 @@
                   <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSubmit" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="62" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -119,11 +123,11 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtName">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDisease">
+    <Component class="javax.swing.JTextField" name="txtProblem">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Disease"/>
+        <Property name="text" type="java.lang.String" value="Problem"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtResult">
@@ -135,15 +139,16 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Refer for"/>
+        <Property name="text" type="java.lang.String" value="Refer (If needed)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="ddlRefer">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Hospital"/>
-            <StringItem index="1" value="Education"/>
+          <StringArray count="3">
+            <StringItem index="0" value="None"/>
+            <StringItem index="1" value="Hospital"/>
+            <StringItem index="2" value="Education"/>
           </StringArray>
         </Property>
       </Properties>
@@ -163,6 +168,25 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmitActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Service"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="ddlService">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="6">
+            <StringItem index="0" value="Supplementary Nutrition"/>
+            <StringItem index="1" value="Immunization"/>
+            <StringItem index="2" value="Health Check-up"/>
+            <StringItem index="3" value="Pre-School Education"/>
+            <StringItem index="4" value="Nutrition &amp; Health Education"/>
+            <StringItem index="5" value="Referral Services"/>
+          </StringArray>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

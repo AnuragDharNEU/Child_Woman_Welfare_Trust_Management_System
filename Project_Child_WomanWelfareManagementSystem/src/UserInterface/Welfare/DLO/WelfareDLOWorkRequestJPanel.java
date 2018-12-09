@@ -7,6 +7,7 @@ package UserInterface.Welfare.DLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.Organization.WelfareDLOOrganization;
 import Business.Organization.WelfareOrganization;
@@ -43,18 +44,23 @@ public class WelfareDLOWorkRequestJPanel extends javax.swing.JPanel {
         PopulateTable();
     }
     public void PopulateTable(){
-        DefaultTableModel model = (DefaultTableModel) tblwork.getModel();
-        model.setRowCount(0);
-        WelfareDLOOrganization org = (WelfareDLOOrganization) organization;
-        for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[5];
-            row[0] = request;
-            row[1] = request.getSender();
-            row[2] = request.getStatus();
-            row[3] = request.getReceiver();
-            String result = ((WelfareDLOWorkRequest) request).getTestResult();
-            row[4] = result == null ? "Waiting" : result;
-            model.addRow(row);
+        try{
+            DefaultTableModel model = (DefaultTableModel) tblwork.getModel();
+            model.setRowCount(0);
+            WelfareDLOOrganization org = (WelfareDLOOrganization) organization;
+            for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
+                Object[] row = new Object[5];
+                row[0] = request;
+                row[1] = request.getSender();
+                row[2] = request.getStatus();
+                row[3] = request.getReceiver();
+                String result = ((WelfareDLOWorkRequest) request).getTestResult();
+                row[4] = result == null ? "Waiting" : result;
+                model.addRow(row);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -145,42 +151,52 @@ public class WelfareDLOWorkRequestJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(lblEntName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProceed)
                     .addComponent(btnAssign)
                     .addComponent(btnBack))
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
-        int selectedRow = tblwork.getSelectedRow();
-        
-        if (selectedRow < 0){
-            return;
-        }
-        
-        WelfareDLOWorkRequest request = (WelfareDLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
+        try{
+            int selectedRow = tblwork.getSelectedRow();
 
-        ProcessDLOWorkRequestJPanel processWorkRequestJPanel = new ProcessDLOWorkRequestJPanel(userProcessContainer, request,(WelfareOrganization)organization,account,enterprise);
-        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
+            if (selectedRow < 0){
+                return;
+            }
+
+            WelfareDLOWorkRequest request = (WelfareDLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
+
+            ProcessDLOWorkRequestJPanel processWorkRequestJPanel = new ProcessDLOWorkRequestJPanel(userProcessContainer, request,(WelfareOrganization)organization,account,enterprise);
+            userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnProceedActionPerformed
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
-        int selectedRow = tblwork.getSelectedRow();
-        
-        if (selectedRow < 0){
-            return;
+        try{
+            int selectedRow = tblwork.getSelectedRow();
+
+            if (selectedRow < 0){
+                return;
+            }
+
+            WorkRequest request = (WorkRequest)tblwork.getValueAt(selectedRow, 0);
+            request.setReceiver(account);
+            request.setStatus("Pending");
+            PopulateTable();
         }
-        
-        WorkRequest request = (WorkRequest)tblwork.getValueAt(selectedRow, 0);
-        request.setReceiver(account);
-        request.setStatus("Pending");
-        PopulateTable();
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

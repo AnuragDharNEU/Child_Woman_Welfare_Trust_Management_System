@@ -7,6 +7,7 @@ package UserInterface.Welfare.FLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.Organization.WelfareBLOOrganization;
 import Business.Organization.WelfareOrganization;
@@ -46,12 +47,18 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
         populateFields();
     }
     private void populateFields(){
-        txtName.setText(request.getPatient().getName());
-        txtName.setEnabled(false);
-        ddlRefer.removeAllItems();
-        ddlRefer.addItem("Hospital");
-        if(request.getPatient().getAge()<=6)
-            ddlRefer.addItem("Education");
+        try{
+            txtName.setText(request.getPatient().getName());
+            txtName.setEnabled(false);
+            ddlRefer.removeAllItems();
+            ddlRefer.addItem("None");
+            ddlRefer.addItem("Hospital");
+            if(request.getPatient().getAge()<=6)
+                ddlRefer.addItem("Education");
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,7 +74,7 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        txtDisease = new javax.swing.JTextField();
+        txtProblem = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtResult = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -75,6 +82,8 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
         ddlRefer = new javax.swing.JComboBox();
         btnBack = new javax.swing.JButton();
         btnSubmit = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        ddlService = new javax.swing.JComboBox();
 
         jLabel2.setText("Enterprise");
 
@@ -84,13 +93,13 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Patient Name");
 
-        jLabel4.setText("Disease");
+        jLabel4.setText("Problem");
 
         jLabel5.setText("Result");
 
-        jLabel6.setText("Refer for");
+        jLabel6.setText("Refer (If needed)");
 
-        ddlRefer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hospital", "Education" }));
+        ddlRefer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Hospital", "Education" }));
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -105,6 +114,10 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
                 btnSubmitActionPerformed(evt);
             }
         });
+
+        jLabel7.setText("Service");
+
+        ddlService.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Supplementary Nutrition", "Immunization", "Health Check-up", "Pre-School Education", "Nutrition & Health Education", "Referral Services" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -121,24 +134,24 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtName))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDisease, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSubmit))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtResult, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(ddlRefer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(89, 89, 89)
-                        .addComponent(btnSubmit)))
-                .addContainerGap(165, Short.MAX_VALUE))
+                            .addComponent(ddlRefer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtResult)
+                            .addComponent(txtProblem)
+                            .addComponent(ddlService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,8 +169,12 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtDisease, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProblem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(ddlService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -169,51 +186,73 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnSubmit))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        String result = txtResult.getText();
-        String disease = txtDisease.getText();
-        String refer= (String) ddlRefer.getSelectedItem();
-        
-        Patient p = request.getPatient();
-        p.setDisease(disease);
-        request.setPatient(p);
-        request.setTestResult(result);
-        request.setResolveDate(new Date());
-        request.setStatus("Completed");
-        
-        WelfareBLOWorkRequest bloReq = new WelfareBLOWorkRequest();
-        bloReq.setMessage("Refer to "+ refer);
-        bloReq.setReferTo(refer);
-        bloReq.setSender(account);
-        bloReq.setStatus("Sent");
-        
-        WelfareOrganization org = null;
-        for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-            if (organization instanceof WelfareBLOOrganization){
-                org = organization;
-                break;
+        try{
+            String result = txtResult.getText();
+            String problem = txtProblem.getText();
+            String refer= (String) ddlRefer.getSelectedItem();
+            String service = (String)ddlService.getSelectedItem();
+            Patient p = request.getPatient();
+            p.setProblem(problem);
+            p.setService(service);
+            if(!refer.equals("None"))
+                p.setServiceProvided(refer);
+            else
+                p.setServiceProvided(account.getEmployee().getName());
+            request.setPatient(p);
+            request.setTestResult(result);
+            request.setResolveDate(new Date());
+            request.setStatus("Completed");
+            Logger.getInstance().writeLogs("FLO treated patient");
+            if(!refer.equals("None")){
+                WelfareBLOWorkRequest bloReq = new WelfareBLOWorkRequest();
+                bloReq.setMessage("Refer to "+ refer);
+                bloReq.setReferTo(refer);
+                bloReq.setSender(account);
+                bloReq.setStatus("Sent");
+
+                WelfareOrganization org = null;
+                for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                    if (organization instanceof WelfareBLOOrganization){
+                        org = organization;
+                        break;
+                    }
+                }
+                if (org!=null){
+                    org.getWorkQueue().getWorkRequestList().add(bloReq);
+                    account.getWorkQueue().getWorkRequestList().add(bloReq);
+                    Logger.getInstance().writeLogs("BLO Work request created from FLO");
+                }
             }
         }
-        if (org!=null){
-            org.getWorkQueue().getWorkRequestList().add(bloReq);
-            account.getWorkQueue().getWorkRequestList().add(bloReq);
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        WelfareFLOChildJPanel dwjp = (WelfareFLOChildJPanel) component;
-        dwjp.PopulateTable();
-        WelfareFLOWomenJPanel xyz = (WelfareFLOWomenJPanel) component;
-        xyz.PopulateTable();
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
+        try{
+            userProcessContainer.remove(this);
+            Component[] componentArray = userProcessContainer.getComponents();
+            Component component = componentArray[componentArray.length - 1];
+            if(request.getPatient().getAge()<=6){
+            WelfareFLOChildJPanel dwjp = (WelfareFLOChildJPanel) component;
+            dwjp.PopulateTable();
+            }
+            else{
+            WelfareFLOWomenJPanel xyz = (WelfareFLOWomenJPanel) component;
+            xyz.PopulateTable();
+            }
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.previous(userProcessContainer);
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnBackActionPerformed
 
 
@@ -221,15 +260,17 @@ public class ProcessFLOJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox ddlRefer;
+    private javax.swing.JComboBox ddlService;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblEntName;
-    private javax.swing.JTextField txtDisease;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtProblem;
     private javax.swing.JTextField txtResult;
     // End of variables declaration//GEN-END:variables
 }

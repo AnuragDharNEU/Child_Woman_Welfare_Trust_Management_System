@@ -6,6 +6,7 @@
 package UserInterface.Welfare.DLO;
 
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.WelfareSLOOrganization;
 import Business.Organization.WelfareOrganization;
 import Business.Organization.WelfareOrganization.Type;
@@ -41,10 +42,15 @@ public class ProcessDLOWorkRequestJPanel extends javax.swing.JPanel {
         populateOrgCombo();
     }
     private void populateOrgCombo(){
-        ddlOrgType.removeAllItems();
-        for(Type type : WelfareOrganization.Type.values()){
-            if(!type.equals(WelfareOrganization.Type.Admin))
-            ddlOrgType.addItem(type);
+        try{
+            ddlOrgType.removeAllItems();
+            for(Type type : WelfareOrganization.Type.values()){
+                if(type.equals(WelfareOrganization.Type.SLO))
+                ddlOrgType.addItem(type);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -134,38 +140,43 @@ public class ProcessDLOWorkRequestJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
-        WelfareSLOWorkRequest sloRequest= null;
-        String result = txtResult.getText();
-        String message = txtMessage.getText();
-        Type type =(Type) ddlOrgType.getSelectedItem();
-        if(type.equals(WelfareOrganization.Type.SLO)){
-            sloRequest = new WelfareSLOWorkRequest();
-        }
-        if(type.equals(WelfareOrganization.Type.BLO)){
-            //request = new WelfareSLOWorkRequest();
-        }
-        if(type.equals(WelfareOrganization.Type.FLO)){
-            //request = new WelfareSLOWorkRequest();
-        }
-        request.setTestResult(result);
-        request.setResolveDate(new Date());
-        request.setStatus("Completed");
-        sloRequest.setMessage(message);
-        sloRequest.setSender(userAccount);
-        sloRequest.setStatus("Sent");
-        
-        WelfareOrganization org = null;
-        for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-            if (organization instanceof WelfareSLOOrganization){
-                org = organization;
-                break;
+        try{
+            WelfareSLOWorkRequest sloRequest= null;
+            String result = txtResult.getText();
+            String message = txtMessage.getText();
+            Type type =(Type) ddlOrgType.getSelectedItem();
+            if(type.equals(WelfareOrganization.Type.SLO)){
+                sloRequest = new WelfareSLOWorkRequest();
+            }
+            if(type.equals(WelfareOrganization.Type.BLO)){
+                //request = new WelfareSLOWorkRequest();
+            }
+            if(type.equals(WelfareOrganization.Type.FLO)){
+                //request = new WelfareSLOWorkRequest();
+            }
+            request.setTestResult(result);
+            request.setResolveDate(new Date());
+            request.setStatus("Completed");
+            sloRequest.setMessage(message);
+            sloRequest.setSender(userAccount);
+            sloRequest.setStatus("Sent");
+
+            WelfareOrganization org = null;
+            for (WelfareOrganization organization : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                if (organization instanceof WelfareSLOOrganization){
+                    org = organization;
+                    break;
+                }
+            }
+            if (org!=null){
+                org.getWorkQueue().getWorkRequestList().add(sloRequest);
+                userAccount.getWorkQueue().getWorkRequestList().add(sloRequest);
+                Logger.getInstance().writeLogs("SLO work request created");
             }
         }
-        if (org!=null){
-            org.getWorkQueue().getWorkRequestList().add(sloRequest);
-            userAccount.getWorkQueue().getWorkRequestList().add(sloRequest);
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
-        
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

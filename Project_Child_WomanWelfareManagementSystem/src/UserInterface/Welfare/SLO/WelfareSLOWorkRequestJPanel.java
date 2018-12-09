@@ -7,6 +7,7 @@ package UserInterface.Welfare.SLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.WelfareSLOOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
@@ -40,24 +41,29 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
         this.organization=organization;
         this.account= account;
         lblEntName.setText(enterprise.getName());
-        txtResult.setEnabled(true);
-        btnSubmit.setEnabled(true);
-        lblResult.setEnabled(true);
+        txtResult.setEnabled(false);
+        btnSubmit.setEnabled(false);
+        lblResult.setEnabled(false);
         PopulateTable();
     }
     public void PopulateTable(){
-        DefaultTableModel model = (DefaultTableModel) tblwork.getModel();
-        model.setRowCount(0);
-        WelfareSLOOrganization org = (WelfareSLOOrganization) organization;
-        for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[5];
-            row[0] = request;
-            row[1] = request.getSender();
-            row[2] = request.getStatus();
-            row[3] = request.getReceiver();
-            String result = ((WelfareSLOWorkRequest) request).getTestResult();
-            row[4] = result == null ? "Waiting" : result;
-            model.addRow(row);
+        try{
+            DefaultTableModel model = (DefaultTableModel) tblwork.getModel();
+            model.setRowCount(0);
+            WelfareSLOOrganization org = (WelfareSLOOrganization) organization;
+            for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
+                Object[] row = new Object[5];
+                row[0] = request;
+                row[1] = request.getSender();
+                row[2] = request.getStatus();
+                row[3] = request.getReceiver();
+                String result = ((WelfareSLOWorkRequest) request).getTestResult();
+                row[4] = result == null ? "Waiting" : result;
+                model.addRow(row);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -169,8 +175,8 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(lblEntName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnAssign)
@@ -181,43 +187,63 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
                     .addComponent(lblResult))
                 .addGap(18, 18, 18)
                 .addComponent(btnSubmit)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
-        int selectedRow = tblwork.getSelectedRow();
-        
-        if (selectedRow < 0){
-            return;
+        try{
+            int selectedRow = tblwork.getSelectedRow();
+
+            if (selectedRow < 0){
+                return;
+            }
+
+            WorkRequest request = (WorkRequest)tblwork.getValueAt(selectedRow, 0);
+            if(!request.getStatus().equalsIgnoreCase("completed") && !request.getStatus().equalsIgnoreCase("pending")){
+                request.setReceiver(account);
+                request.setStatus("Pending");
+                PopulateTable();
+            }
         }
-        
-        WorkRequest request = (WorkRequest)tblwork.getValueAt(selectedRow, 0);
-        request.setReceiver(account);
-        request.setStatus("Pending");
-        PopulateTable();
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
-        int selectedRow = tblwork.getSelectedRow();
-        
-        if (selectedRow < 0){
-            return;
+        try{
+            int selectedRow = tblwork.getSelectedRow();
+
+            if (selectedRow < 0){
+                return;
+            }
+
+            SLOrequest = (WelfareSLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
+            if(SLOrequest.getReceiver().equals(account)){
+               SLOrequest.setStatus("Processing");
+               txtResult.setEnabled(true);
+               btnSubmit.setEnabled(true);
+               lblResult.setEnabled(true);
+            }
+            else{
+                //Jpanel
+            }
         }
-        
-          SLOrequest = (WelfareSLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
-     
-        SLOrequest.setStatus("Processing");
-        
-        txtResult.setEnabled(true);
-        btnSubmit.setEnabled(true);
-        lblResult.setEnabled(true);
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnProceedActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-       SLOrequest.setTestResult(txtResult.getText());
-        SLOrequest.setStatus("Completed");
-        PopulateTable();
+       try{
+            SLOrequest.setTestResult(txtResult.getText());
+            SLOrequest.setStatus("Completed");
+            PopulateTable();
+       }
+       catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

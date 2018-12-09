@@ -15,6 +15,15 @@ public class WelfareBLOWorkRequest extends WorkRequest{
     private String testResult;
     private Patient patient;
     private String referTo;
+    private double fund;
+
+    public double getFund() {
+        return fund;
+    }
+
+    public void setFund(double fund) {
+        this.fund = fund;
+    }
 
     public String getTestResult() {
         return testResult;

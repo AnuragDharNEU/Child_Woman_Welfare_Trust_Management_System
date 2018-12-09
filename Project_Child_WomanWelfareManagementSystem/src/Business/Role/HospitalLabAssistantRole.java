@@ -7,6 +7,7 @@ package Business.Role;
 
 import Business.EcoSystem;
 import Business.Enterprise.HospitalEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import UserInterface.Hospital.LabAssistant.HospitalLabAssistantWorkAreaJPanel;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
 public class HospitalLabAssistantRole extends HospitalRole{
   @Override
     public JPanel createHospitalWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,HospitalEnterprise enterprise, EcoSystem system) {
+        Logger.getInstance().writeLogs(account.getEmployee().getName()+ " Logs in");
         return new HospitalLabAssistantWorkAreaJPanel(userProcessContainer, system,enterprise,organization,account);
     }
 }  

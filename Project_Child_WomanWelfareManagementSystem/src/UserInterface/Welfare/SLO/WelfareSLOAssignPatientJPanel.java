@@ -7,6 +7,7 @@ package UserInterface.Welfare.SLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Patient.Patient;
@@ -54,11 +55,16 @@ public class WelfareSLOAssignPatientJPanel extends javax.swing.JPanel {
         return thisNetwork;
     }
     private void PopulateCombo(){
-        ddlCentres.removeAllItems();
-        for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
-            if(centre.getSupervisor().equals(account.getEmployee())){
-                ddlCentres.addItem(centre);
+        try{
+            ddlCentres.removeAllItems();
+            for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
+                if(centre.getSupervisor().equals(account.getEmployee())){
+                    ddlCentres.addItem(centre);
+                }
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -169,15 +175,19 @@ public class WelfareSLOAssignPatientJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        String patName = txtName.getText();
-        int patAge = Integer.valueOf(txtAge.getText());
-        Patient pat = network.getPatientDir().AddPatient(patName, patAge);
-        WelfareCentre welfCentre = (WelfareCentre)ddlCentres.getSelectedItem();
-        for(WelfareCentre centre :network.getCentreDir().getWelfareCentreList()){
-            if((welfCentre.equals(centre)))
-            centre.AddPatient(pat);
+        try{
+            String patName = txtName.getText();
+            int patAge = Integer.valueOf(txtAge.getText());
+            Patient pat = network.getPatientDir().AddPatient(patName, patAge);
+            WelfareCentre welfCentre = (WelfareCentre)ddlCentres.getSelectedItem();
+            for(WelfareCentre centre :network.getCentreDir().getWelfareCentreList()){
+                if((welfCentre.equals(centre)))
+                centre.AddPatient(pat);
+            }
         }
-        
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

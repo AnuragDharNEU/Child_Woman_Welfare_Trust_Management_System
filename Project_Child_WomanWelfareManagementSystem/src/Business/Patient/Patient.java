@@ -14,8 +14,9 @@ import Business.UserAccount.UserAccount;
 public class Patient {
     private String Name;
     private int age;
-    private String disease;
-    private String consultantName;
+    private String problem;
+    private String service;
+    private String serviceProvided;
     private UserAccount FieldOfficer;
 
     public String getName() {
@@ -34,22 +35,13 @@ public class Patient {
         this.age = age;
     }
 
-    public String getDisease() {
-        return disease;
+    public String getProblem() {
+        return problem;
     }
 
-    public void setDisease(String disease) {
-        this.disease = disease;
+    public void setProblem(String problem) {
+        this.problem = problem;
     }
-
-    public String getConsultantName() {
-        return consultantName;
-    }
-
-    public void setConsultantName(String consultantName) {
-        this.consultantName = consultantName;
-    }
-
     public UserAccount getFieldOfficer() {
         return FieldOfficer;
     }
@@ -57,6 +49,23 @@ public class Patient {
     public void setFieldOfficer(UserAccount FieldOfficer) {
         this.FieldOfficer = FieldOfficer;
     }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public String getServiceProvided() {
+        return serviceProvided;
+    }
+
+    public void setServiceProvided(String serviceProvided) {
+        this.serviceProvided = serviceProvided;
+    }
+    
     @Override
     public String toString(){
         return Name;
