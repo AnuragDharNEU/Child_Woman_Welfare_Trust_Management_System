@@ -54,6 +54,8 @@ public class WelfareFLOWorkAreaJPanel extends javax.swing.JPanel {
         btnWomen = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
         jLabel1.setText("Field Level Officer Work Area");
 
         jLabel2.setText("Enterprise");
@@ -104,7 +106,7 @@ public class WelfareFLOWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(btnChild, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnWomen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addGap(250, 250, 250))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +125,7 @@ public class WelfareFLOWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(btnWomen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReport)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addGap(119, 119, 119))
         );
     }// </editor-fold>//GEN-END:initComponents
 

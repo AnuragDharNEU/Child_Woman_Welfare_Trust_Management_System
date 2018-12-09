@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,6 +57,7 @@ public class Logger {
                 pw.println(new Date());
                 ex.printStackTrace (pw);
                 pw.close();
+                JOptionPane.showMessageDialog(null, "Exception Occured. View exception logs for details.","Error",JOptionPane.ERROR_MESSAGE);
             } catch (IOException e) {
                 e.printStackTrace();
             }

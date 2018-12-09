@@ -9,9 +9,9 @@ import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
 import Business.Logger;
 import Business.Network.Network;
-import Business.Organization.Organization;
 import Business.Organization.WelfareOrganization;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -80,6 +80,9 @@ public class ManageWelfareOrganizationJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         bbtnAdd = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Manage Welfare Organization");
 
         tblOrganization.setModel(new javax.swing.table.DefaultTableModel(
@@ -92,6 +95,7 @@ public class ManageWelfareOrganizationJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblOrganization);
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Organization Type");
 
         ddlOrgType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -115,9 +119,8 @@ public class ManageWelfareOrganizationJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(300, 300, 300)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,14 +130,18 @@ public class ManageWelfareOrganizationJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(ddlOrgType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bbtnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(68, 68, 68))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -144,24 +151,36 @@ public class ManageWelfareOrganizationJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(bbtnAdd))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(75, 75, 75))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void bbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbtnAddActionPerformed
+        boolean flag = true;
         try{
             String type = ddlOrgType.getSelectedItem().toString()== "DLO"? "District Level Organization":
                           ddlOrgType.getSelectedItem().toString()== "BLO"? "Block Level Organization":
                           ddlOrgType.getSelectedItem().toString()== "SLO"? "Sector Level Organization":
                           ddlOrgType.getSelectedItem().toString()== "FLO"? "Field Level Organization": "Admin";
-             for(Network net : ecosystem.getNetworkList()){
-                for(WelfareEnterprise ent : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
-                    WelfareOrganization wel = ent.getWelfareOrganizationDirectory().createWelfareOrganization(type);
+//             for(Network net : ecosystem.getNetworkList()){
+//                for(WelfareEnterprise ent : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
+                    for(WelfareOrganization welOrg : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                        if(welOrg.getName().equals(type)){
+                            flag = false;
+                        }
+                    }
+                    if(flag){
+                    WelfareOrganization wel = enterprise.getWelfareOrganizationDirectory().createWelfareOrganization(type);
                     wel.setName(type);
                     populateTable();
-                }
-            }
-             Logger.getInstance().writeLogs(type+" created");
+                    Logger.getInstance().writeLogs(type+" created");
+                    JOptionPane.showMessageDialog(null, type+" created");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Organization already added. Try adding some other organization","Error",JOptionPane.ERROR_MESSAGE);
+                    }
+//                }
+//            }
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);

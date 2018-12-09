@@ -18,6 +18,7 @@ import Business.WelfareCentre.WelfareCentre;
 import Business.WorkQueue.WelfareFLOWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -91,6 +92,8 @@ public class WelfareSLOAssignWorkForFLOJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         txtMessage = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
         lblEntName.setText("Ent Name");
 
         jLabel2.setText("Enterprise");
@@ -145,7 +148,7 @@ public class WelfareSLOAssignWorkForFLOJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(ddlPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addGap(135, 135, 135))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,7 +171,7 @@ public class WelfareSLOAssignWorkForFLOJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSend)
                     .addComponent(btnBack))
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addGap(143, 143, 143))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -183,6 +186,7 @@ public class WelfareSLOAssignWorkForFLOJPanel extends javax.swing.JPanel {
         try{
             Patient patient = (Patient) ddlPatient.getSelectedItem();
             String message = txtMessage.getText();
+            if(!message.trim().isEmpty()){
             WelfareFLOWorkRequest request = new WelfareFLOWorkRequest();
             request.setPatient(patient);
             request.setSender(account);
@@ -198,6 +202,11 @@ public class WelfareSLOAssignWorkForFLOJPanel extends javax.swing.JPanel {
             if (org!=null){
                 org.getWorkQueue().getWorkRequestList().add(request);
                 account.getWorkQueue().getWorkRequestList().add(request);
+                JOptionPane.showMessageDialog(null, "Request forwarded to FLO");
+            }
+            }
+            else{
+                 JOptionPane.showMessageDialog(null, "Please enter all the values","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
         catch(Exception ex){

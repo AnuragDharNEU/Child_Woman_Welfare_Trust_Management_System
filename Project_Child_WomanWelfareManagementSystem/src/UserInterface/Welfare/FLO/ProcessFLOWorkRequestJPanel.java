@@ -16,6 +16,7 @@ import Business.WorkQueue.WelfareFLOWorkRequest;
 import UserInterface.Welfare.DLO.WelfareDLOWorkRequestJPanel;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -74,6 +75,8 @@ public class ProcessFLOWorkRequestJPanel extends javax.swing.JPanel {
         btnProceed = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
         jLabel2.setText("Enterprise");
 
         lblEntName.setText("Ent Name");
@@ -105,7 +108,7 @@ public class ProcessFLOWorkRequestJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(300, 300, 300)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBack)
@@ -127,7 +130,7 @@ public class ProcessFLOWorkRequestJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addGap(152, 152, 152))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +155,7 @@ public class ProcessFLOWorkRequestJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProceed)
                     .addComponent(btnBack))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGap(98, 98, 98))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -162,6 +165,7 @@ public class ProcessFLOWorkRequestJPanel extends javax.swing.JPanel {
             p.setFieldOfficer(account);
             request.setPatient(p);
             Logger.getInstance().writeLogs("FLO assigns patient");
+            JOptionPane.showMessageDialog(null, "FLO is assigned for the patient");
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);

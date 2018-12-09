@@ -84,6 +84,8 @@ public class WelfareFLOWomenJPanel extends javax.swing.JPanel {
         btnProceed = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
         jLabel1.setText("Field Level Officer Women Care");
 
         jLabel2.setText("Enterprise");
@@ -150,7 +152,7 @@ public class WelfareFLOWomenJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProceed)
                     .addComponent(btnBack))
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addGap(151, 151, 151))
         );
     }// </editor-fold>//GEN-END:initComponents
 
