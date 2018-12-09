@@ -125,13 +125,13 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
         btnCreate = new javax.swing.JButton();
         drpdwnOrganization = new javax.swing.JComboBox();
         drpdwnEmp = new javax.swing.JComboBox();
         drpdwnRole = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
 
         tblUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,10 +193,10 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtUsername)
-                            .addComponent(txtPassword)
                             .addComponent(drpdwnOrganization, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(drpdwnEmp, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(drpdwnRole, 0, 112, Short.MAX_VALUE)))
+                            .addComponent(drpdwnRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGap(59, 59, 59)
@@ -287,7 +287,9 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
      
         try
         {
-            if(txtUsername.getText().trim().isEmpty() || txtPassword.getText().trim().isEmpty())
+            char[] passwordCharArray = txtPassword.getPassword();
+            String password = String.valueOf(passwordCharArray);
+            if(txtUsername.getText().trim().isEmpty() || password.trim().isEmpty())
             {
                 JOptionPane.showMessageDialog(null, "Please enter username/passsword","Error",JOptionPane.ERROR_MESSAGE);
             }
@@ -298,7 +300,7 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
                 Role role=(Role) drpdwnRole.getSelectedItem();
 
                 String username=txtUsername.getText();
-                String Password=String.valueOf(txtPassword.getText());
+                String Password=String.valueOf(txtPassword.getPassword());
 
                 if(organization.getUserAccountDirectory().checkIfUsernameIsUnique(username)){
                     organization.getUserAccountDirectory().createUserAccount(username, Password, emp, role);
@@ -332,7 +334,7 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblUser;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
