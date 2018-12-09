@@ -7,6 +7,7 @@ package UserInterface.Hospital.Administrator;
 
 import Business.EcoSystem;
 import Business.Enterprise.HospitalEnterprise;
+import Business.Logger;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -102,26 +103,43 @@ public class HospitalAdminWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEmpManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpManageActionPerformed
+        try {
         ManageHospitalEmployeeJPanel manageHospitalEmployeeJPanel=new ManageHospitalEmployeeJPanel(userProcessContainer, ecosystem, enterprise);
         userProcessContainer.add("manageHospitalEmployeeJPanel",manageHospitalEmployeeJPanel);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnEmpManageActionPerformed
-
+                                       
+            catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+     
+            }
+    }
     private void btnOrgManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrgManageActionPerformed
+        try{
         ManageHospitalOrganizationJPanel manageHospitalOrganizationJPanel=new ManageHospitalOrganizationJPanel(userProcessContainer, ecosystem,enterprise);
         userProcessContainer.add("manageHospitalOrganizationJPanel",manageHospitalOrganizationJPanel);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnOrgManageActionPerformed
-
+                                       
+            catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
+    }
+    
     private void btnUserManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserManageActionPerformed
+        try{
         ManageHospitalUserJPanel manageHospitalUserJPanel=new ManageHospitalUserJPanel(userProcessContainer, enterprise,ecosystem);
         userProcessContainer.add("manageHospitalUserJPanel",manageHospitalUserJPanel);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnUserManageActionPerformed
-
+                                      
+            catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+            }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEmpManage;

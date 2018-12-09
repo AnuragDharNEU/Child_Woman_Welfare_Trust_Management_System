@@ -9,6 +9,7 @@ import Business.Logger;
 import Business.WorkQueue.LabAssistantWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -95,9 +96,16 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
 
     private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed
         try{
+            if(resultJTextField.getText().trim().isEmpty()) 
+         {
+           JOptionPane.showMessageDialog(null, "Please enter the result","Error",JOptionPane.ERROR_MESSAGE);  
+         }
+       else
+         {
             request.setResult(resultJTextField.getText());
             request.setStatus("Completed");
             Logger.getInstance().writeLogs("Lab Request Completed");
+        }
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);

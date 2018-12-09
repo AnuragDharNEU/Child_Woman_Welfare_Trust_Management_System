@@ -18,6 +18,7 @@ import Business.WorkQueue.HospitalDoctorWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -185,7 +186,7 @@ public class DoctorAssignedWorkJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRequestWork)
                     .addComponent(btnBack))
                 .addContainerGap(265, Short.MAX_VALUE))
@@ -194,9 +195,11 @@ public class DoctorAssignedWorkJPanel extends javax.swing.JPanel {
 
     private void btnRequestWorkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestWorkActionPerformed
         try{
+            
         int selectedRow = workRequestJTable.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!");
             return;
         }
         HospitalDoctorWorkRequest request = (HospitalDoctorWorkRequest)workRequestJTable.getValueAt(selectedRow, 0);

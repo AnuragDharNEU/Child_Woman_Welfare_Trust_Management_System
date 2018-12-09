@@ -20,6 +20,7 @@ import Business.WorkQueue.NurseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -259,14 +260,42 @@ public class DoctorManageRequestJPanel extends javax.swing.JPanel {
         int selectedRow = workRequestJTable1.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!");
             return;
         }
+        boolean flag = true;
+        HospitalDoctorOrganization org=(HospitalDoctorOrganization) organization;
+         for(WorkRequest workRequest : org.getWorkQueue().getWorkRequestList()){
+                if(workRequest!= null && workRequest.getReceiver()==userAccount && !workRequest.getStatus().equalsIgnoreCase("completed")){
+                    flag = false;
+                    break;
+                }
+            }
         
         WorkRequest request = (WorkRequest)workRequestJTable1.getValueAt(selectedRow, 0);
+        if(flag){
+                if(!request.getStatus().equalsIgnoreCase("completed")){
+                    if(!request.getStatus().equalsIgnoreCase("Pending") && request.getReceiver()== null){
         request.setReceiver(userAccount);
         request.setStatus("Pending");
         populateTable();
         poupulateStatusTable();
+        JOptionPane.showMessageDialog(null, "Request Assigned");
+        Logger.getInstance().writeLogs("RequestAssigned");
+        
+        }
+        else{
+                    JOptionPane.showMessageDialog(null, "Someone else is working on this request");
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "This request is completed. Please select other request");
+                }
+
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "You have already assigned a task. Please complete it before taking another");
+            }     
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
@@ -290,6 +319,7 @@ public class DoctorManageRequestJPanel extends javax.swing.JPanel {
             int selectedRow = workRequestJTable1.getSelectedRow();
 
             if (selectedRow < 0){
+                JOptionPane.showMessageDialog(null, "Please select a row!!");
                 return;
             }
             WorkRequest request = (WorkRequest)workRequestJTable1.getValueAt(selectedRow, 0);
@@ -299,6 +329,11 @@ public class DoctorManageRequestJPanel extends javax.swing.JPanel {
             userProcessContainer.add("RequestWorkJPanel", new RequestWorkJPanel(userProcessContainer, system, enterprise, userAccount,organization,(HospitalDoctorWorkRequest)request,network));
             layout.next(userProcessContainer);
             }
+            else{
+        
+             JOptionPane.showMessageDialog(null, "Please assign a request to you before proceeding!");
+        }
+            
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
