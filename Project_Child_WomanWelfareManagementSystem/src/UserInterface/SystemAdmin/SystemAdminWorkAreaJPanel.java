@@ -9,6 +9,7 @@ import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
 import Business.Enterprise.HospitalEnterprise;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.EducationOrganization;
 import Business.Organization.HospitalOrganization;
@@ -40,82 +41,87 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     
     // Populate the Tree
     public void populateTree(){
-        DefaultTreeModel model=(DefaultTreeModel)jTree.getModel();
-        ArrayList<Network> networkList=ecosystem.getNetworkList();
-        ArrayList<WelfareEnterprise> welfareEnterpriseList;
-        ArrayList<HospitalEnterprise> hospitalEnterpriseList;
-        ArrayList<EducationEnterprise> educationEnterpriseList;
-        ArrayList<WelfareOrganization> welfareOrganizationList;
-        ArrayList<HospitalOrganization> hospitalOrganizationList;
-        ArrayList<EducationOrganization> educationOrganizationList;
-        
-        Network network;
-        WelfareEnterprise welfareEnterprise;
-        EducationEnterprise educationEnterprise;
-        HospitalEnterprise hospitalEnterprise;
-        WelfareOrganization welfareOrganization;
-        HospitalOrganization hospitalOrganization;
-        EducationOrganization educationOrganization;
-        
-        DefaultMutableTreeNode networks=new DefaultMutableTreeNode("Networks");
-        DefaultMutableTreeNode root=(DefaultMutableTreeNode)model.getRoot();
-        root.removeAllChildren();
-        root.insert(networks, 0);
-        
-        DefaultMutableTreeNode networkNode;
-        DefaultMutableTreeNode welfareEnterpriseNode;
-        DefaultMutableTreeNode educationEnterpriseNode;
-        DefaultMutableTreeNode hospitalEnterpriseNode;
-        DefaultMutableTreeNode welfareOrganizationNode;
-        DefaultMutableTreeNode educationOrganizationNode;
-        DefaultMutableTreeNode hospitalOrganizationNode;
-        
-        for(int i=0;i<networkList.size();i++){
-            network=networkList.get(i);
-            networkNode=new DefaultMutableTreeNode(network.getName());
-            networks.insert(networkNode, i);
-            
-            welfareEnterpriseList=network.getEnterpriseDirectory().getWelfareEnterpriseList();
-            for(int j=0; j<welfareEnterpriseList.size();j++){
-                welfareEnterprise=welfareEnterpriseList.get(j);
-                welfareEnterpriseNode=new DefaultMutableTreeNode(welfareEnterprise.getName());
-                networkNode.insert(welfareEnterpriseNode, j);
-                
-                welfareOrganizationList=welfareEnterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList();
-                for(int a=0;a<welfareOrganizationList.size();a++){
-                welfareOrganization=welfareOrganizationList.get(a);
-                welfareOrganizationNode=new DefaultMutableTreeNode(welfareOrganization.getName());
-                welfareEnterpriseNode.insert(welfareOrganizationNode, a);
+        try{
+            DefaultTreeModel model=(DefaultTreeModel)jTree.getModel();
+            ArrayList<Network> networkList=ecosystem.getNetworkList();
+            ArrayList<WelfareEnterprise> welfareEnterpriseList;
+            ArrayList<HospitalEnterprise> hospitalEnterpriseList;
+            ArrayList<EducationEnterprise> educationEnterpriseList;
+            ArrayList<WelfareOrganization> welfareOrganizationList;
+            ArrayList<HospitalOrganization> hospitalOrganizationList;
+            ArrayList<EducationOrganization> educationOrganizationList;
+
+            Network network;
+            WelfareEnterprise welfareEnterprise;
+            EducationEnterprise educationEnterprise;
+            HospitalEnterprise hospitalEnterprise;
+            WelfareOrganization welfareOrganization;
+            HospitalOrganization hospitalOrganization;
+            EducationOrganization educationOrganization;
+
+            DefaultMutableTreeNode networks=new DefaultMutableTreeNode("Networks");
+            DefaultMutableTreeNode root=(DefaultMutableTreeNode)model.getRoot();
+            root.removeAllChildren();
+            root.insert(networks, 0);
+
+            DefaultMutableTreeNode networkNode;
+            DefaultMutableTreeNode welfareEnterpriseNode;
+            DefaultMutableTreeNode educationEnterpriseNode;
+            DefaultMutableTreeNode hospitalEnterpriseNode;
+            DefaultMutableTreeNode welfareOrganizationNode;
+            DefaultMutableTreeNode educationOrganizationNode;
+            DefaultMutableTreeNode hospitalOrganizationNode;
+
+            for(int i=0;i<networkList.size();i++){
+                network=networkList.get(i);
+                networkNode=new DefaultMutableTreeNode(network.getName());
+                networks.insert(networkNode, i);
+
+                welfareEnterpriseList=network.getEnterpriseDirectory().getWelfareEnterpriseList();
+                for(int j=0; j<welfareEnterpriseList.size();j++){
+                    welfareEnterprise=welfareEnterpriseList.get(j);
+                    welfareEnterpriseNode=new DefaultMutableTreeNode(welfareEnterprise.getName());
+                    networkNode.insert(welfareEnterpriseNode, j);
+
+                    welfareOrganizationList=welfareEnterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList();
+                    for(int a=0;a<welfareOrganizationList.size();a++){
+                    welfareOrganization=welfareOrganizationList.get(a);
+                    welfareOrganizationNode=new DefaultMutableTreeNode(welfareOrganization.getName());
+                    welfareEnterpriseNode.insert(welfareOrganizationNode, a);
+                    }
+                }
+                educationEnterpriseList=network.getEnterpriseDirectory().getEducationnterpriseList();
+                for(int k=0; k<educationEnterpriseList.size();k++){
+                    educationEnterprise=educationEnterpriseList.get(k);
+                    educationEnterpriseNode=new DefaultMutableTreeNode(educationEnterprise.getName());
+                    networkNode.insert(educationEnterpriseNode, k);
+
+                    educationOrganizationList=educationEnterprise.getEducationOrganizationDirectory().getEducationOrganizationList();
+                    for(int b=0;b<educationOrganizationList.size();b++){
+                    educationOrganization=educationOrganizationList.get(b);
+                    educationOrganizationNode=new DefaultMutableTreeNode(educationOrganization.getName());
+                    educationEnterpriseNode.insert(educationOrganizationNode,b);
+                    }
+                }
+                hospitalEnterpriseList=network.getEnterpriseDirectory().getHospitalnterpriseList();
+                for(int m=0; m<hospitalEnterpriseList.size();m++){
+                    hospitalEnterprise=hospitalEnterpriseList.get(m);
+                    hospitalEnterpriseNode=new DefaultMutableTreeNode(hospitalEnterprise.getName());
+                    networkNode.insert(hospitalEnterpriseNode, m);
+
+                    hospitalOrganizationList=hospitalEnterprise.getHospitalOrganizationDirectory().getHospitalOrganizationList();
+                    for(int b=0;b<hospitalOrganizationList.size();b++){
+                    hospitalOrganization=hospitalOrganizationList.get(b);
+                    hospitalOrganizationNode=new DefaultMutableTreeNode(hospitalOrganization.getName());
+                    hospitalEnterpriseNode.insert(hospitalOrganizationNode,b);
+                    }
                 }
             }
-            educationEnterpriseList=network.getEnterpriseDirectory().getEducationnterpriseList();
-            for(int k=0; k<educationEnterpriseList.size();k++){
-                educationEnterprise=educationEnterpriseList.get(k);
-                educationEnterpriseNode=new DefaultMutableTreeNode(educationEnterprise.getName());
-                networkNode.insert(educationEnterpriseNode, k);
-                
-                educationOrganizationList=educationEnterprise.getEducationOrganizationDirectory().getEducationOrganizationList();
-                for(int b=0;b<educationOrganizationList.size();b++){
-                educationOrganization=educationOrganizationList.get(b);
-                educationOrganizationNode=new DefaultMutableTreeNode(educationOrganization.getName());
-                educationEnterpriseNode.insert(educationOrganizationNode,b);
-                }
-            }
-            hospitalEnterpriseList=network.getEnterpriseDirectory().getHospitalnterpriseList();
-            for(int m=0; m<hospitalEnterpriseList.size();m++){
-                hospitalEnterprise=hospitalEnterpriseList.get(m);
-                hospitalEnterpriseNode=new DefaultMutableTreeNode(hospitalEnterprise.getName());
-                networkNode.insert(hospitalEnterpriseNode, m);
-                
-                hospitalOrganizationList=hospitalEnterprise.getHospitalOrganizationDirectory().getHospitalOrganizationList();
-                for(int b=0;b<hospitalOrganizationList.size();b++){
-                hospitalOrganization=hospitalOrganizationList.get(b);
-                hospitalOrganizationNode=new DefaultMutableTreeNode(hospitalOrganization.getName());
-                hospitalEnterpriseNode.insert(hospitalOrganizationNode,b);
-                }
-            }
+            model.reload();
         }
-        model.reload();
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -7,6 +7,7 @@ package UserInterface.Welfare.Admininstrator;
 
 import Business.Employee.Employee;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.EducationOrganization;
 import Business.Organization.Organization;
 import Business.Organization.WelfareOrganization;
@@ -33,37 +34,48 @@ public class ManageWelfareEmployeeJPanel extends javax.swing.JPanel {
         populateOrganizationComboBox();
     }
     public void populateOrganizationComboBox(){
-       
-     ddlOrgType.removeAllItems();
-               
-        for(WelfareOrganization organization: enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-        if(!organization.getName().equals("Admin Organization"))
-        ddlOrgType.addItem(organization);
-                    
-           }
-         }
-    public void populateTableOrganizationComboBox(){
-       
-     ddlTableOrgType.removeAllItems();
-               
-        for(WelfareOrganization organization: enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-        if(!organization.getName().equals("Admin Organization"))
-        ddlTableOrgType.addItem(organization);
-        WelfareOrganization selectedOrganization = (WelfareOrganization)ddlTableOrgType.getSelectedItem();
-        populateTable(selectedOrganization);
-           }
-         }
-    private void populateTable(WelfareOrganization organization){
-        DefaultTableModel model = (DefaultTableModel) tblOrganization.getModel();
-        
-        model.setRowCount(0);
-        if(organization!= null && organization.getEmployeeDirectory()!= null){
-            for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()){
-                Object[] row = new Object[2];
-                row[0] = employee.getId();
-                row[1] = employee.getName();
-                model.addRow(row);
+       try{
+            ddlOrgType.removeAllItems();
+            for(WelfareOrganization organization: enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                if(!organization.getName().equals("Admin Organization"))
+                    ddlOrgType.addItem(organization);          
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
+    }
+    public void populateTableOrganizationComboBox(){
+       try{
+            ddlTableOrgType.removeAllItems();
+
+            for(WelfareOrganization organization: enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                if(!organization.getName().equals("Admin Organization")){
+                    ddlTableOrgType.addItem(organization);
+                }
+                WelfareOrganization selectedOrganization = (WelfareOrganization)ddlTableOrgType.getSelectedItem();
+                populateTable(selectedOrganization);
+            }
+        }
+       catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
+    }
+    private void populateTable(WelfareOrganization organization){
+        try{
+            DefaultTableModel model = (DefaultTableModel) tblOrganization.getModel();
+            model.setRowCount(0);
+            if(organization!= null && organization.getEmployeeDirectory()!= null){
+                for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()){
+                    Object[] row = new Object[2];
+                    row[0] = employee.getId();
+                    row[1] = employee.getName();
+                    model.addRow(row);
+                }
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -183,17 +195,28 @@ public class ManageWelfareEmployeeJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        WelfareOrganization organization = (WelfareOrganization) ddlOrgType.getSelectedItem();
-        String name = txtOrgName.getText();
-        
-        organization.getEmployeeDirectory().createEmployee(name);
-        populateTable(organization);
+        try{
+            WelfareOrganization organization = (WelfareOrganization) ddlOrgType.getSelectedItem();
+            String name = txtOrgName.getText();
+
+            organization.getEmployeeDirectory().createEmployee(name);
+            populateTable(organization);
+            Logger.getInstance().writeLogs("Welfare Employee Created name:- "+name);
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void ddlTableOrgTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlTableOrgTypeActionPerformed
-        WelfareOrganization organization = (WelfareOrganization) ddlTableOrgType.getSelectedItem();
-        if (organization != null){
-            populateTable(organization);
+        try{
+            WelfareOrganization organization = (WelfareOrganization) ddlTableOrgType.getSelectedItem();
+            if (organization != null){
+                populateTable(organization);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_ddlTableOrgTypeActionPerformed
 

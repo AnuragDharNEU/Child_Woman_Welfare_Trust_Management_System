@@ -7,6 +7,7 @@ package Business.Role;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import UserInterface.Welfare.SLO.WelfareSLOWorkAreaJPanel;
@@ -19,6 +20,7 @@ import javax.swing.JPanel;
 public class WelfareSLORole extends WelfareRole{
     @Override
     public JPanel createWelfareWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization,WelfareEnterprise enterprise, EcoSystem system) {
+        Logger.getInstance().writeLogs(account.getEmployee().getName()+ " Logs in");
         return new WelfareSLOWorkAreaJPanel(userProcessContainer, system, enterprise, organization,account);
     }
 }

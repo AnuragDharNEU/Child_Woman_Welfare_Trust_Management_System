@@ -8,6 +8,7 @@ package UserInterface.Welfare.DLO;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Organization.WelfareOrganization;
@@ -39,12 +40,17 @@ public class WelfareDLOAddCentreJPanel extends javax.swing.JPanel {
         populateSupevisorCombo();
     }
     private void populateSupevisorCombo(){
-        ddlSupervisor.removeAllItems();
-        for(WelfareOrganization org :enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-          for(UserAccount user: org.getUserAccountDirectory().getUserAccountList()){
-              if(user.getRole() instanceof WelfareSLORole)
-                ddlSupervisor.addItem(user.getEmployee());
+        try{
+            ddlSupervisor.removeAllItems();
+            for(WelfareOrganization org :enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+              for(UserAccount user: org.getUserAccountDirectory().getUserAccountList()){
+                  if(user.getRole() instanceof WelfareSLORole)
+                    ddlSupervisor.addItem(user.getEmployee());
+                }
+            }
         }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -130,13 +136,20 @@ public class WelfareDLOAddCentreJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        String name = txtName.getText();
-        Employee sup = (Employee) ddlSupervisor.getSelectedItem();
-        for(Network net : ecosystem.getNetworkList()){
-            for(WelfareEnterprise ent : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
-                if(ent == enterprise)
-                    net.getCentreDir().CreateWelfareCentre(name, sup);
+        try{
+            String name = txtName.getText();
+            Employee sup = (Employee) ddlSupervisor.getSelectedItem();
+            for(Network net : ecosystem.getNetworkList()){
+                for(WelfareEnterprise ent : net.getEnterpriseDirectory().getWelfareEnterpriseList()){
+                    if(ent == enterprise){
+                        net.getCentreDir().CreateWelfareCentre(name, sup);
+                        Logger.getInstance().writeLogs("Centre "+name+" added having supervisor "+sup);
+                    }
+                }
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_btnAddActionPerformed
 

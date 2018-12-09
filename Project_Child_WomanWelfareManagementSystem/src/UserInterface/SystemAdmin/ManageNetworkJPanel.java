@@ -1,6 +1,7 @@
 package UserInterface.SystemAdmin;
 
 import Business.EcoSystem;
+import Business.Logger;
 import Business.Network.Network;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -32,14 +33,18 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
     }
     private void populateNetworkTable() {
         DefaultTableModel model = (DefaultTableModel) networkJTable.getModel();
-
-        model.setRowCount(0);
-        for (Network network : system.getNetworkList()) {
-            if(!network.getName().equals("System Administrator")){
-            Object[] row = new Object[1];
-            row[0] = network.getName();
-            model.addRow(row);
+        try{
+            model.setRowCount(0);
+            for (Network network : system.getNetworkList()) {
+                if(!network.getName().equals("System Administrator")){
+                Object[] row = new Object[1];
+                row[0] = network.getName();
+                model.addRow(row);
+                }
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -127,12 +132,16 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        String name = txtNetworkName.getText();
-
-        Network network = system.createAndAddNetwork();
-        network.setName(name);
-
-        populateNetworkTable();
+        try{
+            String name = txtNetworkName.getText();
+            Network network = system.createAndAddNetwork();
+            network.setName(name);
+            Logger.getInstance().writeLogs("Network created "+name);
+            populateNetworkTable();
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

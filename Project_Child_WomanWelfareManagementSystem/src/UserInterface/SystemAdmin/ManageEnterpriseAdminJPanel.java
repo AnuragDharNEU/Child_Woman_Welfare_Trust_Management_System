@@ -10,6 +10,7 @@ import Business.Employee.Employee;
 import Business.Enterprise.EducationEnterprise;
 import Business.Enterprise.HospitalEnterprise;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Network.Network;
 import Business.Organization.EducationOrganization;
 import Business.Organization.HospitalOrganization;
@@ -43,65 +44,78 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
     }
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) enterpriseJTable.getModel();
+        try{
+            model.setRowCount(0);
+            for (Network network : system.getNetworkList()) {
+                for (WelfareEnterprise enterprise : network.getEnterpriseDirectory().getWelfareEnterpriseList()) {
+                    for(WelfareOrganization welOrg : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
+                        for (UserAccount userAccount : welOrg.getUserAccountDirectory().getUserAccountList()) {
+                            Object[] row = new Object[3];
+                            row[0] = enterprise.getName();
+                            row[1] = network.getName();
+                            row[2] = userAccount.getUsername();
 
-        model.setRowCount(0);
-        for (Network network : system.getNetworkList()) {
-            for (WelfareEnterprise enterprise : network.getEnterpriseDirectory().getWelfareEnterpriseList()) {
-                for(WelfareOrganization welOrg : enterprise.getWelfareOrganizationDirectory().getWelfareOrganizationList()){
-                    for (UserAccount userAccount : welOrg.getUserAccountDirectory().getUserAccountList()) {
-                        Object[] row = new Object[3];
-                        row[0] = enterprise.getName();
-                        row[1] = network.getName();
-                        row[2] = userAccount.getUsername();
+                            model.addRow(row);
+                        }
+                    }
+                }
+                for (EducationEnterprise enterprise : network.getEnterpriseDirectory().getEducationnterpriseList()) {
+                    for(EducationOrganization eduOrg : enterprise.getEducationOrganizationDirectory().getEducationOrganizationList()){
+                        for (UserAccount userAccount : eduOrg.getUserAccountDirectory().getUserAccountList()) {
+                            Object[] row = new Object[3];
+                            row[0] = enterprise.getName();
+                            row[1] = network.getName();
+                            row[2] = userAccount.getUsername();
 
-                        model.addRow(row);
+                            model.addRow(row);
+                        }
+                    }
+                }
+                for (HospitalEnterprise enterprise : network.getEnterpriseDirectory().getHospitalnterpriseList()) {
+                    for(HospitalOrganization hosOrg : enterprise.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
+                        for (UserAccount userAccount : hosOrg.getUserAccountDirectory().getUserAccountList()) {
+                            Object[] row = new Object[3];
+                            row[0] = enterprise.getName();
+                            row[1] = network.getName();
+                            row[2] = userAccount.getUsername();
+
+                            model.addRow(row);
+                        }
                     }
                 }
             }
-            for (EducationEnterprise enterprise : network.getEnterpriseDirectory().getEducationnterpriseList()) {
-                for(EducationOrganization eduOrg : enterprise.getEducationOrganizationDirectory().getEducationOrganizationList()){
-                    for (UserAccount userAccount : eduOrg.getUserAccountDirectory().getUserAccountList()) {
-                        Object[] row = new Object[3];
-                        row[0] = enterprise.getName();
-                        row[1] = network.getName();
-                        row[2] = userAccount.getUsername();
-
-                        model.addRow(row);
-                    }
-                }
-            }
-            for (HospitalEnterprise enterprise : network.getEnterpriseDirectory().getHospitalnterpriseList()) {
-                for(HospitalOrganization hosOrg : enterprise.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
-                for (UserAccount userAccount : hosOrg.getUserAccountDirectory().getUserAccountList()) {
-                    Object[] row = new Object[3];
-                    row[0] = enterprise.getName();
-                    row[1] = network.getName();
-                    row[2] = userAccount.getUsername();
-
-                    model.addRow(row);
-                }
-                }
-            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     private void populateNetworkComboBox(){
         ddlNetwork.removeAllItems();
-        
-        for (Network network : system.getNetworkList()){
-            ddlNetwork.addItem(network);
+        try{
+            for (Network network : system.getNetworkList()){
+                if(!network.getName().equals("System Administrator"))
+                ddlNetwork.addItem(network);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     private void populateEnterpriseComboBox(Network network){
         ddlEnterprise.removeAllItems();
-        
-        for (WelfareEnterprise enterprise : network.getEnterpriseDirectory().getWelfareEnterpriseList()){
-            ddlEnterprise.addItem(enterprise);
+        try{
+            for (WelfareEnterprise enterprise : network.getEnterpriseDirectory().getWelfareEnterpriseList()){
+                ddlEnterprise.addItem(enterprise);
+            }
+            for (EducationEnterprise enterprise : network.getEnterpriseDirectory().getEducationnterpriseList()){
+                ddlEnterprise.addItem(enterprise);
+            }
+            for (HospitalEnterprise enterprise : network.getEnterpriseDirectory().getHospitalnterpriseList()){
+                ddlEnterprise.addItem(enterprise);
+            }
         }
-        for (EducationEnterprise enterprise : network.getEnterpriseDirectory().getEducationnterpriseList()){
-            ddlEnterprise.addItem(enterprise);
-        }
-        for (HospitalEnterprise enterprise : network.getEnterpriseDirectory().getHospitalnterpriseList()){
-            ddlEnterprise.addItem(enterprise);
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
         
     }
@@ -262,24 +276,33 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ddlNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ddlNetworkActionPerformed
-        Network network = (Network) ddlNetwork.getSelectedItem();
-        if (network != null){
-            populateEnterpriseComboBox(network);
+        try{
+            Network network = (Network) ddlNetwork.getSelectedItem();
+            if (network != null){
+                populateEnterpriseComboBox(network);
+            }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }//GEN-LAST:event_ddlNetworkActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-
-        if(ddlEnterprise.getSelectedItem() instanceof WelfareEnterprise){
-            createUser((WelfareEnterprise) ddlEnterprise.getSelectedItem());
+        try{
+            if(ddlEnterprise.getSelectedItem() instanceof WelfareEnterprise){
+                createUser((WelfareEnterprise) ddlEnterprise.getSelectedItem());
+            }
+            if(ddlEnterprise.getSelectedItem() instanceof EducationEnterprise){
+                createUser((EducationEnterprise) ddlEnterprise.getSelectedItem());
+            }
+            if(ddlEnterprise.getSelectedItem() instanceof HospitalEnterprise){
+                createUser((HospitalEnterprise) ddlEnterprise.getSelectedItem());
+            }
+            Logger.getInstance().writeLogs("User Created "+ddlEnterprise.getSelectedItem().toString());
         }
-        if(ddlEnterprise.getSelectedItem() instanceof EducationEnterprise){
-            createUser((EducationEnterprise) ddlEnterprise.getSelectedItem());
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
-        if(ddlEnterprise.getSelectedItem() instanceof HospitalEnterprise){
-            createUser((HospitalEnterprise) ddlEnterprise.getSelectedItem());
-        }
-        
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -292,34 +315,49 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
     private void createUser(WelfareEnterprise enterprise){
-        String username = txtUserName.getText();
-        String password = String.valueOf(txtPassword.getPassword());
-        String name = txtName.getText();
-        WelfareOrganization wel = enterprise.getWelfareOrganizationDirectory().createWelfareOrganization(txtOrgName.getText());
-        Employee employee = wel.getEmployeeDirectory().createEmployee(name);
-        
-        UserAccount account = wel.getUserAccountDirectory().createUserAccount(username, password, employee, new WelfareAdminRole());
-        populateTable();
+        try{
+            String username = txtUserName.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+            String name = txtName.getText();
+            WelfareOrganization wel = enterprise.getWelfareOrganizationDirectory().createWelfareOrganization(txtOrgName.getText());
+            Employee employee = wel.getEmployeeDirectory().createEmployee(name);
+
+            UserAccount account = wel.getUserAccountDirectory().createUserAccount(username, password, employee, new WelfareAdminRole());
+            populateTable();
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }
     private void createUser(EducationEnterprise enterprise){
-        String username = txtUserName.getText();
-        String password = String.valueOf(txtPassword.getPassword());
-        String name = txtName.getText();
-        EducationOrganization ed = enterprise.getEducationOrganizationDirectory().createEducationOrganization(txtOrgName.getText());
-        Employee employee = ed.getEmployeeDirectory().createEmployee(name);
-        
-        UserAccount account = ed.getUserAccountDirectory().createUserAccount(username, password, employee, new EducationAdminRole());
-        populateTable();
+        try{
+            String username = txtUserName.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+            String name = txtName.getText();
+            EducationOrganization ed = enterprise.getEducationOrganizationDirectory().createEducationOrganization(txtOrgName.getText());
+            Employee employee = ed.getEmployeeDirectory().createEmployee(name);
+
+            UserAccount account = ed.getUserAccountDirectory().createUserAccount(username, password, employee, new EducationAdminRole());
+            populateTable();
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }
     private void createUser(HospitalEnterprise enterprise){
-        String username = txtUserName.getText();
-        String password = String.valueOf(txtPassword.getPassword());
-        String name = txtName.getText();
-        HospitalOrganization hos = enterprise.getHospitalOrganizationDirectory().createHospitalOrganization(txtOrgName.getText());
-        Employee employee = hos.getEmployeeDirectory().createEmployee(name);
-        
-        UserAccount account = hos.getUserAccountDirectory().createUserAccount(username, password, employee, new HospitalAdminRole());
-        populateTable();
+        try{
+            String username = txtUserName.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+            String name = txtName.getText();
+            HospitalOrganization hos = enterprise.getHospitalOrganizationDirectory().createHospitalOrganization(txtOrgName.getText());
+            Employee employee = hos.getEmployeeDirectory().createEmployee(name);
+
+            UserAccount account = hos.getUserAccountDirectory().createUserAccount(username, password, employee, new HospitalAdminRole());
+            populateTable();
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

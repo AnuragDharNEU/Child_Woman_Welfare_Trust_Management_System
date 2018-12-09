@@ -81,6 +81,11 @@ public class WelfareDLOWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnRewards.setText("Rewards&Recognitions");
+        btnRewards.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRewardsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -141,6 +146,13 @@ public class WelfareDLOWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnWorkRequestActionPerformed
+
+    private void btnRewardsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRewardsActionPerformed
+//        WelfareDLORewardJPanel welfareDLORewardJPanel=new WelfareDLORewardJPanel(userProcessContainer, enterprise,organization, system, account);
+//        userProcessContainer.add("welfareDLORewardJPanel",welfareDLORewardJPanel);
+//        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+//        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnRewardsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

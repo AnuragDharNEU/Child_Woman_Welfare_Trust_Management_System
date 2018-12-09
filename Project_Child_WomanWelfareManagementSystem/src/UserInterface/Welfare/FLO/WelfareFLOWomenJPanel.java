@@ -7,6 +7,7 @@ package UserInterface.Welfare.FLO;
 
 import Business.EcoSystem;
 import Business.Enterprise.WelfareEnterprise;
+import Business.Logger;
 import Business.Organization.Organization;
 import Business.Organization.WelfareFLOOrganization;
 import Business.Organization.WelfareOrganization;
@@ -43,22 +44,27 @@ public class WelfareFLOWomenJPanel extends javax.swing.JPanel {
         PopulateTable();
     }
     public void PopulateTable(){
-        DefaultTableModel model = (DefaultTableModel) tblwork.getModel();
-        model.setRowCount(0);
-        WelfareFLOOrganization org = (WelfareFLOOrganization) organization;
-        for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
-            WelfareFLOWorkRequest floRequest = (WelfareFLOWorkRequest) request;
-            if(floRequest.getPatient().getFieldOfficer()==account){    
-                if(floRequest.getPatient().getAge()>6){
-                    Object[] row = new Object[5];
-                    row[0] = floRequest;
-                    row[1] = floRequest.getPatient().getAge();
-                    row[2] = floRequest.getPatient().getProblem();
-                    row[3] = request.getReceiver();
-                    row[4] = floRequest.getTestResult()== null ? "waiting" : floRequest.getTestResult();
-                    model.addRow(row);
+        try{
+            DefaultTableModel model = (DefaultTableModel) tblwork.getModel();
+            model.setRowCount(0);
+            WelfareFLOOrganization org = (WelfareFLOOrganization) organization;
+            for(WorkRequest request : org.getWorkQueue().getWorkRequestList()){
+                WelfareFLOWorkRequest floRequest = (WelfareFLOWorkRequest) request;
+                if(floRequest.getPatient().getFieldOfficer()==account){    
+                    if(floRequest.getPatient().getAge()>6){
+                        Object[] row = new Object[5];
+                        row[0] = floRequest;
+                        row[1] = floRequest.getPatient().getAge();
+                        row[2] = floRequest.getPatient().getProblem();
+                        row[3] = request.getReceiver();
+                        row[4] = floRequest.getTestResult()== null ? "waiting" : floRequest.getTestResult();
+                        model.addRow(row);
+                    }
                 }
             }
+        }
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
         }
     }
     /**
@@ -149,18 +155,23 @@ public class WelfareFLOWomenJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProceedActionPerformed
-        int selectedRow = tblwork.getSelectedRow();
+        try{
+            int selectedRow = tblwork.getSelectedRow();
 
-        if (selectedRow < 0){
-            return;
+            if (selectedRow < 0){
+                return;
+            }
+
+            WelfareFLOWorkRequest request = (WelfareFLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
+
+            ProcessFLOJPanel processFLOChildJPanel = new ProcessFLOJPanel(userProcessContainer, request,(WelfareOrganization)organization,account,enterprise);
+            userProcessContainer.add("processFLOChildJPanel", processFLOChildJPanel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
         }
-
-        WelfareFLOWorkRequest request = (WelfareFLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
-
-        ProcessFLOJPanel processFLOChildJPanel = new ProcessFLOJPanel(userProcessContainer, request,(WelfareOrganization)organization,account,enterprise);
-        userProcessContainer.add("processFLOChildJPanel", processFLOChildJPanel);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
+        catch(Exception ex){
+            Logger.getInstance().exceptionLogs(ex);
+        }
     }//GEN-LAST:event_btnProceedActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
