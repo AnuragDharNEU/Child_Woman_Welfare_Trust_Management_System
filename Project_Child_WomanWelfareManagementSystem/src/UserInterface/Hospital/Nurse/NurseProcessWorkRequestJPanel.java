@@ -48,7 +48,6 @@ public class NurseProcessWorkRequestJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 102, 102));
 
-        submitJButton.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         submitJButton.setText("Submit Result");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +64,6 @@ public class NurseProcessWorkRequestJPanel extends javax.swing.JPanel {
             }
         });
 
-        backJButton.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         backJButton.setText("<<Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +82,7 @@ public class NurseProcessWorkRequestJPanel extends javax.swing.JPanel {
                     .addComponent(backJButton))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                        .addGap(104, 104, 104)
                         .addComponent(submitJButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
@@ -117,6 +115,7 @@ public class NurseProcessWorkRequestJPanel extends javax.swing.JPanel {
             request.setResult(serviceProvidedTextField.getText());
             request.setStatus("Completed");
             Logger.getInstance().writeLogs("Nurse Request Completed");
+            JOptionPane.showMessageDialog(null, "Nurse Request Completed");
         }
              }
         catch(Exception ex){

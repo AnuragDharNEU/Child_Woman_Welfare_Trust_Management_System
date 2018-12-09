@@ -77,7 +77,6 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         btnWelfare = new javax.swing.JButton();
-        btnPatients = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 102, 102));
@@ -86,13 +85,6 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
         btnWelfare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnWelfareActionPerformed(evt);
-            }
-        });
-
-        btnPatients.setText("Patients");
-        btnPatients.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPatientsActionPerformed(evt);
             }
         });
 
@@ -109,45 +101,23 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(300, 300, 300)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnWelfare, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                    .addComponent(btnPatients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(70, 70, 70))
+                .addComponent(btnWelfare, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(70, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack)
-                .addGap(113, 113, 113))
+                .addGap(123, 123, 123))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(85, 85, 85)
                 .addComponent(btnWelfare)
-                .addGap(18, 18, 18)
-                .addComponent(btnPatients)
-                .addGap(49, 49, 49)
+                .addGap(38, 38, 38)
                 .addComponent(btnBack)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnPatientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientsActionPerformed
-        try{
-            ArrayList<String> services = new ArrayList<>();
-            for(WelfareCentre centre : network.getCentreDir().getWelfareCentreList()){
-                for(Patient pat :centre.getPatientList()){
-                    services.add(pat.getServiceProvided());
-                }
-            }
-            DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-            for(String ser : services){
-            dataSet.setValue(80, "Patients", ser);
-            }
-        }
-        catch(Exception ex){
-            Logger.getInstance().exceptionLogs(ex);
-        }
-    }//GEN-LAST:event_btnPatientsActionPerformed
 
     private void btnWelfareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWelfareActionPerformed
         try{
@@ -181,7 +151,6 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnPatients;
     private javax.swing.JButton btnWelfare;
     // End of variables declaration//GEN-END:variables
 }

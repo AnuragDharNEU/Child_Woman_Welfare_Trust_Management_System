@@ -259,6 +259,7 @@ public class RequestWorkJPanel extends javax.swing.JPanel {
                     org.getWorkQueue().getWorkRequestList().add(nurseWorkRequest);
                     userAccount.getWorkQueue().getWorkRequestList().add(nurseWorkRequest);
                     Logger.getInstance().writeLogs("nurseWorkRequest Work request created");
+                    JOptionPane.showMessageDialog(null, "nurseWorkRequest Work request created");
                 }
                 if (org!=null && org instanceof HospitalLabAssistantOrganization ){
                     labWorkRequest.setMessage(message);
@@ -268,6 +269,7 @@ public class RequestWorkJPanel extends javax.swing.JPanel {
                     org.getWorkQueue().getWorkRequestList().add(labWorkRequest);
                     userAccount.getWorkQueue().getWorkRequestList().add(labWorkRequest);
                     Logger.getInstance().writeLogs("labWorkRequest Work request created");
+                    JOptionPane.showMessageDialog(null, "labWorkRequest Work request created");
                 }
                 request.setResolveDate(new Date());
                 request.setStatus("Completed");

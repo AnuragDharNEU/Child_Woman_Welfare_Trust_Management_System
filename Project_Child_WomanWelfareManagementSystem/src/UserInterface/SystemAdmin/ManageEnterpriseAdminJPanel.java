@@ -343,8 +343,8 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
                 WelfareOrganization wel = enterprise.getWelfareOrganizationDirectory().createWelfareOrganization(txtOrgName.getText());
                 Employee employee = wel.getEmployeeDirectory().createEmployee(name);
                 UserAccount account = wel.getUserAccountDirectory().createUserAccount(username, password, employee, new WelfareAdminRole());
-                Logger.getInstance().writeLogs("User Created "+ddlEnterprise.getSelectedItem().toString());
-                JOptionPane.showMessageDialog(null, "User Created "+ddlEnterprise.getSelectedItem().toString());
+                Logger.getInstance().writeLogs("User Created for"+ddlEnterprise.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(null, "User Created for"+ddlEnterprise.getSelectedItem().toString());
                 populateTable();
                 }
                 else{

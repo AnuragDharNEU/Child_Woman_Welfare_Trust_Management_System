@@ -105,6 +105,7 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
             request.setResult(resultJTextField.getText());
             request.setStatus("Completed");
             Logger.getInstance().writeLogs("Lab Request Completed");
+            JOptionPane.showMessageDialog(null, "Lab Request Completed");
         }
         }
         catch(Exception ex){
