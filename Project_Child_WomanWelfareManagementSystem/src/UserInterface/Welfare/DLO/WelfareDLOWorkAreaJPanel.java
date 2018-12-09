@@ -51,7 +51,6 @@ public class WelfareDLOWorkAreaJPanel extends javax.swing.JPanel {
         btnAddcentres = new javax.swing.JButton();
         btnAddEmp = new javax.swing.JButton();
         btnWorkRequest = new javax.swing.JButton();
-        btnRewards = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 102, 102));
 
@@ -85,13 +84,6 @@ public class WelfareDLOWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnRewards.setText("Rewards&Recognitions");
-        btnRewards.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRewardsActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,7 +96,6 @@ public class WelfareDLOWorkAreaJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(lblEntName))
-                    .addComponent(btnRewards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAddEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAddcentres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnWorkRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -125,9 +116,7 @@ public class WelfareDLOWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(btnAddcentres)
                 .addGap(18, 18, 18)
                 .addComponent(btnAddEmp)
-                .addGap(18, 18, 18)
-                .addComponent(btnRewards)
-                .addGap(91, 91, 91))
+                .addGap(140, 140, 140))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -152,18 +141,10 @@ public class WelfareDLOWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnWorkRequestActionPerformed
 
-    private void btnRewardsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRewardsActionPerformed
-//        WelfareDLORewardJPanel welfareDLORewardJPanel=new WelfareDLORewardJPanel(userProcessContainer, enterprise,organization, system, account);
-//        userProcessContainer.add("welfareDLORewardJPanel",welfareDLORewardJPanel);
-//        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-//        layout.next(userProcessContainer);
-    }//GEN-LAST:event_btnRewardsActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEmp;
     private javax.swing.JButton btnAddcentres;
-    private javax.swing.JButton btnRewards;
     private javax.swing.JButton btnWorkRequest;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

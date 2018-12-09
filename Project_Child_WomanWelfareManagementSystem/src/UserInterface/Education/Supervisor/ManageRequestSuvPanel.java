@@ -8,13 +8,13 @@ package UserInterface.Education.Supervisor;
 import Business.EcoSystem;
 import Business.Enterprise.EducationEnterprise;
 import Business.Logger;
-import Business.Organization.EducationDistributorOrganization;
 import Business.Organization.EducationSupervisorOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.DistributorWorkRequest;
 import Business.WorkQueue.SupervisorWorkRequest;
 import Business.WorkQueue.TeacherWorkRequest;
+import Business.WorkQueue.WelfareBLOWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -230,16 +230,16 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         EducationSupervisorOrganization eduSuvOrg=(EducationSupervisorOrganization) organization;
         for(WorkRequest request : eduSuvOrg.getWorkQueue().getWorkRequestList()){
-           
-          Object[] row = new Object[5];
-            row[0] = request;
-            row[1] = request.getSender().getEmployee().getName();
-            row[2] = request.getStatus();
-            row[3] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
-            String result=((SupervisorWorkRequest)request).getResult();
-            row[4]= result == null ? "Waiting" : result;
-            model.addRow(row);   
-            
+           if(((SupervisorWorkRequest)request).getFund()==0){
+            Object[] row = new Object[5];
+              row[0] = request;
+              row[1] = request.getSender().getEmployee().getName();
+              row[2] = request.getStatus();
+              row[3] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
+              String result=((SupervisorWorkRequest)request).getResult();
+              row[4]= result == null ? "Waiting" : result;
+              model.addRow(row);   
+           }
         }
         
         }
@@ -262,7 +262,9 @@ public class ManageRequestSuvPanel extends javax.swing.JPanel {
             row[1] = request.getSender().getEmployee().getName();
             row[2] = request.getStatus();
             row[3] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
-            String result=request instanceof DistributorWorkRequest?((DistributorWorkRequest)request).getResult():((TeacherWorkRequest)request).getResult();
+            String result=request instanceof DistributorWorkRequest?((DistributorWorkRequest)request).getResult()
+                    :request instanceof TeacherWorkRequest ?((TeacherWorkRequest)request).getResult()
+                    :((WelfareBLOWorkRequest)request).getTestResult();
             row[4]= result == null ? "Waiting" : result;
             model.addRow(row); 
         }

@@ -63,6 +63,7 @@ public class ManageHospitalUserJPanel extends javax.swing.JPanel {
         ddlOrg.removeAllItems();
 
         for (HospitalOrganization organization : enterprise.getHospitalOrganizationDirectory().getHospitalOrganizationList()) {
+            if(!organization.getName().equals("Admin Organization"))
             ddlOrg.addItem(organization);
         }
     }
@@ -237,7 +238,7 @@ public class ManageHospitalUserJPanel extends javax.swing.JPanel {
                                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(134, 134, 134)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
@@ -300,8 +301,8 @@ public class ManageHospitalUserJPanel extends javax.swing.JPanel {
 
         if(ecosystem.checkIfUserIsUnique(name)){
             org.getUserAccountDirectory().createUserAccount(name, password, emp, role);
-             Logger.getInstance().writeLogs("User Created");
-                    JOptionPane.showMessageDialog(null, "User Created Successfully");
+            Logger.getInstance().writeLogs("User Created");
+            JOptionPane.showMessageDialog(null, "User Created Successfully");
 
                 }
         }

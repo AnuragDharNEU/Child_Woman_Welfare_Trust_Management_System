@@ -210,6 +210,9 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Request Assigned to you");
                 PopulateTable();
             }
+            else{
+                JOptionPane.showMessageDialog(null, "Please select any other request","Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
@@ -227,7 +230,7 @@ public class WelfareSLOWorkRequestJPanel extends javax.swing.JPanel {
 
             SLOrequest = (WelfareSLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
             
-            if(SLOrequest.getReceiver().equals(account)){
+            if(SLOrequest.getReceiver()!= null && SLOrequest.getReceiver().equals(account)){
                SLOrequest.setStatus("Processing");
                txtResult.setEnabled(true);
                btnSubmit.setEnabled(true);

@@ -41,7 +41,7 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
      ddlOrgType.removeAllItems();
                
         for(HospitalOrganization organization: enterprise.getHospitalOrganizationDirectory().getHospitalOrganizationList()){
-        if(!organization.getName().equals("Admin Organization") || !organization.getName().equals("Field Level Organization"))
+        if(!organization.getName().equals("Admin Organization"))
         ddlOrgType.addItem(organization);
                     
            }

@@ -147,7 +147,7 @@ public class WelfareBLOProcessFund extends javax.swing.JPanel {
         String fund = txtFund.getText();
         try{
             double fundValue = Double.parseDouble(fund);
-            if(!result.trim().isEmpty() && fund.trim().isEmpty()){
+            if(!result.trim().isEmpty() && !fund.trim().isEmpty()){
                 bloRequest.setFund(fundValue);
                 bloRequest.setTestResult(result);
                 bloRequest.setStatus("Completed");

@@ -30,7 +30,6 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblEntName" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="btnRewards" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnAddEmp" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnAddcentres" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnWorkRequest" alignment="0" max="32767" attributes="0"/>
@@ -55,9 +54,7 @@
               <Component id="btnAddcentres" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnAddEmp" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnRewards" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,14 +106,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnWorkRequestActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnRewards">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Rewards&amp;Recognitions"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRewardsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

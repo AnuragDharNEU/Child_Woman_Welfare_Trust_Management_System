@@ -172,11 +172,12 @@ public class WelfareDLOWorkRequestJPanel extends javax.swing.JPanel {
             int selectedRow = tblwork.getSelectedRow();
 
             if (selectedRow < 0){
+                JOptionPane.showMessageDialog(null, "Please select a row to proceed","Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             WelfareDLOWorkRequest request = (WelfareDLOWorkRequest)tblwork.getValueAt(selectedRow, 0);
-            if(request.getReceiver().getEmployee().getId() == account.getEmployee().getId()){
+            if(request.getReceiver()!= null && request.getReceiver().getEmployee().getId() == account.getEmployee().getId()){
             ProcessDLOWorkRequestJPanel processWorkRequestJPanel = new ProcessDLOWorkRequestJPanel(userProcessContainer, request,(WelfareOrganization)organization,account,enterprise);
             userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -196,13 +197,19 @@ public class WelfareDLOWorkRequestJPanel extends javax.swing.JPanel {
             int selectedRow = tblwork.getSelectedRow();
 
             if (selectedRow < 0){
+                JOptionPane.showMessageDialog(null, "Select a row to proceed","Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             WorkRequest request = (WorkRequest)tblwork.getValueAt(selectedRow, 0);
+            if(!request.getStatus().equalsIgnoreCase("completed")){
             request.setReceiver(account);
             request.setStatus("Pending");
             PopulateTable();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "This request is completed. Select some other request");
+            }
         }
         catch(Exception ex){
             Logger.getInstance().exceptionLogs(ex);
