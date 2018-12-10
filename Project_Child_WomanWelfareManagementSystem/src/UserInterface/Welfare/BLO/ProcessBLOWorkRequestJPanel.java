@@ -134,7 +134,7 @@ public class ProcessBLOWorkRequestJPanel extends javax.swing.JPanel {
                         .addComponent(btnBack)
                         .addGap(116, 116, 116)
                         .addComponent(btnAssign)))
-                .addContainerGap())
+                .addGap(304, 304, 304))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

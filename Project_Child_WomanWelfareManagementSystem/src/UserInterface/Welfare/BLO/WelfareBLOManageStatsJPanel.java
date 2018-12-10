@@ -102,9 +102,9 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(300, 300, 300)
                 .addComponent(btnWelfare, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(70, 70, 70))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(btnBack)
                 .addGap(123, 123, 123))
         );
@@ -115,7 +115,7 @@ public class WelfareBLOManageStatsJPanel extends javax.swing.JPanel {
                 .addComponent(btnWelfare)
                 .addGap(38, 38, 38)
                 .addComponent(btnBack)
-                .addContainerGap())
+                .addGap(195, 195, 195))
         );
     }// </editor-fold>//GEN-END:initComponents
 

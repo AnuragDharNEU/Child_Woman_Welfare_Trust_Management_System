@@ -83,7 +83,6 @@ public class ManageHospitalOrganizationJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 102, 102));
 
-        btnBack.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +93,6 @@ public class ManageHospitalOrganizationJPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Organization Type");
 
-        ddlOrgType.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ddlOrgType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ddlOrgType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +100,6 @@ public class ManageHospitalOrganizationJPanel extends javax.swing.JPanel {
             }
         });
 
-        tblOrganization.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         tblOrganization.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -113,7 +110,6 @@ public class ManageHospitalOrganizationJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblOrganization);
 
-        bbtnAdd.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         bbtnAdd.setText("Add Organization");
         bbtnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +139,7 @@ public class ManageHospitalOrganizationJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jLabel1)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +156,7 @@ public class ManageHospitalOrganizationJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(bbtnAdd))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(62, 62, 62))
         );
     }// </editor-fold>//GEN-END:initComponents
 

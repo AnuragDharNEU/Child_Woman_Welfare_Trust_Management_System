@@ -53,7 +53,6 @@ public class HospitalDoctorWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Doctor's Work Area");
 
-        btnManageRequest.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnManageRequest.setText("Manage Request");
         btnManageRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,7 +60,6 @@ public class HospitalDoctorWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnAssignedWork.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnAssignedWork.setText("Assigned Work");
         btnAssignedWork.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +77,7 @@ public class HospitalDoctorWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAssignedWork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addGap(228, 228, 228))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +88,7 @@ public class HospitalDoctorWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(btnManageRequest)
                 .addGap(18, 18, 18)
                 .addComponent(btnAssignedWork)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addGap(166, 166, 166))
         );
     }// </editor-fold>//GEN-END:initComponents
 

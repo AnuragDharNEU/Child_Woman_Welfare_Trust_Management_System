@@ -110,7 +110,6 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 102, 102));
 
-        ddlOrgType.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ddlOrgType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -133,7 +132,6 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblOrganization);
 
-        btnCreate.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +139,6 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnBack.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,7 +149,6 @@ public class ManageHospitalEmployeeJPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setText("Organization Type");
 
-        ddlTableOrgType.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ddlTableOrgType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ddlTableOrgType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
