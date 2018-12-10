@@ -116,6 +116,10 @@ public class EducationAdminManageEmployeeJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 102, 102));
+
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -126,6 +130,8 @@ public class EducationAdminManageEmployeeJPanel extends javax.swing.JPanel {
                 dropdownOrganizationActionPerformed(evt);
             }
         });
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 102, 102));
 
         tblOrganization.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -222,11 +228,15 @@ public class EducationAdminManageEmployeeJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 942, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

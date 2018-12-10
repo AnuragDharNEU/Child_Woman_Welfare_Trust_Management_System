@@ -58,6 +58,8 @@ public class DistReqProcessPanel extends javax.swing.JPanel {
         backJButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 
         jPanel2.setBackground(new java.awt.Color(255, 102, 102));

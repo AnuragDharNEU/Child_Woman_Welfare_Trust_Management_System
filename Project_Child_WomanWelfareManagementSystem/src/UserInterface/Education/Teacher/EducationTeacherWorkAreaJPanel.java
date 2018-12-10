@@ -52,6 +52,10 @@ public class EducationTeacherWorkAreaJPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 102, 102));
+
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N

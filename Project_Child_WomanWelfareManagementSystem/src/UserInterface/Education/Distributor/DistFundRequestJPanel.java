@@ -63,6 +63,8 @@ public class DistFundRequestJPanel extends javax.swing.JPanel {
         txtFund = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 
         jLabel1.setText("Message:");

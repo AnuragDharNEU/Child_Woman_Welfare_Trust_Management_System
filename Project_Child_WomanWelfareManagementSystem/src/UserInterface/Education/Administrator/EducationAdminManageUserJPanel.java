@@ -135,7 +135,13 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 102, 102));
+
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 102, 102));
 
         tblUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -209,12 +215,11 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(jLabel6))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnBack)
-                            .addGap(264, 264, 264)
-                            .addComponent(btnCreate))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(264, 264, 264)
+                        .addComponent(btnCreate))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(154, 154, 154))
         );
         jPanel1Layout.setVerticalGroup(
@@ -245,9 +250,9 @@ public class EducationAdminManageUserJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBack)
-                    .addComponent(btnCreate))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCreate)
+                    .addComponent(btnBack))
                 .addGap(117, 117, 117))
         );
 
